@@ -70,23 +70,6 @@
 	          android:background="@drawable/text_back"
 	          android:hint="@string/password"
 	          android:inputType="textPassword" />
-	       
-	   
-
-	      <EditText
-	        android:id="@+id/PhoneTxt"
-	        android:layout_gravity="center"
-	        android:drawableLeft="@drawable/ic_action_call"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_marginTop="6dp"
-	        android:ems="10"
-	        android:maxLength="50"
-	        android:textColor="#ffffff"
-	        android:textColorHint="#ffffff"
-	        android:hint="@string/phone"
-	        android:background="@drawable/text_back"
-	        android:inputType="phone" />
 
 	   
 	</LinearLayout>

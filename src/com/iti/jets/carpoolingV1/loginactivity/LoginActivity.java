@@ -20,11 +20,14 @@ public class LoginActivity extends Activity{
 	Button 	 faceBookBtn;
 	Button   googleBtn;
 	Button   registerBtn;
+	LoginController controller;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		 setContentView(R.layout.activity_login);
+		 
+		 controller = new LoginController(this);
 		 
 		 usernameTxt = (EditText) findViewById(R.id.EmailTxt);
 		 passwordTxt = (EditText) findViewById(R.id.passwordTxt);
@@ -39,7 +42,17 @@ public class LoginActivity extends Activity{
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				
-				UIManagerHandler.goToHome(LoginActivity.this);
+				if (usernameTxt.getText().length() < 5){
+					usernameTxt.setError("At least 6 char");
+				}
+				else if(passwordTxt.getText().length() < 5){
+					passwordTxt.setError("At least 6 char");
+				}else{
+						controller.login(usernameTxt.getText().toString(),
+								passwordTxt.getText().toString());
+				}
+				
+				//sUIManagerHandler.goToHome(LoginActivity.this);
 				
 			}
 		});
@@ -76,6 +89,13 @@ public class LoginActivity extends Activity{
 	
 		 
 		 
+	}
+
+	@Override
+	protected void onStop() {
+		// TODO Auto-generated method stub
+		super.onStop();
+		finish();
 	}
 
 	@Override

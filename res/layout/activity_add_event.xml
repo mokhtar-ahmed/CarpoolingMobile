@@ -57,7 +57,7 @@
 	          
 	    </EditText>
 	         <EditText
-	          android:id="@+id/data"
+	          android:id="@+id/dateTxt"
 	          android:layout_gravity="center"
 	          android:layout_width="wrap_content"
 	          android:layout_height="wrap_content"
@@ -87,17 +87,28 @@
 	   
 	         
 	       <Button
-		        android:id="@+id/LoginBtn"
+		        android:id="@+id/circlesBtn"
 		        android:layout_width="match_parent"
 		        android:layout_height="wrap_content"
 		        android:layout_gravity="center"
 		        android:layout_marginTop="6dp"
-		       
 		        android:textColor="#ffffff"
 		        android:alpha=".8"
 		        android:background="@drawable/text_back"
 		        android:drawableLeft="@drawable/ic_action_share"
 		        android:text="@string/circles" />  
+		        
+	          <Button
+		        android:id="@+id/addBtn"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_gravity="center"
+		        android:layout_marginTop="6dp"
+		        android:textColor="#ffffff"
+		        android:alpha=".8"
+		        android:background="@drawable/text_back"
+		        android:drawableLeft="@drawable/ic_action_share"
+		        android:text="Add" />  
 	
 </LinearLayout>
 </ScrollView>

@@ -49,5 +49,11 @@ public class SplashScreen extends Activity {
 		// TODO Auto-generated method stub
 		return super.onCreateOptionsMenu(menu);
 	}
-
+	
+	@Override
+	protected void onStop() {
+		// TODO Auto-generated method stub
+		super.onStop();
+		finish();
+	}
 }
