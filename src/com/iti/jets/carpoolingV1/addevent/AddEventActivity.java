@@ -24,8 +24,8 @@ public class AddEventActivity extends Fragment{
 		Button circlesBtn;
 		Button addBtn;
 		AddEventController cont = new AddEventController();
+		
 	public AddEventActivity(){}
-	
 	
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
