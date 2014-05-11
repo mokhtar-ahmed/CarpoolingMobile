@@ -2,6 +2,7 @@ package com.iti.jets.carpoolingV1.splashscreen;
 
 
 import com.iti.jets.carpoolingV1.R;
+import com.iti.jets.carpoolingV1.httphandler.RetriveAllLocationServiceHandler;
 import com.iti.jets.carpoolingV1.loginactivity.LoginActivity;
 import com.iti.jets.carpoolingV1.uimanager.UIManagerHandler;
 
@@ -29,7 +30,7 @@ public class SplashScreen extends Activity {
 					try {
 						
 						sleep(3000);
-					
+						new RetriveAllLocationServiceHandler().execute();
 						UIManagerHandler.goToLogin(SplashScreen.this);
 						
 					} catch (InterruptedException e) {

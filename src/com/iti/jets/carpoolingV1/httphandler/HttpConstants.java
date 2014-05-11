@@ -10,6 +10,8 @@ public class HttpConstants {
 	public static final String RETRIEVE_EVENT_SERVICE_URL="event/getEvent";
 	public static final String UPDATE_EVENT_SERVICE_URL="event/updateEvent";
 	public static final String RETRIVE_ALL_LOCATIONS_SERVICE_URL="location/allLocations";
+	public static final String RETRIVE_ALL_USER_CIRCLES_SERVICE_URL="viewcircle/view";
+	
 	
 	//Connection Constants
 	public static final int timeoutSocket = 5000;

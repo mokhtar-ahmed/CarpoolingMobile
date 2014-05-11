@@ -4,6 +4,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.iti.jets.carpoolingV1.httphandler.LoginServiceHandler;
+import com.iti.jets.carpoolingV1.httphandler.RetriveAllUserCirclesServiceHandler;
+import com.iti.jets.carpoolingV1.jsonhandler.JsonParser;
+import com.iti.jets.carpoolingV1.pojos.EntityFactory;
+import com.iti.jets.carpoolingV1.pojos.User;
 import com.iti.jets.carpoolingV1.uimanager.UIManagerHandler;
 
 import android.app.Activity;
@@ -53,6 +57,15 @@ public class LoginController {
 					JSONObject resultJson = new JSONObject(result);
 					if(((String)resultJson.get("FaultsMsg")).equals("success")== true){
 						
+
+						User us = JsonParser.parseToUser(resultJson.getJSONObject("ResponseValue"));
+						EntityFactory.setUserInstance(us);
+						
+						JSONObject s = new JSONObject();
+						s.put("userId", us.getId());
+						System.out.println(s.toString());
+						
+						new RetriveAllUserCirclesServiceHandler().execute(new String[]{s.toString()});
 						UIManagerHandler.goToHome(activity);
 					}
 					else{

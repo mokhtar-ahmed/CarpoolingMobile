@@ -2,9 +2,10 @@ package com.iti.jets.carpoolingV1.sharedlayout;
 
 
 import java.util.ArrayList;
+
 import com.iti.jets.carpoolingV1.R;
+import com.iti.jets.carpoolingV1.eventshome.EventsHome;
 import com.iti.jets.carpoolingV1.homeactivity.HomeFragment;
-import com.iti.jets.carpoolingV1.uimanager.UIManagerHandler;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -80,7 +81,8 @@ public class MainActivity extends Activity {
 		mDrawerList.setOnItemClickListener(new SlideMenuClickListener());
 
 		// setting the nav drawer list adapter
-		adapter = new NavDrawerListAdapter(getApplicationContext(),navDrawerItems);
+		adapter = new NavDrawerListAdapter(getApplicationContext(),
+				navDrawerItems);
 		mDrawerList.setAdapter(adapter);
 
 		// enabling action bar app icon and behaving it as toggle button
@@ -127,7 +129,7 @@ public class MainActivity extends Activity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.home, menu);
+		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
 
@@ -141,9 +143,6 @@ public class MainActivity extends Activity {
 		switch (item.getItemId()) {
 		case R.id.action_settings:
 			return true;
-		case R.id.addEvent:
-			UIManagerHandler.goToAddEvent(MainActivity.this);
-			return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}
@@ -156,7 +155,7 @@ public class MainActivity extends Activity {
 	public boolean onPrepareOptionsMenu(Menu menu) {
 		// if nav drawer is opened, hide the action items
 		boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
-		menu.findItem(R.id.addEvent).setVisible(!drawerOpen);
+		menu.findItem(R.id.action_settings).setVisible(!drawerOpen);
 		return super.onPrepareOptionsMenu(menu);
 	}
 
@@ -174,7 +173,7 @@ public class MainActivity extends Activity {
 			fragment = new HomeFragment();
 			break;
 		case 2:
-			fragment = new HomeFragment();
+			fragment = new EventsHome();
 			break;
 		case 3:
 			fragment = new HomeFragment();
