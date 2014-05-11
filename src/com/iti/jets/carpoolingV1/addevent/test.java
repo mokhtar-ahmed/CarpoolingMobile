@@ -16,6 +16,7 @@ public class test extends Fragment {
 		// TODO Auto-generated method stub
 		   View rootView = inflater.inflate(R.layout.activity_add_event, container, false);
 		   
+		   
 		return super.onCreateView(inflater, container, savedInstanceState);
 	}
 
