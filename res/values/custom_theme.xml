@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+       <style name="CustomWindowTitleBarBG">
+              <item name="android:background">#F87431</item>
+      </style>
+   
+      <style name="TitleBarTheme" parent="android:Theme">
+        
+             <item name="android:windowTitleSize">50dip</item>
+             <item name="android:height">50dip</item>
+
+      </style>
+</resources>

@@ -22,7 +22,7 @@ public class SplashScreen extends Activity {
 		 
 		 
 
-			
+		 new RetriveAllLocationServiceHandler().execute();
 			Thread th = new Thread(){
 
 				@Override
@@ -30,7 +30,7 @@ public class SplashScreen extends Activity {
 					try {
 						
 						sleep(3000);
-						new RetriveAllLocationServiceHandler().execute();
+						
 						UIManagerHandler.goToLogin(SplashScreen.this);
 						
 					} catch (InterruptedException e) {

@@ -5,7 +5,8 @@ import android.content.Intent;
 
 import com.iti.jets.carpoolingV1.addevent.AddEventActivity;
 import com.iti.jets.carpoolingV1.loginactivity.LoginActivity;
-import com.iti.jets.carpoolingV1.registeractivity.RegisterActivity;
+
+import com.iti.jets.carpoolingV1.registrationactivity.RegisterActivity;
 import com.iti.jets.carpoolingV1.sharedlayout.MainActivity;
 
 public class UIManagerHandler {

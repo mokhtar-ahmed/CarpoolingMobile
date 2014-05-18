@@ -1,0 +1,28 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ScrollView1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SyncContactsAtivity" >
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/LinearLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".SyncContactsAtivity" >
+    
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/contactTextView1"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:padding="10dp"
+     >
+</TextView>
+    
+
+</LinearLayout>
+
+</ScrollView>
