@@ -11,13 +11,13 @@
 	    android:paddingLeft="@dimen/activity_horizontal_margin"
 	    android:paddingRight="@dimen/activity_horizontal_margin"
 	    android:paddingTop="@dimen/activity_vertical_margin"
-	    android:orientation="vertical"
-	   >
+	    android:orientation="vertical">
 
-	       <EditText
+	    
+      <EditText
 	        android:id="@+id/eventNameTxt"
 	        android:layout_gravity="center"
-	        android:layout_width="wrap_content"
+	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
 	        android:ems="10"
 	        android:maxLength="50"
@@ -26,89 +26,51 @@
 	        android:drawableLeft="@drawable/ic_action_edit"
 	        android:background="@drawable/text_back"
 	        android:inputType="textPersonName" />
-	       
-	     <EditText
-	          android:id="@+id/fromTxt"
-	          android:layout_gravity="center"
-	          android:layout_width="wrap_content"
-	          android:layout_height="wrap_content"
-	          android:maxLength="50"
-	          android:layout_marginTop="6dp"
-	          android:ems="10" android:textColorHint="#ffffff"
-	          android:drawableLeft="@drawable/ic_action_locate" 
-	          android:background="@drawable/text_back"
-	          android:hint="@string/from"
-	          android:inputType="textAutoComplete" >
-	          <requestFocus />
-	    </EditText>
-	  
-	       <EditText
-	          android:id="@+id/toTxt"
-	          android:layout_gravity="center"
-	          android:layout_width="wrap_content"
-	          android:layout_height="wrap_content"
-	          android:maxLength="50"
-	          android:layout_marginTop="6dp"
-	          android:ems="10" android:textColorHint="#ffffff"
-	          android:drawableLeft="@drawable/ic_action_locate" 
-	          android:background="@drawable/text_back"
-	          android:hint="@string/to"
-	          android:inputType="textAutoComplete" >
-	          
-	    </EditText>
-	         <EditText
-	          android:id="@+id/dateTxt"
-	          android:layout_gravity="center"
-	          android:layout_width="wrap_content"
-	          android:layout_height="wrap_content"
-	          android:maxLength="50"
-	          android:layout_marginTop="6dp"
-	          android:ems="10" android:textColorHint="#ffffff"
-	          android:drawableLeft="@drawable/ic_action_edit" 
-	          android:background="@drawable/text_back"
-	          android:hint="@string/date"
-	          android:inputType="textAutoComplete" >
-	          
-	    </EditText>
-	        <EditText
-	          android:id="@+id/no_of_slots"
-	          android:layout_gravity="center"
-	          android:layout_width="wrap_content"
-	          android:layout_height="wrap_content"
-	          android:maxLength="50"
-	          android:layout_marginTop="6dp"
-	          android:ems="10" android:textColorHint="#ffffff"
-	          android:drawableLeft="@drawable/ic_action_edit" 
-	          android:background="@drawable/text_back"
-	          android:hint="@string/no_of_slots"
-	          android:inputType="numberSigned" >
-	          <requestFocus />
-	    </EditText>
-	   
+
+	   <TimePicker	
+	        android:id="@+id/eventTimeTxt"
+	        android:layout_gravity="center"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"/>
+
+		
+		<DatePicker 
+	      	android:id="@+id/eventDateTxt"
+	        android:layout_gravity="center"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
 	         
-	       <Button
-		        android:id="@+id/circlesBtn"
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:layout_gravity="center"
-		        android:layout_marginTop="6dp"
-		        android:textColor="#ffffff"
-		        android:alpha=".8"
-		        android:background="@drawable/text_back"
-		        android:drawableLeft="@drawable/ic_action_share"
-		        android:text="@string/circles" />  
-		        
-	          <Button
-		        android:id="@+id/addBtn"
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:layout_gravity="center"
-		        android:layout_marginTop="6dp"
-		        android:textColor="#ffffff"
-		        android:alpha=".8"
-		        android:background="@drawable/text_back"
-		        android:drawableLeft="@drawable/ic_action_share"
-		        android:text="Add" />  
-	
+	        />
+		
+		
+		<Spinner
+	       android:id="@+id/FromSpinner"
+	       android:layout_gravity="center"
+	       android:background="@drawable/text_back"
+	       android:layout_width="match_parent"
+	       android:layout_height="wrap_content" />
+		
+		<Spinner
+	       android:id="@+id/ToSpinner"
+	       android:layout_gravity="center"
+	       android:background="@drawable/text_back"
+	       android:layout_width="match_parent"
+	       android:layout_height="wrap_content" />
+		
+		<Spinner
+	       android:id="@+id/avaliableSlots"
+	       android:layout_gravity="center"
+	       android:background="@drawable/text_back"
+	       android:layout_width="match_parent"
+	       android:layout_height="wrap_content" />
+		
+		<Spinner
+	       android:id="@+id/circlesSpinner"
+	       android:layout_gravity="center"
+	       android:background="@drawable/text_back"
+	       android:layout_width="match_parent"
+	       android:layout_height="wrap_content"/>
+		
+		
 </LinearLayout>
 </ScrollView>
