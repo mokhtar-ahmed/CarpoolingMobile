@@ -1,30 +1,53 @@
 package com.iti.jets.carpoolingV1.loginactivity;
 
+import java.util.ArrayList;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.iti.jets.carpoolingV1.httphandler.LoginServiceHandler;
-import com.iti.jets.carpoolingV1.httphandler.RetriveAllUserCirclesServiceHandler;
+
 import com.iti.jets.carpoolingV1.jsonhandler.JsonParser;
+import com.iti.jets.carpoolingV1.pojos.Circle;
 import com.iti.jets.carpoolingV1.pojos.EntityFactory;
 import com.iti.jets.carpoolingV1.pojos.User;
 import com.iti.jets.carpoolingV1.uimanager.UIManagerHandler;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.widget.Toast;
+
 
 public class LoginController {
 
 	Activity activity;
-	
+	String name = "myPref";	
+	String username;
+	String password;
 	public LoginController(	Activity activity){
 		this.activity = activity;
 		
 	}
+
+	private void saveShared() {
+
+		SharedPreferences myPrefs  = activity.getSharedPreferences(name, 0);
+		SharedPreferences.Editor editor = myPrefs.edit();	
+		editor.putString("email", username);
+		editor.putString("password",password);
+		editor.commit();
+		
+	}
+
+	
 	public String login(String username , String password){
 		
+		
 		if(username.equals("")== false && password.equals("") == false){
-			
+		
+			this.username = username;
+			this.password = password;
 			JSONObject input = new JSONObject();
 			try {
 				input.put("username", username);
@@ -46,7 +69,7 @@ public class LoginController {
 	public void onPostExcuteResult(String result) {
 		
 		
-		Toast.makeText(activity,result, Toast.LENGTH_LONG).show();
+		//Toast.makeText(activity,result, Toast.LENGTH_LONG).show();
 		
 		if(result != null ){
 
@@ -55,17 +78,26 @@ public class LoginController {
 				try{
 					
 					JSONObject resultJson = new JSONObject(result);
+					
 					if(((String)resultJson.get("FaultsMsg")).equals("success")== true){
 						
-
 						User us = JsonParser.parseToUser(resultJson.getJSONObject("ResponseValue"));
+						System.out.println(us.getName());
 						EntityFactory.setUserInstance(us);
 						
-						JSONObject s = new JSONObject();
-						s.put("userId", us.getId());
-						System.out.println(s.toString());
+						ArrayList<Circle> cirs = new ArrayList<Circle>();
+						JSONArray circlesJson = resultJson.getJSONArray("circles");
 						
-						new RetriveAllUserCirclesServiceHandler().execute(new String[]{s.toString()});
+						for(int i =0 ; i<circlesJson.length(); i++){
+							Circle cir = JsonParser.parseToCircleList(circlesJson.getJSONObject(i));
+							System.out.println(cir.getId());
+							
+							if(cir != null)
+								cirs.add(cir);
+						}
+						
+						EntityFactory.setCirclesInstance(cirs);
+						saveShared();
 						UIManagerHandler.goToHome(activity);
 					}
 					else{
@@ -85,4 +117,5 @@ public class LoginController {
 		}
 			System.out.println(result);
 	}
+
 }

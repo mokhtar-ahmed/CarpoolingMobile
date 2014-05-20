@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import com.iti.jets.carpoolingV1.R;
 import com.iti.jets.carpoolingV1.eventshome.EventsHome;
 import com.iti.jets.carpoolingV1.homeactivity.HomeFragment;
+import com.iti.jets.carpoolingV1.notificationHome.NotificationHome;
 import com.iti.jets.carpoolingV1.retrieveallcircles.AllCirclesListFragment;
 
 import android.app.Activity;
@@ -168,7 +169,7 @@ public class MainActivity extends Activity {
 		Fragment fragment = null;
 		switch (position) {
 		case 0:
-			fragment = new HomeFragment();
+			fragment = new NotificationHome();
 			break;
 		case 1:
 			fragment = new HomeFragment();

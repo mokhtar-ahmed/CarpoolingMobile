@@ -6,6 +6,8 @@ import java.text.SimpleDateFormat;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.iti.jets.carpoolingV1.pojos.Circle;
+import com.iti.jets.carpoolingV1.pojos.Event;
 import com.iti.jets.carpoolingV1.pojos.Location;
 import com.iti.jets.carpoolingV1.pojos.User;
 
@@ -76,5 +78,45 @@ public class JsonParser {
 		
 		return user;
 		
+	}
+	public static Circle parseToCircleList(JSONObject jsonObject) {
+	
+		Circle c = null;
+		try {
+			
+			c = new Circle();
+			c.setId(jsonObject.getInt("circleId"));
+			c.setCircleName((String)jsonObject.get("circleName"));
+			
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return c;
+	}
+	public static Event parseToEventList(JSONObject jsonObject) {
+		
+		Event ev =null;
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		try {
+			ev = new Event();
+			ev.setId(jsonObject.getInt("id"));
+			ev.setName(jsonObject.getString("name"));
+			String dateInString = jsonObject.getString("date");
+			
+			try {
+				ev.setDate(formatter.parse(dateInString));
+				
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+						
+		} catch (JSONException e) {
+			
+			e.printStackTrace();
+		}
+		
+		return ev;
 	}
 }
