@@ -7,7 +7,7 @@ import org.json.JSONObject;
 import com.iti.jets.carpoolingV1.common.MyApplication;
 import com.iti.jets.carpoolingV1.common.User;
 import com.iti.jets.carpoolingV1.editprofileactivity.EditProfileActivity;
-import com.iti.jets.carpoolingV1.registrationactivity.RegisterActivity;
+import com.iti.jets.carpoolingV1.registrationactivity.RegisterFragment;
 
 import android.app.Activity;
 import android.content.Intent;

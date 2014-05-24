@@ -11,8 +11,9 @@ import org.json.JSONObject;
 
 import com.iti.jets.carpoolingV1.addcircleactivity.AddCircleFragment;
 import com.iti.jets.carpoolingV1.editprofileactivity.EditProfileActivity;
-import com.iti.jets.carpoolingV1.registrationactivity.RegisterActivity;
+import com.iti.jets.carpoolingV1.registrationactivity.RegisterFragment;
 
+import android.app.Activity;
 import android.content.ContentResolver;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -42,10 +43,10 @@ public class ImageCompressionHandler {
 	private String imageString;
 	private ImageLoadingUtils utils;
 	//private EditProfileActivity editProfileObj;
-	private RegisterActivity addCircleActObj;
+	private RegisterFragment addCircleActObj;
 	
 	
-	public ImageCompressionHandler(String imageData,RegisterActivity registerActivity)
+	public ImageCompressionHandler(String imageData,RegisterFragment registerActivity)
 	{
 		addCircleActObj = registerActivity; 
 	    new ImageCompressionAsyncTask(true).execute(imageData);
@@ -97,7 +98,7 @@ public class ImageCompressionHandler {
 					
 				}
 			}
-			utils = new ImageLoadingUtils(addCircleActObj.getApplicationContext());	
+			utils = new ImageLoadingUtils(addCircleActObj.getActivity().getApplicationContext());	
 			Log.d(utils.toString(),"HHHHHHHHHHHHHHHHGGGGGGGGGGGGGGGGGGG");
 			options.inSampleSize = utils.calculateInSampleSize(options, actualWidth, actualHeight);
 			options.inJustDecodeBounds = false;
@@ -172,7 +173,8 @@ public class ImageCompressionHandler {
 		
 		private String getRealPathFromURI(String contentURI) {
 			Uri contentUri = Uri.parse(contentURI);
-			Cursor cursor = addCircleActObj.getContentResolver().query(contentUri, null, null, null, null);
+			Cursor cursor = addCircleActObj.getActivity().
+					getContentResolver().query(contentUri, null, null, null, null);
 			if (cursor == null) {
 				return contentUri.getPath();
 			} else {
@@ -196,7 +198,8 @@ public class ImageCompressionHandler {
 			super.onPostExecute(result);
 			
 			if(fromGallery){
-				Toast.makeText(addCircleActObj.getApplicationContext(), "Enterediffromgallery", Toast.LENGTH_LONG).show();
+				Toast.makeText(addCircleActObj.getActivity().
+						getApplicationContext(), "Enterediffromgallery", Toast.LENGTH_LONG).show();
 				Bundle bundle = new Bundle();
 				bundle.putString("FILE_PATH", result);
 				if(bundle != null){

@@ -11,6 +11,7 @@ import org.json.JSONObject;
 
 import com.iti.jets.carpoolingV1.R;
 import com.iti.jets.carpoolingV1.common.ImageCompressionHandler;
+import com.iti.jets.carpoolingV1.pojos.EntityFactory;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -54,7 +55,7 @@ public class EditProfileActivity extends Activity {
 		usernameTextView = (TextView)findViewById(R.id.NametextView);
 		dateTextView = (TextView)findViewById(R.id.dateTextView);
 		doneBtn = (Button)findViewById(R.id.doneBtn);
-		int userId = 13;
+		int userId = EntityFactory.getUserInstance().getId();
 		RetrieveUserController retController = new RetrieveUserController(this,userId);
 		
 		 
@@ -150,6 +151,7 @@ public class EditProfileActivity extends Activity {
 		// TODO Auto-generated method stub
 		try {
 			userToRetrieve = new JSONObject(result);
+			
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -182,7 +184,7 @@ public class EditProfileActivity extends Activity {
 			 byte [] encodeByte=Base64.decode(userToRetrieve.getString("imageString"),Base64.DEFAULT);
 			 System.out.println(userToRetrieve.getString("imageString"));
 			 System.out.println(encodeByte);
-		       Bitmap bitmap=BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+		     Bitmap bitmap=BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
 		      // Bitmap bitmap = BitmapFactory.decodeStream(this.getContentResolver().openInputStream(userToRetrieve.getString("imageString")));
 		       userImgView.setImageBitmap(bitmap);
 		       

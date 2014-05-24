@@ -4,8 +4,9 @@ import android.util.Log;
 
 public final class HttpConstants {
 	
-	
-    public static final String SERVER_URL="http://10.145.51.7:8088/CarpoolingBackendFinal/service/";
+	//public static final String SERVER_URL="http://10.145.32.120:9090/Carpooling1/services/";
+    public static final String SERVER_URL="http://10.145.57.138:8088/CarpoolingBackendFinal/service/";
+    //public static final String SERVER_URL="http://192.168.1.7:8088/CarpoolingBackendFinal/service/";
 	public static final String LOGIN_URL="user/newLogin";
 	public static final String ADDEVENT_SERVICE_URL="event/addEvent";
 	public static final String RETRIEVE_USER_EVENT_SERVICE_URL="event/getUserJoinEvents";
@@ -24,7 +25,7 @@ public final class HttpConstants {
 	public static final String RETRIEVE_CIRCLE_USRES_URL="retrieveCircleUsers/retrieve";
 	public static final String DELETE_CIRCLE_URL="deleteCircle/delete";
 	public static final String DELETE_USER_FROM_CIRCLE_URL="deleteUserFromCircle/deleteUser";
-	
+	public static final String ADD_COMMENT_URL="deleteUserFromCircle/deleteUser";
 	public static final String GETFRIENDS_SERVICE_URL="getFriends";
 	public static final String ADDFRIEND_SERVICE_URL="addFriend";
 	public static final String REMOVEFRIEND_SERVICE_URL="removeFriend";

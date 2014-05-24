@@ -9,6 +9,7 @@ public class RetrieveUserController {
 	public RetrieveUserController(EditProfileActivity editProfileActivity, int userId) {
 		// TODO Auto-generated constructor stub
 		this.editProfileActivity = editProfileActivity;
+		System.out.print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"+"   "+userId);
 		RetrieveUserServiceHandler handler = new RetrieveUserServiceHandler(this,userId);
 		
 	}

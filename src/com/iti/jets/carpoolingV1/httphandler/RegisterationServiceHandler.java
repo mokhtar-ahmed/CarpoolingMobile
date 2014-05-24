@@ -19,7 +19,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.iti.jets.carpoolingV1.common.User;
-import com.iti.jets.carpoolingV1.registrationactivity.RegisterActivity;
+import com.iti.jets.carpoolingV1.registrationactivity.RegisterFragment;
 import com.iti.jets.carpoolingV1.registrationactivity.RegisterationController;
 
 

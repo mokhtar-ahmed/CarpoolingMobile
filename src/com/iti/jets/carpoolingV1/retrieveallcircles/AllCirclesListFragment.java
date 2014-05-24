@@ -4,26 +4,22 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import com.iti.jets.carpoolingV1.R;
 import com.iti.jets.carpoolingV1.R.layout;
 import com.iti.jets.carpoolingV1.R.menu;
 import com.iti.jets.carpoolingV1.addcircleactivity.AddCircleFragment;
-//import com.iti.jets.carpoolingV1.addcircleactivity.AddCircleFragment.FragmentCallback;
 import com.iti.jets.carpoolingV1.common.Circle;
 import com.iti.jets.carpoolingV1.deletecircle.DeleteCircleController;
 import com.iti.jets.carpoolingV1.*;
 import com.iti.jets.carpoolingV1.httphandler.HttpConstants;
 import com.iti.jets.carpoolingV1.pojos.EntityFactory;
-import com.iti.jets.carpoolingV1.registrationactivity.RegisterActivity;
+import com.iti.jets.carpoolingV1.registrationactivity.RegisterFragment;
 import com.iti.jets.carpoolingV1.synccontactsactivity.SyncContactsCustomArrayAdapter;
 import com.iti.jets.carpoolingV1.synccontactsactivity.SyncContactsFragment;
 import com.iti.jets.carpoolingV1.common.*;
-
 import android.R.color;
 import android.os.Bundle;
 import android.app.Activity;
@@ -140,9 +136,6 @@ public class AllCirclesListFragment extends Fragment {
 					.replace(R.id.frame_container, fragment).commit();  
 				
 
-				
-				
-				
 			}
          });
 		

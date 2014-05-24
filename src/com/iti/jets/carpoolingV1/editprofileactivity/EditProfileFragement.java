@@ -2,6 +2,7 @@ package com.iti.jets.carpoolingV1.editprofileactivity;
 
 import com.iti.jets.carpoolingV1.R;
 import com.iti.jets.carpoolingV1.common.ImageCompressionHandler;
+import com.iti.jets.carpoolingV1.pojos.EntityFactory;
 
 import android.app.Fragment;
 import android.content.Intent;
@@ -28,19 +29,25 @@ public class EditProfileFragement extends Fragment {
 	String flag = null;
 	Bitmap imgBitmap;
 	ImageCompressionHandler imageHandler;
-	EditProfileController controller;
+	//EditProfileController controller;
 	String filePath;
+	RetrieveUserController controller;
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 	            Bundle savedInstanceState) {
 	 
 			 
-	         rootView = inflater.inflate(R.layout.activity_allcircles_list,container, false);
-	         
+	         rootView = inflater.inflate(R.layout.activity_edit_profile,container, false);
+	         int userId = EntityFactory.getUserInstance().getId();
+	        // controller = new RetrieveUserController(this, userId);
 	         Intent intent = new Intent(getActivity().getApplicationContext(),EditProfileActivity.class);
 	         startActivity(intent);
 	         
 	         
 	         return rootView;
 	  }
+	public static void getResultFromWebService(String result) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

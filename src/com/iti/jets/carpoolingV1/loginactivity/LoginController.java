@@ -6,15 +6,27 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.iti.jets.carpoolingV1.R;
+import com.iti.jets.carpoolingV1.editprofileactivity.EditProfileFragement;
+import com.iti.jets.carpoolingV1.firstrun.FirstRunActivity;
+import com.iti.jets.carpoolingV1.firstrun.FirstRunFragment;
 import com.iti.jets.carpoolingV1.httphandler.LoginServiceHandler;
 
 import com.iti.jets.carpoolingV1.jsonhandler.JsonParser;
 import com.iti.jets.carpoolingV1.pojos.Circle;
 import com.iti.jets.carpoolingV1.pojos.EntityFactory;
 import com.iti.jets.carpoolingV1.pojos.User;
+import com.iti.jets.carpoolingV1.registrationactivity.RegisterFragment;
+import com.iti.jets.carpoolingV1.sharedlayout.MainActivity;
 import com.iti.jets.carpoolingV1.uimanager.UIManagerHandler;
 
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+import android.sax.StartElementListener;
 import android.widget.Toast;
 
 
@@ -63,25 +75,37 @@ public class LoginController {
 					
 					if(((String)resultJson.get("FaultsMsg")).equals("success")== true){
 						
-						User us = JsonParser.parseToUser(resultJson.getJSONObject("ResponseValue"));
-						System.out.println(us.getName());
-						EntityFactory.setUserInstance(us);
-						
-						ArrayList<Circle> cirs = new ArrayList<Circle>();
-						JSONArray circlesJson = resultJson.getJSONArray("circles");
-						
-						for(int i =0 ; i<circlesJson.length(); i++){
-							Circle cir = JsonParser.parseToCircleList(circlesJson.getJSONObject(i));
-							System.out.println(cir.getId());
-							
-							if(cir != null)
-								cirs.add(cir);
-						}
-						
-						EntityFactory.setCirclesInstance(cirs);
-						
-						UIManagerHandler.goToHome(activity);
-					}
+						SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
+
+					     boolean firstRunFlag = sharedPreferences.getBoolean("firstRunFlag",true);
+//					     if(firstRunFlag)
+//					     {
+//					    	 	Intent intent = new Intent(activity.getApplicationContext(),FirstRunActivity.class);
+//					    	 	activity.startActivity(intent);
+//					     }
+//					     else
+//					     {
+					    	 User us = JsonParser.parseToUser(resultJson.getJSONObject("ResponseValue"));
+								System.out.println(us.getName());
+								EntityFactory.setUserInstance(us);
+								
+								ArrayList<Circle> cirs = new ArrayList<Circle>();
+								JSONArray circlesJson = resultJson.getJSONArray("circles");
+								
+								for(int i =0 ; i<circlesJson.length(); i++){
+									Circle cir = JsonParser.parseToCircleList(circlesJson.getJSONObject(i));
+									System.out.println(cir.getId());
+									
+									if(cir != null)
+										cirs.add(cir);
+								}
+								
+								EntityFactory.setCirclesInstance(cirs);
+								
+								UIManagerHandler.goToHome(activity);
+					     }
+
+//					}
 					else{
 						Toast.makeText(activity,(String)resultJson.get("FaultsMsg"), Toast.LENGTH_LONG).show();
 					}
