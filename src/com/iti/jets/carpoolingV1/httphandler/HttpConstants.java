@@ -5,8 +5,8 @@ import android.util.Log;
 public final class HttpConstants {
 	
 	//Webservices URI addresses 
-	public static final String SERVER_URL="http://192.168.200.1:9191/CarpoolingBackendFinal/service/";
-    //public static final String SERVER_URL="http://10.145.50.237:9191/CarpoolingBackendFinal/service/";
+    //public static final String SERVER_URL="http://192.168.200.1:9191/CarpoolingBackendFinal/service/";
+    public static final String SERVER_URL="http://10.145.57.134:9191/CarpoolingBackendFinal/service/";
 	public static final String LOGIN_URL="user/newLogin";
 	public static final String ADDEVENT_SERVICE_URL="home/addEvent";
 	public static final String RETRIEVE_USER_EVENT_SERVICE_URL="event/getUserJoinEvents";

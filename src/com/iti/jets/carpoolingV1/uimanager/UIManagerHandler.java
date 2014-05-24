@@ -9,8 +9,6 @@ import android.os.Bundle;
 
 import com.iti.jets.carpoolingV1.R;
 import com.iti.jets.carpoolingV1.addevent.AddEventActivity;
-import com.iti.jets.carpoolingV1.addevent.CustomCircle;
-import com.iti.jets.carpoolingV1.addevent.CustomLocation;
 import com.iti.jets.carpoolingV1.eventDetails.EventDetailsActivity;
 import com.iti.jets.carpoolingV1.loginactivity.LoginActivity;
 
@@ -42,19 +40,11 @@ public class UIManagerHandler {
 		if (fragment != null) {
 			
 			FragmentManager fragmentManager = ac.getFragmentManager();
-			fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
+			fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).addToBackStack("addEvent").commit();
 		}
 	}
 	
-	public static void goCustomLocation(Activity ac){
-		
-		Fragment fragment = new CustomLocation();
-		if (fragment != null) {
-			
-			FragmentManager fragmentManager = ac.getFragmentManager();
-			fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
-		}
-	}
+
 
 	public static void goToEventDetails(Activity ac, int eventId){
 		
@@ -67,18 +57,9 @@ public class UIManagerHandler {
 		if (fragment != null) {
 			
 			FragmentManager fragmentManager = ac.getFragmentManager();
-			fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
+			fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).addToBackStack("eventDetails").commit();
 		}
 	}
-	public static void goCustomCircle(Activity ac) {
-		// TODO Auto-generated method stub
-	
-		Fragment fragment = new CustomCircle();
-		if (fragment != null) {
-			
-			FragmentManager fragmentManager = ac.getFragmentManager();
-			fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
-		}
-	}
+
 
 }

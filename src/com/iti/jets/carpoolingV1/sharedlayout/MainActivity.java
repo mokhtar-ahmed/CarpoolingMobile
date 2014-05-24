@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import com.iti.jets.carpoolingV1.R;
 import com.iti.jets.carpoolingV1.eventshome.EventsHome;
+import com.iti.jets.carpoolingV1.feedshome.FeedsHome;
 import com.iti.jets.carpoolingV1.homeactivity.HomeFragment;
 import com.iti.jets.carpoolingV1.notificationHome.NotificationHome;
 import com.iti.jets.carpoolingV1.retrieveallcircles.AllCirclesListFragment;
@@ -169,10 +170,11 @@ public class MainActivity extends Activity {
 		Fragment fragment = null;
 		switch (position) {
 		case 0:
-			fragment = new NotificationHome();
+			fragment = new FeedsHome();
+			
 			break;
 		case 1:
-			fragment = new HomeFragment();
+			fragment = new NotificationHome();
 			break;
 		case 2:
 			fragment = new EventsHome();
@@ -186,7 +188,9 @@ public class MainActivity extends Activity {
 		case 5:
 			fragment = new HomeFragment();
 			break;
-
+		case 6:
+			fragment = new HomeFragment();
+			break;
 		default:
 			break;
 		}
@@ -194,7 +198,7 @@ public class MainActivity extends Activity {
 		if (fragment != null) {
 			FragmentManager fragmentManager = getFragmentManager();
 			fragmentManager.beginTransaction()
-					.replace(R.id.frame_container, fragment).commit();
+					.replace(R.id.frame_container, fragment).addToBackStack("home").commit();
 
 			// update selected item and title, then close the drawer
 			mDrawerList.setItemChecked(position, true);
