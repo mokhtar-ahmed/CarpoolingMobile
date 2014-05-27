@@ -25,7 +25,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.iti.jets.carpoolingV1.addevent.AddEventController;
+import com.iti.jets.carpoolingV1.eventDetails.AcceptedEventDetialsController;
 import com.iti.jets.carpoolingV1.eventDetails.EventDetialsController;
+import com.iti.jets.carpoolingV1.eventDetails.InvitedEventDetailsActivity;
+import com.iti.jets.carpoolingV1.eventDetails.InvitedEventDetialsController;
 import com.iti.jets.carpoolingV1.eventshome.EventsHomeController;
 
 import android.os.AsyncTask;
@@ -45,13 +48,25 @@ import android.widget.Toast;
 public class RetriveEvent extends AsyncTask<String, Void, String> {
 	
 	String output;
-	EventDetialsController controller;
-    
+	EventDetialsController controller =null ;
+	InvitedEventDetialsController controller1 = null;
+	AcceptedEventDetialsController controller2 = null;
+	
 	String url = HttpConstants.SERVER_URL + HttpConstants.RETRIVE_EVENT_SERVICE_URL;
 	
 	public RetriveEvent(EventDetialsController controller){
 	
 		this.controller = controller;
+	}
+	
+	public RetriveEvent(InvitedEventDetialsController controller){
+		
+		this.controller1 = controller;
+	}
+
+	public RetriveEvent(AcceptedEventDetialsController controller){
+		
+		this.controller2 = controller;
 	}
 @Override
 protected String doInBackground(String... params) {
@@ -89,7 +104,14 @@ protected String doInBackground(String... params) {
 	        @Override
 	        protected void onPostExecute(String result) {
 	        
-	        	controller.onPostExecute(result);
+	        	if(controller != null)
+	        		controller.onPostExecute(result);
+	        	else if (controller1 != null ){
+	        		controller1.onPostExecute(result);
+	        	}
+	        	else if (controller2 != null ){
+	        		controller2.onPostExecute(result);
+	        	}
 	        }
 }
 	    

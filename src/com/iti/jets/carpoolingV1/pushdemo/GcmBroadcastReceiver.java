@@ -1,4 +1,4 @@
-package com.iti.carpoolingV1.pushdemo;
+package com.iti.jets.carpoolingV1.pushdemo;
 
 import android.app.Activity;
 import android.content.ComponentName;

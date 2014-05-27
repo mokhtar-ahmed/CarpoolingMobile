@@ -67,7 +67,7 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container,
 	return rootView;
 }
 
-public void fillListViewData(List<Event> values){
+public void fillListViewData(){
 
 	Activity ac = getActivity();
     CustomBaseAdapter adapter = new CustomBaseAdapter(ac, values);
@@ -97,7 +97,8 @@ public void onItemClick(AdapterView<?> parent, View view, int position, long id)
 	Toast.makeText(getActivity().getApplicationContext(), values.get(position).getName(), Toast.LENGTH_LONG).show();
 	
 	int eventId = values.get(position).getId();
-	UIManagerHandler.goToEventDetails(getActivity(), eventId);
+	String state = values.get(position).getUserStatue();
+	UIManagerHandler.goToEventDetails(getActivity(), eventId , state);
 }
 
 @Override

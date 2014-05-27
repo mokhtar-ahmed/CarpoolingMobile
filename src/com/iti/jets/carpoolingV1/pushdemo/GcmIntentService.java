@@ -1,6 +1,7 @@
-package com.iti.carpoolingV1.pushdemo;
+package com.iti.jets.carpoolingV1.pushdemo;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
+import com.iti.jets.carpoolingV1.sharedlayout.MainActivity;
 
 import android.R;
 import android.app.IntentService;
@@ -55,7 +56,8 @@ public class GcmIntentService extends IntentService {
                 }
                 Log.i("pushDemo", "Completed work @ " + SystemClock.elapsedRealtime());
                 // Post notification of received message.
-                sendNotification("Received: " + extras.toString());
+                //sendNotification("Received: " + extras.toString());
+                sendNotification( extras.getString("payload"));
                 Log.i("pushDemo", "Received: " + extras.toString());
                 System.out.println( "Received: " + extras.toString());
             }
@@ -77,7 +79,7 @@ public class GcmIntentService extends IntentService {
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
         .setSmallIcon(R.drawable.ic_menu_send)
-        .setContentTitle("GCM Notification")
+        .setContentTitle("5odny M3k ")
         .setStyle(new NotificationCompat.BigTextStyle()
         .bigText(msg))
         .setContentText(msg);
