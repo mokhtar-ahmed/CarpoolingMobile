@@ -1,0 +1,93 @@
+<!-- Custom view List of Registered Contacts -->
+    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/TableLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@drawable/rounded_shape"
+        android:weightSum="10" >
+
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="5" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:paddingBottom="5dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="5dp"
+                android:weightSum="10" >
+
+                <ImageView
+                    android:id="@+id/userImg"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_gravity="left|top"
+                    android:layout_weight="0.75"
+                    android:background="@drawable/rounded_corners"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/photo" />
+
+                <TextView
+                    android:id="@+id/usernameTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left|center_vertical"
+                    android:layout_marginLeft="10dip"
+                    android:layout_span="1"
+                    android:layout_weight="2"
+                    android:text="USERNAME"
+                    android:textColor="#000000"
+                    android:textSize="20sp" />
+            </LinearLayout>
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.25"
+            android:weightSum="3" >
+
+            <TextView
+                android:id="@+id/commenttTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|center_vertical"
+                android:layout_marginLeft="10dip"
+                android:layout_span="1"
+                android:layout_weight="1"
+                android:text="COMMENT"
+                android:textColor="#000000"
+                android:textSize="13sp" />
+            
+            <TextView
+                android:id="@+id/datecommentTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|center_vertical|end"
+                android:layout_marginLeft="11dip"
+                android:layout_span="1"
+                android:layout_weight="1"
+                android:text="Date"
+                android:textColor="#4863A0"
+                android:textSize="11.5sp" />
+            
+            <ImageView
+                android:id="@+id/deleteCommentImg"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="40dp"
+                android:layout_weight="0.025"
+                android:scaleType="centerCrop"
+                android:background="@drawable/rounded_shape1"
+                android:src="@drawable/x" />
+
+            
+        </TableRow>
+    </TableLayout>

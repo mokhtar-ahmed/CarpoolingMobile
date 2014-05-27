@@ -5,7 +5,8 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.app.FragmentTransaction;
+
+import android.os.Bundle;
 
 import com.iti.jets.carpoolingV1.R;
 import com.iti.jets.carpoolingV1.addevent.AddEventActivity;
@@ -41,10 +42,26 @@ public class UIManagerHandler {
 		if (fragment != null) {
 			
 			FragmentManager fragmentManager = ac.getFragmentManager();
-			fragmentManager.beginTransaction()
-					.replace(R.id.frame_container, fragment).commit();
+
+			fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).addToBackStack("addEvent").commit();
+		}
+	}
+	
+
+
+	public static void goToEventDetails(Activity ac, int eventId){
+		
+		Bundle bundle = new Bundle();
+		bundle.putInt("eventId", eventId);
+		
+		Fragment fragment = new EventDetailsActivity();
+		fragment.setArguments(bundle);
+		
+		if (fragment != null) {
 			
-			
+			FragmentManager fragmentManager = ac.getFragmentManager();
+			fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).addToBackStack("eventDetails").commit();
+
 		}
 	}
 

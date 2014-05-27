@@ -160,7 +160,7 @@ public class AllCirclesListFragment extends Fragment {
 			
 		    fragment.setArguments(args);
 			fragmentManager.beginTransaction()
-					.replace(R.id.frame_container, fragment).commit();
+					.replace(R.id.frame_container, fragment).addToBackStack("AllCirclesListFragment").commit();
 			break;
 
 		case R.id.del:
@@ -226,7 +226,7 @@ public class AllCirclesListFragment extends Fragment {
 							Fragment fragment = new AllCirclesListFragment(); 
 							FragmentManager fragmentManager = AllCirclesListFragment.this.getFragmentManager();
 							fragmentManager.beginTransaction()
-									.replace(R.id.frame_container, fragment).commit();
+									.replace(R.id.frame_container, fragment).addToBackStack("AllCirclesListFragment").commit();
 							
 						}
 			         });

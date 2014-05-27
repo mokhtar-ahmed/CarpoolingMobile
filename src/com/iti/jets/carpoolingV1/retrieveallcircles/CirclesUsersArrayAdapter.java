@@ -45,7 +45,6 @@ public class CirclesUsersArrayAdapter extends BaseAdapter  implements OnClickLis
          private ArrayList data;
          private static LayoutInflater inflater=null;
          public Resources res;
-         private String returnServiceOutput;
          User UserValues=null;
          int i=0;
           

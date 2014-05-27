@@ -23,9 +23,9 @@ public class EventsHomeController {
 	}
 	
 	public void onPostExecute(String result) {
+
+		Toast.makeText(view.getActivity().getApplicationContext(), result, Toast.LENGTH_LONG).show();
 		
-	Toast.makeText(view.getActivity().getApplicationContext(), result, Toast.LENGTH_LONG).show();
-	
 		System.out.println(result);
 	
 		if(result.equals("No Connection")== false){
@@ -58,12 +58,15 @@ public class EventsHomeController {
 		} 
 		
 		
+
+		
+		
 	}
 	public void retriveAllEvents(String input) {
 	
-		new RetriveUserEventsHandler(this).execute(input);
-		
-	}
-	
+		new RetriveUserEventsHandler(this).execute(new String[]{input});
+
+		}
+
 
 }

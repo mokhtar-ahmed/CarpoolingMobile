@@ -1,7 +1,7 @@
 package com.iti.jets.carpoolingV1.comment;
 
 
-import com.iti.jets.carpoolingV1.eventDetails.EventDetailsActivity.FragmentCallback;
+
 import com.iti.jets.carpoolingV1.httphandler.AddCommentServiceHandler;
 import com.iti.jets.carpoolingV1.httphandler.HttpConstants;
 
@@ -10,7 +10,7 @@ public class CommentController {
 
 	String returnServiceOutput;
 	String commentToSend;
-	FragmentCallback fragmentCallback;
+//	FragmentCallback fragmentCallback;
 	private AddCommentServiceHandler addCommHanler;
 	private String uri;
 	

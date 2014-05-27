@@ -1,5 +1,6 @@
 package com.iti.jets.carpoolingV1.httphandler;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,11 +15,12 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.iti.jets.carpoolingV1.common.User;
+import com.iti.jets.carpoolingV1.pojos.User;
 import com.iti.jets.carpoolingV1.registrationactivity.RegisterFragment;
 import com.iti.jets.carpoolingV1.registrationactivity.RegisterationController;
 
@@ -47,8 +49,12 @@ public class RegisterationServiceHandler {
 			user.put("gender", newUser.getGender());
 			user.put("password",newUser.getPassword()); 
 			user.put("mail", newUser.getEmail());
-			user.put("date", newUser.getDate());
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+			String dateStr = formatter.format(newUser.getDateOfBirth());
+			System.out.println("selected date is  " + dateStr);
+			user.put("date", dateStr);
 			user.put("image", imageString);
+			user.put("pushnotificationId", newUser.getPushNotificationId());
 			//userToRegisterJS.put("image", "photo");
 		} catch (JSONException e) {
 			e.printStackTrace();
@@ -57,6 +63,8 @@ public class RegisterationServiceHandler {
 		Toast.makeText(controller.getRef(), url, Toast.LENGTH_LONG).show();
 		WebserviceAsyncTask task = new WebserviceAsyncTask();
 		task.execute(webserviceURI);
+		controller.registerActivity.dialog = ProgressDialog.show(controller.registerActivity.getActivity(), "", "Loading...Please wait...", true);
+		controller.registerActivity.dialog.show();
 		
 	}
 	
@@ -76,8 +84,10 @@ public class RegisterationServiceHandler {
 			httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
             HttpResponse httpResponse= httpClient.execute(httpPost);
             HttpEntity httpEntity = httpResponse.getEntity();
+      
             returnServiceOutput = EntityUtils.toString(httpEntity);   
             Log.d(returnServiceOutput,"%%%%%%%%%%%%%%%returnService%%%%%%%%%%%%%%%%%%%");
+            
 			} catch (Exception e) {
 				
 				e.printStackTrace();
@@ -91,6 +101,7 @@ public class RegisterationServiceHandler {
         protected void onPostExecute(String result) {
               
         	System.out.println("%%%%%%%%%%%%%RESULT"+"  "+result+"%%%%%%%%%%%%%");
+        	controller.registerActivity.dialog.dismiss();
         	regControlller.getResultFromWebservice(result);
 		    
 			

@@ -23,11 +23,12 @@ public class EventDetialsController {
 			try {
 				
 				JSONObject eventObj = new JSONObject(result);
-				JSONObject tempObj = eventObj.getJSONObject("ResponseValue");
-					JSONArray toList = tempObj.getJSONArray("eventToLocation");
-					JSONArray members =tempObj.getJSONArray("joinEvent");
-					JSONArray comments = tempObj.getJSONArray("comments");
-					JSONObject loc = tempObj.getJSONObject("location");
+
+				
+					JSONArray toList = eventObj.getJSONArray("eventToLocation");
+					JSONArray members = eventObj.getJSONArray("joinEvent");
+					JSONArray comments = eventObj.getJSONArray("comments");
+					JSONObject loc = eventObj.getJSONObject("location");
 					
 				view.eventTo.setText("To :\n\t");
 				for(int i=0;i<toList.length();i++){
@@ -36,11 +37,10 @@ public class EventDetialsController {
 					view.eventTo.append(jj.getString("address")+",");
 				}
 			
-				view.eventName.setText("Event Name : \n \t"+ tempObj.getString("eventName"));
+				view.eventName.setText("Event Name : \n \t"+ eventObj.getString("eventName"));
 				view.eventFrom.setText("From : \n \t"+ loc.getString("address"));
-				view.noOfSlots.setText("Number of avaliable slots : \n \t"+ tempObj.getInt("noOfSlots"));
-				view.eventDate.setText("Date :\n\t"+ tempObj.getString("eventDate"));
-				
+				view.noOfSlots.setText("Number of avaliable slots : \n \t"+ eventObj.getInt("noOfSlots"));
+				view.eventDate.setText("Date :\n\t"+eventObj.getString("eventDate"));	
 				view.members.setText("Members :\n\t");
 				for(int i=0;i<members.length();i++){
 					

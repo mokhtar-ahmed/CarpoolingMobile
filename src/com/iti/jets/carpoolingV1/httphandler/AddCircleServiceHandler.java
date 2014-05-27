@@ -75,7 +75,6 @@ public class AddCircleServiceHandler {
 	  return   returnServiceOutput;
 		   
         }
-
         @Override
         protected void onPostExecute(String result) {
               
@@ -88,9 +87,7 @@ public class AddCircleServiceHandler {
         		addCircleController.getServiceData(result);
         		
         	}
-        	
-        	
-        	
+ 	
         }
       }	
 }

@@ -11,6 +11,7 @@ import com.iti.jets.carpoolingV1.registrationactivity.RegisterFragment;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -27,9 +28,9 @@ public class LoginActivity extends Activity{
 	EditText usernameTxt;
 	EditText passwordTxt;
 	Button	 loginBtn;
-	Button 	 faceBookBtn;
-	Button   googleBtn;
 	Button   registerBtn;
+
+	String name = "myPref";
 
 	LoginController controller;
 	@Override
@@ -43,10 +44,11 @@ public class LoginActivity extends Activity{
 		 usernameTxt = (EditText) findViewById(R.id.EmailTxt);
 		 passwordTxt = (EditText) findViewById(R.id.passwordTxt);
 		 loginBtn	 = (Button) findViewById(R.id.LoginBtn);
-		 faceBookBtn = (Button) findViewById(R.id.FacebookBtn);
-		 googleBtn 	 = (Button) findViewById(R.id.googleBtn);
 		 registerBtn = (Button) findViewById(R.id.registerBtn);
  		 
+		 passwordTxt.setText(loadPassword());
+		 usernameTxt.setText(loadUsername());
+		 
 		 loginBtn.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -54,10 +56,11 @@ public class LoginActivity extends Activity{
 				// TODO Auto-generated method stub
 				
 				if (usernameTxt.getText().length() < 3){
-					usernameTxt.setError("At least 6 char");
+
+					usernameTxt.setError("At least 3 char");
 				}
 				else if(passwordTxt.getText().length() < 5){
-					passwordTxt.setError("At least 6 char");
+					passwordTxt.setError("At least 5 char");
 				}else{
 						controller.login(usernameTxt.getText().toString(),
 								passwordTxt.getText().toString());
@@ -77,29 +80,21 @@ public class LoginActivity extends Activity{
 				}
 			});
 		 
-		 faceBookBtn.setOnClickListener(new View.OnClickListener() {
-				
-				@Override
-				public void onClick(View v) {
-					// TODO Auto-generated method stub
-					
-				}
-			});
-		 
-		 
-		 
-		 googleBtn.setOnClickListener(new View.OnClickListener() {
-				
-				@Override
-				public void onClick(View v) {
-					// TODO Auto-generated method stub
-					
-				}
-			});
-		 
+	
 	
 		 
 		 
+	}
+	private String loadUsername(){
+	
+		SharedPreferences myPrefs  = getSharedPreferences(name, 0);
+		String userData  = myPrefs.getString("email", "");
+		return userData;
+	}
+	private String loadPassword(){
+		SharedPreferences myPrefs  = getSharedPreferences(name, 0);
+		String userData  = myPrefs.getString("password", "");	
+		return userData;
 	}
 
 	@Override

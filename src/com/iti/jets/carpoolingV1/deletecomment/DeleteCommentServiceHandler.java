@@ -1,0 +1,94 @@
+package com.iti.jets.carpoolingV1.deletecomment;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import android.os.AsyncTask;
+import android.util.Log;
+
+import com.iti.jets.carpoolingV1.addcomment.AddCommentController;
+import com.iti.jets.carpoolingV1.addcomment.AddCommentFragment;
+import com.iti.jets.carpoolingV1.httphandler.HttpConstants;
+import com.iti.jets.carpoolingV1.jsonhandler.JsonConstants;
+import com.iti.jets.carpoolingV1.pojos.Comment;
+import com.iti.jets.carpoolingV1.retrievealleventcomments.RetrieveEventCommentsController;
+
+public class DeleteCommentServiceHandler {
+
+	String url,returnServiceOutput;
+	JSONObject commentIdJs ;
+	public void connectToWebservice(Comment commentValues,
+			AddCommentFragment fragment) {
+		// TODO Auto-generated method stub
+		url = HttpConstants.SERVER_URL + HttpConstants.DELETE_COMMENT_URL;
+		commentIdJs = new JSONObject();
+		try {
+			commentIdJs.put("id", commentValues.getCommentId());
+			WebserviceAsyncTask task = new WebserviceAsyncTask();
+			task.execute(url);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+	private class WebserviceAsyncTask extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... urls) {
+        	String url=urls[0];
+    	    DefaultHttpClient httpClient = new DefaultHttpClient();
+            HttpPost httpPost = new HttpPost(url);
+            List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);	
+    		nameValuePairs.add(new BasicNameValuePair("input",commentIdJs.toString()));
+    		try {	 		
+    		httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+            HttpResponse httpResponse= httpClient.execute(httpPost);
+            HttpEntity httpEntity = httpResponse.getEntity();
+            returnServiceOutput = EntityUtils.toString(httpEntity);   
+            Log.d(returnServiceOutput,"%%%%%%%%%%%%%%%returnService%%%%%%%%%%%%%%%%%%%");
+    		} catch (Exception e) {
+    			
+    			e.printStackTrace();
+    		}   
+    		return returnServiceOutput;  
+
+		   
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+              
+          super.onPostExecute(result);
+          JSONObject jsObj;
+  		  Log.d(result,"%%%%%%%%%%%%%%%returnService%%%%%%%%%%%%%%%%%%%");
+  		  try {
+			 jsObj = new JSONObject(result);
+			 if(!jsObj.getBoolean("HasError")) 
+	  		 {
+				 Log.d("DELTEEDEEEEEEEEE","%%%%%%%%%%%%%%%DELETE%%%%%%%%%%%%%%%%%%%");
+				 RetrieveEventCommentsController controller = new RetrieveEventCommentsController();
+				 
+	  		 }
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+  		 
+  		  
+  
+ 	
+        }
+      }
+}

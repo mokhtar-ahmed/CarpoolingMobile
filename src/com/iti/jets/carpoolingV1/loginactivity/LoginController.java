@@ -27,28 +27,46 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.sax.StartElementListener;
+
+import android.content.SharedPreferences;
 import android.widget.Toast;
 
 
 public class LoginController {
 
 	Activity activity;
-	
+	String name = "myPref";	
+	String username;
+	String password;
 	public LoginController(	Activity activity){
 		this.activity = activity;
 		
 	}
+
+	private void saveShared() {
+
+		SharedPreferences myPrefs  = activity.getSharedPreferences(name, 0);
+		SharedPreferences.Editor editor = myPrefs.edit();	
+		editor.putString("email", username);
+		editor.putString("password",password);
+		editor.commit();
+		
+	}
+
+	
 	public String login(String username , String password){
 		
+		
 		if(username.equals("")== false && password.equals("") == false){
-			
+		
+			this.username = username;
+			this.password = password;
 			JSONObject input = new JSONObject();
 			try {
 				input.put("username", username);
 				input.put("password", password);
 				new LoginServiceHandler(this).execute(new String[]{input.toString()});
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 	
@@ -63,7 +81,7 @@ public class LoginController {
 	public void onPostExcuteResult(String result) {
 		
 		
-		Toast.makeText(activity,result, Toast.LENGTH_LONG).show();
+		//Toast.makeText(activity,result, Toast.LENGTH_LONG).show();
 		
 		if(result != null ){
 
@@ -75,37 +93,26 @@ public class LoginController {
 					
 					if(((String)resultJson.get("FaultsMsg")).equals("success")== true){
 						
-						SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
+				User us = JsonParser.parseToUser(resultJson.getJSONObject("ResponseValue"));
+						System.out.println(us.getName());
+						EntityFactory.setUserInstance(us);
+						
+						ArrayList<Circle> cirs = new ArrayList<Circle>();
+						JSONArray circlesJson = resultJson.getJSONArray("circles");
+						
+						for(int i =0 ; i<circlesJson.length(); i++){
+							Circle cir = JsonParser.parseToCircleList(circlesJson.getJSONObject(i));
+							System.out.println(cir.getId());
+							
+							if(cir != null)
+								cirs.add(cir);
+						}
+						
+						EntityFactory.setCirclesInstance(cirs);
+						saveShared();
 
-					     boolean firstRunFlag = sharedPreferences.getBoolean("firstRunFlag",true);
-//					     if(firstRunFlag)
-//					     {
-//					    	 	Intent intent = new Intent(activity.getApplicationContext(),FirstRunActivity.class);
-//					    	 	activity.startActivity(intent);
-//					     }
-//					     else
-//					     {
-					    	 User us = JsonParser.parseToUser(resultJson.getJSONObject("ResponseValue"));
-								System.out.println(us.getName());
-								EntityFactory.setUserInstance(us);
-								
-								ArrayList<Circle> cirs = new ArrayList<Circle>();
-								JSONArray circlesJson = resultJson.getJSONArray("circles");
-								
-								for(int i =0 ; i<circlesJson.length(); i++){
-									Circle cir = JsonParser.parseToCircleList(circlesJson.getJSONObject(i));
-									System.out.println(cir.getId());
-									
-									if(cir != null)
-										cirs.add(cir);
-								}
-								
-								EntityFactory.setCirclesInstance(cirs);
-								
-								UIManagerHandler.goToHome(activity);
-					     }
-
-//					}
+						UIManagerHandler.goToHome(activity);
+					}
 					else{
 						Toast.makeText(activity,(String)resultJson.get("FaultsMsg"), Toast.LENGTH_LONG).show();
 					}

@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 import com.iti.jets.carpoolingV1.common.ImageHandler;
 import com.iti.jets.carpoolingV1.common.ImageLoadingUtils;
-import com.iti.jets.carpoolingV1.common.User;
+import com.iti.jets.carpoolingV1.pojos.User;
 
 import com.iti.jets.carpoolingV1.httphandler.HttpConstants;
 import com.iti.jets.carpoolingV1.httphandler.RegisterationServiceHandler;
@@ -21,7 +21,7 @@ import com.iti.jets.carpoolingV1.httphandler.RegisterationServiceHandler;
 public class RegisterationController {
 
 	public RegisterationServiceHandler serviceHandler;
-	RegisterFragment registerActivity;
+	public RegisterFragment registerActivity;
 	private Bitmap bmpScaled;
 	private String imageString;
 	private ImageHandler imgHandler ;

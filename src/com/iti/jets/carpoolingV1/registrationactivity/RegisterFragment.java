@@ -1,6 +1,9 @@
 package com.iti.jets.carpoolingV1.registrationactivity;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.regex.Pattern;
 
 import org.json.JSONException;
@@ -10,7 +13,8 @@ import com.iti.jets.carpoolingV1.R;
 
 import com.iti.jets.carpoolingV1.common.DatePickerFragment;
 import com.iti.jets.carpoolingV1.common.ImageCompressionHandler;
-import com.iti.jets.carpoolingV1.common.User;
+import com.iti.jets.carpoolingV1.pojos.EntityFactory;
+import com.iti.jets.carpoolingV1.pojos.User;
 
 import com.iti.jets.carpoolingV1.editprofileactivity.EditProfileActivity;
 import com.iti.jets.carpoolingV1.editprofileactivity.EditProfileController;
@@ -20,6 +24,7 @@ import com.iti.jets.carpoolingV1.uimanager.UIManagerHandler;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
@@ -32,10 +37,13 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.OnFocusChangeListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -61,12 +69,16 @@ public class RegisterFragment extends Fragment{
 	EditProfileController controller;
 	String filePath;
 	RadioGroup radioSexGroup;
-	RadioButton maleRadioBtn;
+	RadioButton maleRadioBtn,femaleRadioBtn;
 	View rootView;
+	public int year;
+	public int month;
+	public int day;
+	Boolean trueFlag = false;
+	public ProgressDialog dialog;
 	public static final int  REQUEST_CODE_FROM_GALLERY = 1;
 	private static final String EMAIL_REGEX = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-	private static final String PHONE_REGEX = "\\d{11}";
-	private static final String USERNAME_REGEX = "^[a-z0-9_-]{3,15}$";
+	private static final String USERNAME_REGEX = "^[a-z0-9_-]";
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -75,18 +87,37 @@ public class RegisterFragment extends Fragment{
 	     userImgView = (ImageView) rootView.findViewById(R.id.userImage);
 		 registerBtn = (Button) rootView.findViewById(R.id.registerBtn);
 		 loginBtn = (Button)  rootView.findViewById(R.id.loginBtn);
-		 calenderBtn = (Button)  rootView.findViewById(R.id.calenderBtn);
 		 nameEditText = (EditText)  rootView.findViewById(R.id.nameTxt);
 		 passwordEditText = (EditText)  rootView.findViewById(R.id.passwordTxt);
 		 phoneEditText = (EditText)  rootView.findViewById(R.id.PhoneTxt);
 		 dateEditText = (EditText)  rootView.findViewById(R.id.dateTxt);
 		 emailEditText = (EditText)  rootView.findViewById(R.id.EmailTxt);
 		 radioSexGroup = (RadioGroup) rootView.findViewById(R.id.radioSexGroup);
+		 maleRadioBtn = (RadioButton) rootView.findViewById(R.id.maleRadioBtn);
+		 femaleRadioBtn = (RadioButton) rootView.findViewById(R.id.femaleRadioBtn);
 		 SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getActivity());
 		 Editor editor = sharedPreferences.edit();
 		 editor.putBoolean("firstRunFlag", true);
 		 editor.commit();
-	
+		
+		 phoneEditText.setOnFocusChangeListener(new OnFocusChangeListener() {
+			
+		
+			public void onFocusChange(View v, boolean hasFocus) {
+				
+		
+				// TODO Auto-generated method stub
+				
+				
+				
+				
+				
+				
+			}
+		});
+		 
+		 
+		 
 		 loginBtn.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -95,7 +126,7 @@ public class RegisterFragment extends Fragment{
 				
 			}
 		});
-		 calenderBtn.setOnClickListener(new View.OnClickListener() {
+		 dateEditText.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View arg0) {
@@ -103,6 +134,10 @@ public class RegisterFragment extends Fragment{
 				showDatePickerDialog();
 			}
 		});
+		 
+		 
+		
+		 
 		 registerBtn.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -113,19 +148,15 @@ public class RegisterFragment extends Fragment{
 				{
 					phoneEditText.setError("Phone field required");
 				}
-				else if(!Pattern.matches(PHONE_REGEX,phoneEditText.getText().toString().trim()))
+				else if(phoneEditText.getText().length()<11)
 				{
-					phoneEditText.setError("Invalid phonenumber");
+					phoneEditText.setError("Phone field required");
 				}
 				else if(nameEditText.getText().toString().equals(""))
 				{
 					nameEditText.setError("Name field required");
 				}
-				else if(!Pattern.matches(USERNAME_REGEX,nameEditText.getText().toString().trim()))
-				{
-					nameEditText.setError("Invalid Username");
-				}
-				else if(passwordEditText.getText().toString().equals(""))
+				else if(passwordEditText.getText().toString().length()<6)
 				{
 					passwordEditText.setError("At least 6 char");
 				}
@@ -141,50 +172,48 @@ public class RegisterFragment extends Fragment{
 				{
 					dateEditText.setError("Birthdate field required");
 				}
+				
+				else if(imgBitmap == null)
+				{
+					showDialog("You didn't choose an image");
+				}
 				else
 				{
-					newUser.setName(nameEditText.getText().toString());
-					newUser.setPhone(phoneEditText.getText().toString());
-					newUser.setEmail(emailEditText.getText().toString());
-					newUser.setDate(dateEditText.getText().toString());
-					newUser.setPassword(passwordEditText.getText().toString());
-					int selectedId = radioSexGroup.getCheckedRadioButtonId();
-					maleRadioBtn = (RadioButton) rootView.findViewById(selectedId);
-					genderData = maleRadioBtn.getText().toString();
-					newUser.setGender(genderData);
+					trueFlag = true;
 					
-					if(flag)
-						
+					if(trueFlag)
 					{
-						//Toast.makeText(getActivity().getApplicationContext(), "ENTEREEEEEEEEED", Toast.LENGTH_LONG).show();
-						if(imgBitmap == null)
+						newUser.setName(nameEditText.getText().toString());
+						newUser.setPhone(phoneEditText.getText().toString());
+						newUser.setEmail(emailEditText.getText().toString());
+						Date thedate;
+						
+							
+							Date d = new Date(year,month,day);						
+							
+							newUser.setDateOfBirth(d);
+						
+						
+						newUser.setPassword(passwordEditText.getText().toString());
+						int selectedId = radioSexGroup.getCheckedRadioButtonId();
+						if(maleRadioBtn.isSelected())
 						{
-				        	
-//				        		Uri path = Uri.parse("android.resource://com.iti.jets.carpoolingV1/" + R.drawable.photo);
-//				        		try {
-//									imgBitmap = MediaStore.Images.Media.getBitmap(RegisterFragment.this.getActivity().getContentResolver(), path);
-//								} catch (FileNotFoundException e) {
-//									// TODO Auto-generated catch block
-//									e.printStackTrace();
-//								} catch (IOException e) {
-//									// TODO Auto-generated catch block
-//									e.printStackTrace();
-//								}
-				        	
-							showDialog("You didn't choose an image");
+							genderData = maleRadioBtn.getText().toString();
 						}
 						else
 						{
-							RegisterationController controller = new RegisterationController(newUser,RegisterFragment.this,imgBitmap,filePath);
+							genderData = femaleRadioBtn.getText().toString();
 						}
+						newUser.setGender(genderData);
+						newUser.setPushNotificationId(EntityFactory.getNotificationIdInstance());
+
 						
-					
-					}
+					  RegisterationController controller = new RegisterationController(newUser,RegisterFragment.this,imgBitmap,filePath);
+
+						}
 				}
 			
-				
-				
-			}
+				}
 		});
 		 
 		 userImgView.setOnClickListener(new View.OnClickListener() {

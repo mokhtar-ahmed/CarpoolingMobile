@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+ <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+     android:orientation="vertical" 
+     android:weightSum="14">
+
+   <RelativeLayout 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"   
+	android:layout_weight="13">
+     <ListView
+         android:id="@+id/commentsList"
+         android:layout_width="fill_parent"
+         android:layout_height="351dp" />
+
+   </RelativeLayout>
+     <LinearLayout
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_weight="0.5"
+         android:layout_marginTop="90dp"
+         android:orientation="horizontal" >
+
+         <EditText
+             android:id="@+id/commentTextField"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:ems="10" >
+             <requestFocus />
+         </EditText>
+
+         <Button
+             android:id="@+id/sendCommentBtn"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="Send" />
+     </LinearLayout>
+ </LinearLayout>
+  
+
