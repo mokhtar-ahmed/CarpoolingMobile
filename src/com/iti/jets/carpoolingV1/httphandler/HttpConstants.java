@@ -4,8 +4,6 @@ import android.util.Log;
 
 public final class HttpConstants {
 
-	
-
    //public static final String SERVER_URL="http://192.168.1.7:8090/CarpoolingBackendFinal/service/";
     public static final String SERVER_URL="http://10.145.59.48:8090/CarpoolingBackendFinal/service/";
 	public static final String LOGIN_URL="user/newLogin";

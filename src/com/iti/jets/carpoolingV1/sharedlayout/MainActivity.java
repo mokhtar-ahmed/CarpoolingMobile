@@ -4,7 +4,6 @@ package com.iti.jets.carpoolingV1.sharedlayout;
 import java.util.ArrayList;
 
 import com.iti.jets.carpoolingV1.R;
-import com.iti.jets.carpoolingV1.editprofileactivity.EditProfileFragement;
 import com.iti.jets.carpoolingV1.eventshome.EventsHome;
 import com.iti.jets.carpoolingV1.feedshome.FeedsHome;
 import com.iti.jets.carpoolingV1.homeactivity.HomeFragment;
@@ -14,7 +13,6 @@ import com.iti.jets.carpoolingV1.retrieveallcircles.AllCirclesListFragment;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.os.Bundle;
@@ -26,7 +24,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 public class MainActivity extends Activity {
 	
@@ -177,8 +174,7 @@ public class MainActivity extends Activity {
 			
 			break;
 		case 1:
-     	fragment = new NotificationHome();
-
+			fragment = new NotificationHome();
 			break;
 		case 2:
 			fragment = new EventsHome();
@@ -187,7 +183,7 @@ public class MainActivity extends Activity {
 			fragment =  new AllCirclesListFragment();
 			break;
 		case 4:
-			fragment = new EditProfileFragement();
+			fragment = new HomeFragment();
 			break;
 		case 5:
 			fragment = new HomeFragment();
@@ -226,14 +222,6 @@ public class MainActivity extends Activity {
 	 * onPostCreate() and onConfigurationChanged()...
 	 */
 
-	@Override
-	public void onBackPressed() {
-
-	   Intent setIntent = new Intent(getApplicationContext(),MainActivity.class);	 
-	   startActivity(setIntent);
-		Toast.makeText(getApplicationContext(), "BACK BUTTON PRESSES",Toast.LENGTH_LONG).show();
-	}
-	
 	@Override
 	protected void onPostCreate(Bundle savedInstanceState) {
 		super.onPostCreate(savedInstanceState);

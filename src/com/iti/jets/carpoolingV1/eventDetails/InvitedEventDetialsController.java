@@ -6,18 +6,19 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import android.widget.Toast;
+
+import com.iti.jets.carpoolingV1.httphandler.JoinEvent;
 import com.iti.jets.carpoolingV1.httphandler.RetriveEvent;
 import com.iti.jets.carpoolingV1.httphandler.UpdateEvent;
 import com.iti.jets.carpoolingV1.jsonhandler.JsonParser;
 import com.iti.jets.carpoolingV1.pojos.Comment;
 import com.iti.jets.carpoolingV1.pojos.CustomUser;
-import com.iti.jets.carpoolingV1.pojos.EntityFactory;
 import com.iti.jets.carpoolingV1.pojos.Location;
 
-public class EventDetialsController {
-	EventDetailsActivity view;
+public class InvitedEventDetialsController {
+	InvitedEventDetailsActivity view;
 	
-	public EventDetialsController(EventDetailsActivity view){
+	public InvitedEventDetialsController(InvitedEventDetailsActivity view){
 			this.view = view;
 		
 	}
@@ -52,34 +53,7 @@ public class EventDetialsController {
 				view.no_of_slots.setText("slots : \n \t"+ eventObj.getInt("noOfSlots"));
 				view.dp.setText("Date :\n\t"+eventObj.getString("eventDate"));	
 				
-				ArrayList<Comment> commentslist = new ArrayList<Comment>(); 
-				for (int i = 0; i < comments.length(); i++) {
-					
-					Comment comment = JsonParser.parseToCommentList(comments.getJSONObject(i));
-					System.out.println(comment.getId() +"coment id ");
-					
-					if(comment != null)
-						commentslist.add(comment);
-					
-				}
-				view.commentsList = commentslist;
-				
-				view.fillCommentList();
-				ArrayList<CustomUser> userList = new ArrayList<CustomUser>(); 
-				for (int i = 0; i < members.length(); i++) {
-					
-					CustomUser us = JsonParser.parseToCustomUsertList(members.getJSONObject(i));
-					System.out.println(us.getId() +"custom user id ");
-					
-					if(us != null)
-						userList.add(us);
-					
-				}
-				view.usersList = userList;
-				EntityFactory.setUsersCustom(userList);
-				
-				view.fillUsersList();
-				
+		
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -98,33 +72,17 @@ public class EventDetialsController {
 		new RetriveEvent(this).execute(new String[]{parm});
 	
 	}
-	public void updateEventHandler(String string) {
+	public void joinEventHandler(String string) {
 		// TODO Auto-generated method stub
-		new UpdateEvent(this).execute(new String[]{string});
+		new JoinEvent(this).execute(new String[]{string});
+	}
+	public void onJoinPostExecute(String result) {
+		// TODO Auto-generated method stub
+		view.prog.dismiss();
+		Toast.makeText(view.getActivity().getApplicationContext(), result, Toast.LENGTH_LONG).show();
+		
 		
 	}
-	public void onUpdatePostExecute(String result) {
-		// TODO Auto-generated method stub
-		
-		
-		try {
-			
-			if(result.equals("No Connection") == false){
-				JSONObject ob = new JSONObject(result);
-				
-				if(ob.getBoolean("HasError") == true){
-					Toast.makeText(view.getActivity().getApplicationContext(),ob.getString("FaultsMsg"), Toast.LENGTH_LONG).show();			
-					
-				}else{
-					
-					Toast.makeText(view.getActivity().getApplicationContext(),ob.getString("ResponseValue"), Toast.LENGTH_LONG).show();
-				}
-			}
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-	}
-
+	
+	
 }

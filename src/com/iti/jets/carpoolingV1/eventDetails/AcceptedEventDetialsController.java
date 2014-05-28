@@ -11,13 +11,12 @@ import com.iti.jets.carpoolingV1.httphandler.UpdateEvent;
 import com.iti.jets.carpoolingV1.jsonhandler.JsonParser;
 import com.iti.jets.carpoolingV1.pojos.Comment;
 import com.iti.jets.carpoolingV1.pojos.CustomUser;
-import com.iti.jets.carpoolingV1.pojos.EntityFactory;
 import com.iti.jets.carpoolingV1.pojos.Location;
 
-public class EventDetialsController {
-	EventDetailsActivity view;
+public class AcceptedEventDetialsController {
+	AcceptedEventDetailsActivity view;
 	
-	public EventDetialsController(EventDetailsActivity view){
+	public AcceptedEventDetialsController(AcceptedEventDetailsActivity view){
 			this.view = view;
 		
 	}
@@ -76,8 +75,6 @@ public class EventDetialsController {
 					
 				}
 				view.usersList = userList;
-				EntityFactory.setUsersCustom(userList);
-				
 				view.fillUsersList();
 				
 			} catch (JSONException e) {
@@ -98,11 +95,7 @@ public class EventDetialsController {
 		new RetriveEvent(this).execute(new String[]{parm});
 	
 	}
-	public void updateEventHandler(String string) {
-		// TODO Auto-generated method stub
-		new UpdateEvent(this).execute(new String[]{string});
-		
-	}
+	
 	public void onUpdatePostExecute(String result) {
 		// TODO Auto-generated method stub
 		

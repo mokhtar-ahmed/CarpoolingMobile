@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.widget.Toast;
 
@@ -24,7 +25,7 @@ public class EventsHomeController {
 	
 	public void onPostExecute(String result) {
 
-		Toast.makeText(view.getActivity().getApplicationContext(), result, Toast.LENGTH_LONG).show();
+		//Toast.makeText(view.getActivity().getApplicationContext(), result, Toast.LENGTH_LONG).show();
 		
 		System.out.println(result);
 	
@@ -35,7 +36,11 @@ public class EventsHomeController {
 			JSONArray eventsJson;
 			try {
 				
-				eventsJson = new JSONArray(result);
+				
+				JSONObject js = new JSONObject(result);
+				
+				
+				eventsJson =  js.getJSONArray("ResponseValue");
 
 				for(int i =0 ; i<eventsJson.length(); i++){
 					Event ev = JsonParser.parseToEventList(eventsJson.getJSONObject(i));
@@ -49,8 +54,8 @@ public class EventsHomeController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		
-			view.fillListViewData(events);
+		    view.values = events;
+			view.fillListViewData();
 			
 		}else{
 			Toast.makeText(view.getActivity().getApplicationContext(), "Connect to internet", Toast.LENGTH_LONG).show();

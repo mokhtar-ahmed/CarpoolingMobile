@@ -46,7 +46,7 @@ public class EntityFactory {
 	public static String getNotificationIdInstance(){
 		return pushNotificationId;	
 	}
-
+	
 	public static Location getLocationByAddress(String ads){
 		
 		for (int i = 0; i < locations.size(); i++) {
@@ -70,5 +70,5 @@ public static Circle getCircleByName(String name){
 			
 		}
 		
-
+	
 }

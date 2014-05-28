@@ -1,4 +1,4 @@
-package com.iti.jets.carpoolingV1.addcomment;
+package com.iti.jets.carpoolingV1.eventDetails;
 
 import java.util.ArrayList;
 
@@ -11,30 +11,24 @@ import android.widget.ListView;
 
 import com.iti.jets.carpoolingV1.R;
 import com.iti.jets.carpoolingV1.common.Circle;
+import com.iti.jets.carpoolingV1.httphandler.AddCommentServiceHandler;
 import com.iti.jets.carpoolingV1.pojos.Comment;
 import com.iti.jets.carpoolingV1.retrieveallcircles.CirclesCustomArrayAdapter;
 
 public class AddCommentController {
 
 	
-	
-	AddCommentFragment addCommentFragment;
+
 	AddCommentServiceHandler serviceHandler;
 	String comment;
-	public void setArguments(String comment,
-			AddCommentFragment addCommentFragment) {
+	public void setArguments(Comment comment) {
 		// TODO Auto-generated method stub
-		this.addCommentFragment = addCommentFragment;
-		this.comment = comment; 
-		serviceHandler = new AddCommentServiceHandler();
-		serviceHandler.connectToWebService(AddCommentController.this,comment);
-		
-	}
-	public void getAllEventComments(String result) {
-		// TODO Auto-generated method stub
-		addCommentFragment.getAllEventComments(result);
-		
 	
+//		this.comment = comment; 
+//		serviceHandler = new AddCommentServiceHandler();
+//		serviceHandler.connectToWebService(Stirng comment);
+//		
 	}
+	
 
 }

@@ -1,6 +1,10 @@
 package com.iti.jets.carpoolingV1.httphandler;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.http.HttpEntity;
@@ -13,71 +17,72 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import android.os.AsyncTask;
 import android.util.Log;
-
-import com.iti.jets.carpoolingV1.common.Circle;
-
-import com.iti.jets.carpoolingV1.retrieveallcircles.AllCirclesListFragment.FragmentCallback;
-
+import com.iti.jets.carpoolingV1.httphandler.HttpConstants;
+import com.iti.jets.carpoolingV1.pojos.Comment;
+import com.iti.jets.carpoolingV1.pojos.EntityFactory;
 public class AddCommentServiceHandler {
 
-//	   String returnServiceOutput;	
-//	   String Url = null;	
-//	   Circle circleObj;
-//	   FragmentCallback fragmentCallback;
-//		public void connectToWebService(String commentToSend,com.iti.jets.carpoolingV1.eventDetails.EventDetailsActivity.FragmentCallback fragmentCallback2, String uri) {
-//			// TODO Auto-generated method stub
-//			this.circleObj = commentToSend;
-//			this.fragmentCallback = fragmentCallback2;
-//			Url = uri;
-//			WebserviceAsyncTask task = new WebserviceAsyncTask();
-//			task.execute(Url);
-//			
-//		}
-//		
-//		private class WebserviceAsyncTask extends AsyncTask<String, Void, String> {
-//	        @Override
-//	        protected String doInBackground(String... urls) {
-//	        	String url=urls[0];
-//	    	    DefaultHttpClient httpClient = new DefaultHttpClient();
-//	            HttpPost httpPost = new HttpPost(url);
-//	            List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);	
-//	            JSONObject circleIdJS = new JSONObject();
-//	            try {
-//	            	int circleId = circleObj.getCircleId();
-//	    			circleIdJS.put("circleId",circleId);
-//	    		} catch (JSONException e1) {
-//	    			// TODO Auto-generated catch block
-//	    			e1.printStackTrace();
-//	    		}
-//	    		nameValuePairs.add(new BasicNameValuePair("circleId", circleIdJS.toString()));
-//	    		try {	 		
-//	    		httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-//	            HttpResponse httpResponse= httpClient.execute(httpPost);
-//	            HttpEntity httpEntity = httpResponse.getEntity();
-//	            returnServiceOutput = EntityUtils.toString(httpEntity);   
-//	            Log.d(returnServiceOutput,"%%%%%%%%%%%%%%%returnService%%%%%%%%%%%%%%%%%%%");
-//	    		} catch (Exception e) {
-//	    			
-//	    			e.printStackTrace();
-//	    		}   
-//	    		return returnServiceOutput;  
-//
-//			   
-//	        }
-//
-//	        @Override
-//	        protected void onPostExecute(String result) {
-//	              
-//	          super.onPostExecute(result);
-//	  		  Log.d(result,"%%%%%%%%%%%%%%%returnService%%%%%%%%%%%%%%%%%%%");
-//	  
-//	  		  fragmentCallback.onTaskDone(result);
-//	 	
-//	        }
-//	      }
+	String url = null;
+	String returnServiceOutput = null;
+	String comment;
+	
+	public  AddCommentServiceHandler(String comment) {
+	
+		this.comment = comment;
 
+		url = HttpConstants.SERVER_URL + HttpConstants.ADD_COMMENT_URL;
 		
+			WebserviceAsyncTask task = new WebserviceAsyncTask ();
+			task.execute(url);
+			   
+		
+	}
+	
+	private class WebserviceAsyncTask extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... urls) {
+          
+
+        	String url=urls[0];
+		    DefaultHttpClient httpClient = new DefaultHttpClient();
+            HttpPost httpPost = new HttpPost(url);
+            List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);	
+			nameValuePairs.add(new BasicNameValuePair("input",comment));
+			try {	 		
+			httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+            HttpResponse httpResponse= httpClient.execute(httpPost);
+            HttpEntity httpEntity = httpResponse.getEntity();
+            returnServiceOutput = EntityUtils.toString(httpEntity);   
+            Log.d(returnServiceOutput,"%%%%%%%%%%%%%%%returnService%%%%%%%%%%%%%%%%%%%");
+			} catch (Exception e) {
+				
+				e.printStackTrace();
+			}   
+     
+	  return   returnServiceOutput;
+		   
+        }
+        @Override
+        protected void onPostExecute(String result) {
+              
+        	JSONObject resultJson ;
+        	try {
+				resultJson = new JSONObject(result);
+				if(!resultJson.getBoolean("HasError"))
+	        	{     		
+	        		System.out.println("RESUUUUUUUUUUUUUUUUUULT"+ result);
+//	        		RetrieveEventCommentsController controller = new RetrieveEventCommentsController();
+//	        		controller.setArguments( addCommentController,eventId);
+	        	}
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        	
+ 	
+        }
+      }	
+
 }

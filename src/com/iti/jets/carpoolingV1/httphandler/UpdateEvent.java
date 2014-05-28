@@ -25,11 +25,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.iti.jets.carpoolingV1.addevent.AddEventController;
-import com.iti.jets.carpoolingV1.eventDetails.AcceptedEventDetialsController;
+import com.iti.jets.carpoolingV1.eventDetails.EventDetailsActivity;
 import com.iti.jets.carpoolingV1.eventDetails.EventDetialsController;
-import com.iti.jets.carpoolingV1.eventDetails.InvitedEventDetailsActivity;
-import com.iti.jets.carpoolingV1.eventDetails.InvitedEventDetialsController;
-import com.iti.jets.carpoolingV1.eventshome.EventsHomeController;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -45,28 +42,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class RetriveEvent extends AsyncTask<String, Void, String> {
+public class UpdateEvent extends AsyncTask<String, Void, String> {
 	
 	String output;
-	EventDetialsController controller =null ;
-	InvitedEventDetialsController controller1 = null;
-	AcceptedEventDetialsController controller2 = null;
+	EventDetialsController controller;
+    
+	String url = HttpConstants.SERVER_URL + HttpConstants.UPDATE_EVENT_SERVICE_URL;
 	
-	String url = HttpConstants.SERVER_URL + HttpConstants.RETRIVE_EVENT_SERVICE_URL;
-	
-	public RetriveEvent(EventDetialsController controller){
+	public UpdateEvent(EventDetialsController controller){
 	
 		this.controller = controller;
-	}
-	
-	public RetriveEvent(InvitedEventDetialsController controller){
-		
-		this.controller1 = controller;
-	}
-
-	public RetriveEvent(AcceptedEventDetialsController controller){
-		
-		this.controller2 = controller;
 	}
 @Override
 protected String doInBackground(String... params) {
@@ -89,11 +74,9 @@ protected String doInBackground(String... params) {
 						
 		    	
 	        } catch (ClientProtocolException e) {
-	        	output ="No Connection";
 				e.printStackTrace();
 			
 			} catch (IOException e) {
-				output ="No Connection";
 				e.printStackTrace();
 				
 			}
@@ -104,14 +87,7 @@ protected String doInBackground(String... params) {
 	        @Override
 	        protected void onPostExecute(String result) {
 	        
-	        	if(controller != null)
-	        		controller.onPostExecute(result);
-	        	else if (controller1 != null ){
-	        		controller1.onPostExecute(result);
-	        	}
-	        	else if (controller2 != null ){
-	        		controller2.onPostExecute(result);
-	        	}
+	        	controller.onUpdatePostExecute(result);
 	        }
 }
 	    

@@ -4,14 +4,10 @@ package com.iti.jets.carpoolingV1.splashscreen;
 import java.io.IOException;
 import java.util.concurrent.atomic.AtomicInteger;
 
-//import com.google.android.gms.common.ConnectionResult;
-//import com.google.android.gms.common.GooglePlayServicesUtil;
-//import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
-import com.iti.carpoolingV1.pushdemo.MainActivity;
-import com.iti.carpoolingV1.pushdemo.MainActivity.NewTask;
+
 import com.iti.jets.carpoolingV1.R;
 import com.iti.jets.carpoolingV1.httphandler.RetriveAllLocationServiceHandler;
 import com.iti.jets.carpoolingV1.loginactivity.LoginActivity;
@@ -141,7 +137,7 @@ public class SplashScreen extends Activity {
 	
 	private SharedPreferences getGCMPreferences(Context context) {
 
-	    return getSharedPreferences(MainActivity.class.getSimpleName(),Context.MODE_PRIVATE);
+	    return getSharedPreferences(SplashScreen.class.getSimpleName(),Context.MODE_PRIVATE);
 	}
 	
 	private static int getAppVersion(Context context) {

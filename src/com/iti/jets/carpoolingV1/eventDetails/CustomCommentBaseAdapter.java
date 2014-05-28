@@ -1,12 +1,10 @@
-package com.iti.jets.carpoolingV1.feedshome;
+package com.iti.jets.carpoolingV1.eventDetails;
 
 import java.util.List;
 
-import com.google.android.gms.internal.ho;
 import com.iti.jets.carpoolingV1.R;
+import com.iti.jets.carpoolingV1.pojos.Comment;
 import com.iti.jets.carpoolingV1.pojos.Event;
-import com.iti.jets.carpoolingV1.pojos.Notification;
-
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -16,13 +14,13 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class EventCustomBaseAdapter extends BaseAdapter {
+public class CustomCommentBaseAdapter extends BaseAdapter {
     Context context;
-    List<Event> rowItems;
+    List<Comment> rowItems;
  
-    public EventCustomBaseAdapter(Context context, List<Event> values) {
+    public CustomCommentBaseAdapter(Context context, List<Comment> items) {
         this.context = context;
-        this.rowItems = values;
+        this.rowItems = items;
     }
  
     /*private view holder class*/
@@ -43,16 +41,19 @@ public class EventCustomBaseAdapter extends BaseAdapter {
             holder.txtDesc = (TextView) convertView.findViewById(R.id.label1);
             holder.txtTitle = (TextView) convertView.findViewById(R.id.label2);
             holder.imageView = (ImageView) convertView.findViewById(R.id.icon);
+         
             convertView.setTag(holder);
         }
         else {
             holder = (ViewHolder) convertView.getTag();
         }
  
-        Event rowItem = (Event) getItem(position);
+        Comment rowItem = (Comment) getItem(position);
  
-        holder.txtDesc.setText(rowItem.getName());
-        holder.txtTitle.setText(rowItem.getDate().toString());
+        holder.txtDesc.setText(rowItem.getUsername());
+        holder.txtTitle.setText(rowItem.getText()+"\n"+ rowItem.getDate().toString());
+       holder.imageView.setImageResource(R.drawable.ic_action_user);
+ 
         return convertView;
     }
  

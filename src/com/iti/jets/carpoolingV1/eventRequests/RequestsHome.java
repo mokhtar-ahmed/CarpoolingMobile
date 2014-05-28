@@ -1,4 +1,4 @@
-package com.iti.jets.carpoolingV1.eventshome;
+package com.iti.jets.carpoolingV1.eventRequests;
 
 
 import java.util.ArrayList;
@@ -10,6 +10,7 @@ import org.json.JSONObject;
 
 import com.iti.jets.carpoolingV1.R;
 import com.iti.jets.carpoolingV1.addevent.AddEventActivity;
+import com.iti.jets.carpoolingV1.pojos.CustomUser;
 import com.iti.jets.carpoolingV1.pojos.EntityFactory;
 import com.iti.jets.carpoolingV1.pojos.Event;
 import com.iti.jets.carpoolingV1.uimanager.UIManagerHandler;
@@ -29,48 +30,42 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class EventsHome extends Fragment implements OnItemClickListener {
+public class RequestsHome extends Fragment implements OnItemClickListener {
 
 	View rootView;
 	ListView eventsList;
+    int idEvent;
+	List<CustomUser>values = new ArrayList<CustomUser>();
 
-	List<Event>values = new ArrayList<Event>();
-
-	EventsHomeController cont;
+	RequestsHomeController cont;
 @Override
 public View onCreateView(LayoutInflater inflater, ViewGroup container,
 		Bundle savedInstanceState) {
 	// TODO Auto-generated method stub
    
 
-	rootView = inflater.inflate(R.layout.activity_events_home, container, false);
+	rootView = inflater.inflate(R.layout.activity_event_request, container, false);
     
-	eventsList = (ListView) rootView.findViewById(R.id.home_events_list);
+	eventsList = (ListView) rootView.findViewById(R.id.requests_list);
 	
+    Bundle args = getArguments();
+    
+    idEvent = args.getInt("eventId", 0);
+
+    values = EntityFactory.getUsersCustom();
+
+    cont = new RequestsHomeController(this);
+    
+    fillListViewData();
 	setHasOptionsMenu(true);
 	
-	cont = new EventsHomeController(this);
-	
-	
-	JSONObject input = new JSONObject();
-	int id = EntityFactory.getUserInstance().getId();
-	System.out.println("user id at event retrive : " + id);
-	
-	try {
-		input.put("userId", id);
-		cont.retriveAllEvents(input.toString());
-	} catch (JSONException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
-
 	return rootView;
 }
 
 public void fillListViewData(){
 
 	Activity ac = getActivity();
-    CustomBaseAdapter adapter = new CustomBaseAdapter(ac, values);
+    CustomBaseAdapter adapter = new CustomBaseAdapter(ac, values , idEvent ,cont );
     eventsList.setAdapter(adapter);
     eventsList.setOnItemClickListener(this);
 
@@ -94,11 +89,11 @@ public void onItemClick(AdapterView<?> parent, View view, int position, long id)
 	// TODO Auto-generated method stub
 	
 	
-	Toast.makeText(getActivity().getApplicationContext(), values.get(position).getName(), Toast.LENGTH_LONG).show();
-	
-	int eventId = values.get(position).getId();
-	String state = values.get(position).getUserStatue();
-	UIManagerHandler.goToEventDetails(getActivity(), eventId , state);
+	//Toast.makeText(getActivity().getApplicationContext(), values.get(position).getName(), Toast.LENGTH_LONG).show();
+//	
+//	int eventId = values.get(position).getId();
+//	String state = values.get(position).getUserStatue();
+//	UIManagerHandler.goToEventDetails(getActivity(), eventId , state);
 }
 
 @Override

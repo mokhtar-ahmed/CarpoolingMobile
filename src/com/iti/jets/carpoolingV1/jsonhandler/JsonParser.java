@@ -7,6 +7,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.iti.jets.carpoolingV1.pojos.Circle;
+import com.iti.jets.carpoolingV1.pojos.Comment;
+import com.iti.jets.carpoolingV1.pojos.CustomUser;
 import com.iti.jets.carpoolingV1.pojos.Event;
 import com.iti.jets.carpoolingV1.pojos.Location;
 import com.iti.jets.carpoolingV1.pojos.User;
@@ -101,8 +103,34 @@ public class JsonParser {
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		try {
 			ev = new Event();
+			ev.setId(jsonObject.getInt("idEvent"));
+			ev.setName(jsonObject.getString("eventName"));
+			ev.setUserStatue(jsonObject.getString("userStatue"));
+			String dateInString = jsonObject.getString("eventDate");
+			
+			try {
+				ev.setDate(formatter.parse(dateInString));
+				
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+						
+		} catch (JSONException e) {
+			
+			e.printStackTrace();
+		}
+		
+		return ev;
+	}
+	public static Comment parseToCommentList(JSONObject jsonObject){
+		Comment ev =null;
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		try {
+			ev = new Comment();
 			ev.setId(jsonObject.getInt("id"));
-			ev.setName(jsonObject.getString("name"));
+			ev.setUsername(jsonObject.getString("user"));
+			ev.setImage(jsonObject.getString("image"));
+			ev.setText(jsonObject.getString("text"));
 			String dateInString = jsonObject.getString("date");
 			
 			try {
@@ -119,4 +147,23 @@ public class JsonParser {
 		
 		return ev;
 	}
+	public static CustomUser parseToCustomUsertList(JSONObject jsonObject) {
+		CustomUser ev =null;
+		
+		try {
+			ev = new CustomUser();
+			ev.setId(jsonObject.getInt("id"));
+			ev.setUsername(jsonObject.getString("userName"));
+			ev.setImage(jsonObject.getString("userImage"));
+			ev.setUserStatue(jsonObject.getString("userStatue"));
+		
+						
+		} catch (JSONException e) {
+			
+			e.printStackTrace();
+		}
+		
+		return ev;
+	}
+
 }

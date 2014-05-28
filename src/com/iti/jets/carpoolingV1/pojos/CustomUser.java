@@ -2,15 +2,13 @@ package com.iti.jets.carpoolingV1.pojos;
 
 import java.util.Date;
 
-public class Comment  implements java.io.Serializable {
+public class CustomUser  implements java.io.Serializable {
 
 
      private Integer id;
      private String username;
-     private String text;
+     private String userStatue;
      private String image;
-     private Date date;
-     
 	public Integer getId() {
 		return id;
 	}
@@ -23,11 +21,11 @@ public class Comment  implements java.io.Serializable {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	public String getText() {
-		return text;
+	public String getUserStatue() {
+		return userStatue;
 	}
-	public void setText(String text) {
-		this.text = text;
+	public void setUserStatue(String userStatue) {
+		this.userStatue = userStatue;
 	}
 	public String getImage() {
 		return image;
@@ -35,27 +33,19 @@ public class Comment  implements java.io.Serializable {
 	public void setImage(String image) {
 		this.image = image;
 	}
-	public Date getDate() {
-		return date;
-	}
-	public void setDate(Date date) {
-		this.date = date;
-	}
-	public Comment(Integer id, String username, String text, String image,Date date) {
+	public CustomUser(Integer id, String username, String userStatue,
+			String image) {
 		
 		this.id = id;
 		this.username = username;
-		this.text = text;
+		this.userStatue = userStatue;
 		this.image = image;
-		this.date = date;
-	}
-	public Comment() {
-		// TODO Auto-generated constructor stub
 	}
 
+	public CustomUser(){
 
   
-
+	}
 }
 
 
