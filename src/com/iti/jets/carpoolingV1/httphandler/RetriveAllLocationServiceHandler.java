@@ -27,6 +27,7 @@ import com.iti.jets.carpoolingV1.pojos.EntityFactory;
 import com.iti.jets.carpoolingV1.pojos.Location;
 
 import android.os.AsyncTask;
+import android.widget.Toast;
 
 public class RetriveAllLocationServiceHandler extends AsyncTask<String, Void, String> {
 
@@ -72,23 +73,36 @@ public class RetriveAllLocationServiceHandler extends AsyncTask<String, Void, St
 	protected void onPostExecute(String result) {
 	
 		System.out.println(result +"at location retrive");
+		
 		if(result != null){
 		
 			if(result.equals("No Connection") == false){
 			
+				
 				try {
 			
-					ArrayList<Location> locs = new ArrayList<Location>();
-					JSONArray locationsJson = new JSONArray(result);
-					for(int i =0 ; i<locationsJson.length(); i++){
-						Location loc = JsonParser.parseToLocation(locationsJson.getJSONObject(i));
-						System.out.println(loc.getId());
-						
-						if(loc != null)
-							locs.add(loc);
-					}
-					EntityFactory.setLocationsInstance(locs);
+					JSONObject returnedJson = new JSONObject(result);
 					
+					if(returnedJson.getBoolean("HasError")){
+						
+						
+						
+					}
+					else {
+						
+						JSONArray locationsJson = returnedJson.getJSONArray("ResponseValue");
+						
+						ArrayList<Location> locs = new ArrayList<Location>();
+					
+						for(int i =0 ; i<locationsJson.length(); i++){
+							Location loc = JsonParser.parseToLocation(locationsJson.getJSONObject(i));
+							System.out.println(loc.getId());
+							
+							if(loc != null)
+								locs.add(loc);
+						}
+						EntityFactory.setLocationsInstance(locs);
+					}
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

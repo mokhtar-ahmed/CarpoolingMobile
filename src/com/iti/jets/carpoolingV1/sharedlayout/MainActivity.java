@@ -230,7 +230,7 @@ public class MainActivity extends Activity {
 
 	   Intent setIntent = new Intent(getApplicationContext(),MainActivity.class);	 
 	   startActivity(setIntent);
-		//Toast.makeText(getApplicationContext(), "BACK BUTTON PRESSES",Toast.LENGTH_LONG).show();
+		Toast.makeText(getApplicationContext(), "BACK BUTTON PRESSES",Toast.LENGTH_LONG).show();
 	}
 	
 	@Override

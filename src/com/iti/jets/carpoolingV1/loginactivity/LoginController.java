@@ -20,6 +20,7 @@ import com.iti.jets.carpoolingV1.registrationactivity.RegisterFragment;
 import com.iti.jets.carpoolingV1.sharedlayout.MainActivity;
 import com.iti.jets.carpoolingV1.uimanager.UIManagerHandler;
 
+
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -27,6 +28,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.sax.StartElementListener;
+
+import android.app.Activity;
 
 import android.content.SharedPreferences;
 import android.widget.Toast;

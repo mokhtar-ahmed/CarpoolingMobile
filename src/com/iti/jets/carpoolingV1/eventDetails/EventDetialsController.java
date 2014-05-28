@@ -71,7 +71,7 @@ public class EventDetialsController {
 
 	public void retrieveEventHandler(String parm) {
 		
-		new RetriveEvent(this).execute(new String[]{parm});
+//		new RetriveEvent(this).execute(new String[]{parm});
 	
 	}
 

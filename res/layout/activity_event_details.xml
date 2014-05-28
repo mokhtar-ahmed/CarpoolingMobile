@@ -1,5 +1,4 @@
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!--  <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	    android:layout_width="match_parent"
 	    android:layout_height="match_parent"
 	    android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -87,39 +86,223 @@
         
     
    </LinearLayout>
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
 
+	    android:orientation="vertical"
+	    android:background="#000000" 
+	    android:weightSum="100">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="85">
+
+    <LinearLayout 
+	    android:layout_width="match_parent"
+	    android:layout_height="0dp"
+	    android:paddingLeft="@dimen/activity_horizontal_margin"
+	    android:paddingRight="@dimen/activity_horizontal_margin"
+	    android:paddingTop="@dimen/activity_vertical_margin"
+	    android:orientation="vertical"
+	    android:background="#000000" 
+	    android:weightSum="100"
+	   >
+
+       
+        <LinearLayout 
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical"
+	   >
+	    
+		<TextView
+		    android:paddingTop="5dp"
+		    android:paddingBottom="5dp"
+		    android:id="@+id/textView1"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:text="   Event Details"
+		    android:textAlignment="center"
+		    android:background="@drawable/rounded_shape"
+		    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+		<EditText
+		    android:paddingTop="5dp"
+		    android:paddingBottom="5dp"
+		    android:id="@+id/eventNameTxt"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:textAlignment="center"
+		    android:maxLength="20"
+		    android:textColorHint="#000000"
+		    android:hint="  Name"
+		    android:background="@drawable/rect_shape"
+		    android:ems="10" >
+		</EditText>
+		
+		<Button  
+		    android:id="@+id/eventTimeTxt"
+		   	android:text="Time"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		     android:gravity="left|center_vertical"
+		    android:background="@drawable/rect_shape"
+		    />	
+		    
+		<Button  
+		    android:id="@+id/eventDateTxt"
+		   	android:text="Date"
+		   	 android:gravity="left|center_vertical"
+		   	android:textAlignment="textStart"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:background="@drawable/rect_shape"
+		    />	
+			
+		<Button  
+		    android:id="@+id/avaliableSlots"
+		   	android:text="Avaliable Slots"
+		   	 android:gravity="left|center_vertical"
+		   	android:textAlignment="textStart"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:background="@drawable/rounded_shape1"
+		    />		
+	    
+	</LinearLayout>	
+
+            <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+        
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_shape"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:text="   Location"
+                android:textAlignment="center"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <Button
+                android:id="@+id/FromSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rect_shape"
+                android:gravity="left|center_vertical"
+                android:text="From"
+                android:textAlignment="textStart" />
+
+            <Button
+                android:id="@+id/ToSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_shape1"
+                android:gravity="left|center_vertical"
+                android:text="To" />
+        </LinearLayout>
+	
+        
+        <LinearLayout 
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:paddingBottom="@dimen/activity_vertical_margin"
+	    android:paddingLeft="@dimen/activity_horizontal_margin"
+	    android:paddingRight="@dimen/activity_horizontal_margin"
+	    android:paddingTop="@dimen/activity_vertical_margin"
+	    android:orientation="vertical"
+	    >
+	    
+		<TextView
+		    android:paddingTop="5dp"
+		    android:paddingBottom="5dp"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:text="   User"
+		    android:textAlignment="center"
+		    android:background="@drawable/rounded_shape"
+		    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+		
+			<ListView
+		    android:paddingTop="5dp"
+		    android:paddingBottom="5dp"
+		    android:id="@+id/usersList"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content" />
+		    
+	</LinearLayout>
+	
+        
+             <LinearLayout 
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:paddingBottom="@dimen/activity_vertical_margin"
+	    android:paddingLeft="@dimen/activity_horizontal_margin"
+	    android:paddingRight="@dimen/activity_horizontal_margin"
+	    android:paddingTop="@dimen/activity_vertical_margin"
+	    android:orientation="vertical"
+	   >
+	    
+		<TextView
+		    android:paddingTop="5dp"
+		    android:paddingBottom="5dp"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:text="   Comments"
+		    android:textAlignment="center"
+		    
+		    android:background="@drawable/rounded_shape"
+		    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+		<ListView
+		    android:paddingTop="5dp"
+		    android:paddingBottom="5dp"
+		    android:id="@+id/commentsList"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content" >
+</ListView>	
+	
+		    
+	</LinearLayout>
+	
+   </LinearLayout>
+</ScrollView>
     
       <LinearLayout 
 	    android:layout_width="match_parent"
 	    android:layout_height="0dp"
 	    android:orientation="horizontal"
 	    android:background="#000000" 
-	    android:weightSum="100"
-	    android:layout_weight="10">
+	    android:layout_weight="15">
 
           <EditText
-              android:id="@+id/editText1"
-              android:layout_width="0dp"
+              android:id="@+id/writeCommentTxt"
+              android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:hint="Write a comment"
               android:layout_weight="80"
-              android:ems="10" >
+              android:ems="10"
+              android:hint="Write a comment" >
 
-              <requestFocus />
           </EditText>
 
           <Button
-              android:id="@+id/button1"
+              android:id="@+id/sendComment"
               style="?android:attr/buttonStyleSmall"
-              android:layout_width="0dp"
+              android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:layout_weight="20"
               android:text="Send" />
-
-   
-                   
-        
-</LinearLayout>
-
+          
+          </LinearLayout>
     
-</LinearLayout>
+ </LinearLayout>

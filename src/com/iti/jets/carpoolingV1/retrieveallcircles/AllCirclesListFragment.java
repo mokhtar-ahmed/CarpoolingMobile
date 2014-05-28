@@ -17,6 +17,8 @@ import com.iti.jets.carpoolingV1.*;
 import com.iti.jets.carpoolingV1.httphandler.HttpConstants;
 import com.iti.jets.carpoolingV1.pojos.EntityFactory;
 import com.iti.jets.carpoolingV1.registrationactivity.RegisterFragment;
+import com.iti.jets.carpoolingV1.renamecircle.RenameCircleServiceHandler;
+import com.iti.jets.carpoolingV1.retrieveallcircles.CirclesCustomArrayAdapter.ViewHolder;
 import com.iti.jets.carpoolingV1.synccontactsactivity.SyncContactsCustomArrayAdapter;
 import com.iti.jets.carpoolingV1.synccontactsactivity.SyncContactsFragment;
 import com.iti.jets.carpoolingV1.common.*;
@@ -30,6 +32,7 @@ import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -42,6 +45,7 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -50,7 +54,7 @@ public class AllCirclesListFragment extends Fragment {
 
 	ArrayList<Circle> userCirclesList = new ArrayList<Circle>();
 	ListView list;
-	
+	Circle circleValues;
 	CirclesCustomArrayAdapter adapter;
 	ImageView addCircle,delCircle;
 	  View rootView;
@@ -93,7 +97,6 @@ public class AllCirclesListFragment extends Fragment {
 			tempCircle.setCircleImage(jsObj.getString("circleImage"));
 			
 			userCirclesList .add(tempCircle);
-			//Toast.makeText(getActivity().getApplicationContext(),tempCircle.getCircleName(),Toast.LENGTH_LONG).show();
 			System.out.println("Size"+"  "+userCirclesList.size());
 		}
 		
@@ -134,13 +137,10 @@ public class AllCirclesListFragment extends Fragment {
 				FragmentManager fragmentManager = getFragmentManager();
 				fragmentManager.beginTransaction()
 					.replace(R.id.frame_container, fragment).commit();  
-				
-
+			
 			}
          });
-		
- 
- 
+
 	}
 
 	@Override
@@ -160,12 +160,134 @@ public class AllCirclesListFragment extends Fragment {
 			
 		    fragment.setArguments(args);
 			fragmentManager.beginTransaction()
-					.replace(R.id.frame_container, fragment).addToBackStack("AllCirclesListFragment").commit();
+					.replace(R.id.frame_container, fragment).addToBackStack(" AllCirclesListFragment").commit();
 			break;
 
 		case R.id.del:
+			
+			//new CirclesCustomArrayAdapter().setCheckBoxVisible();
+			
 			CirclesCustomArrayAdapter.deleteflag = true;	
+			if((circleValues.getCircleName().equals("Friends"))||circleValues.getCircleName().equals("Family")||(circleValues.getCircleName().equals("Work")))
+			{
+				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+						getActivity());
+		 
+					// set title
+					alertDialogBuilder.setTitle("Error");
+		 
+					// set dialog message
+					alertDialogBuilder
+						.setMessage("Circle Can't be deleted!")
+						.setCancelable(false)
+						.setPositiveButton("OK",new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,int id) {
+								
+							}
+						  });
+						
+		 
+						// create alert dialog
+						AlertDialog alertDialog = alertDialogBuilder.create();
+		 
+						// show it
+						alertDialog.show();
+			}
+			else
+			{
+			
+			AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+					getActivity());
+	// 
+				// set title
+				alertDialogBuilder.setTitle("Confirm");
+	// 
+				// set dialog message
+				alertDialogBuilder
+					.setMessage("Are you sure you want to delete this circle?")
+					.setCancelable(false)
+					.setPositiveButton("Delete",new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog,int id) {
+							// if this button is clicked, close
+							// current activity
+							DeleteCircleController deleteCircleController = new DeleteCircleController();
+							deleteCircleController.setArguments(circleValues,new FragmentCallback(){
+							@Override
+							public void onTaskDone(String result) {
+								// TODO Auto-generated method stub
+								
+								Fragment fragment = new AllCirclesListFragment(); 
+								FragmentManager fragmentManager = AllCirclesListFragment.this.getFragmentManager();
+								fragmentManager.beginTransaction()
+										.replace(R.id.frame_container, fragment).addToBackStack("EventsHome").commit();
+								
+							}
+				         });
+						}
+					  })
+					.setNegativeButton("Cancel",new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog,int id) {
+							// if this button is clicked, just close
+							// the dialog box and do nothing
+							dialog.cancel();
+						}
+					});
+	// 
+					// create alert dialog
+					AlertDialog alertDialog = alertDialogBuilder.create();
+	// 
+					// show it
+					alertDialog.show();
+			}	
+			
 			break;
+		case R.id.update:
+			LayoutInflater li = LayoutInflater.from(getActivity());
+			View promptsView = li.inflate(R.layout.prompts, null);
+			 
+			AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+					getActivity());
+
+			// set prompts.xml to alertdialog builder
+			alertDialogBuilder.setView(promptsView);
+
+			final EditText userInput = (EditText) promptsView
+					.findViewById(R.id.editTextDialogUserInput);
+			userInput.setText(circleValues.getCircleName());
+
+			// set dialog message
+			alertDialogBuilder
+				.setCancelable(false)
+				.setPositiveButton("Save",
+				  new DialogInterface.OnClickListener() {
+				    public void onClick(DialogInterface dialog,int id) {
+					// get user input and set it to result
+					// edit text
+				  
+				    	String newCircleName = userInput.getText().toString();
+				    	if(!newCircleName.equals(""))
+				    	{
+				    		RenameCircleServiceHandler serviceHandler = new RenameCircleServiceHandler();
+					    	serviceHandler.connectToWebService(newCircleName,circleValues,AllCirclesListFragment.this);
+				    	}
+				    	
+				   
+					
+				    }
+				  })
+				.setNegativeButton("Cancel",
+				  new DialogInterface.OnClickListener() {
+				    public void onClick(DialogInterface dialog,int id) {
+					dialog.cancel();
+				    }
+				  });
+
+			// create alert dialog
+			AlertDialog alertDialog = alertDialogBuilder.create();
+
+			// show it
+			alertDialog.show();
+			break;	
 		default:
 			break;
 		}
@@ -175,77 +297,21 @@ public class AllCirclesListFragment extends Fragment {
 	public void oncheckCircle(final Circle circleValues) {
 		System.out.println("///////////////////////////////////////////"+circleValues.getCircleName());
 		System.out.println("///////////////////////////////////////////"+circleValues.getCircleId());
-		if((circleValues.getCircleId() == 1)||(circleValues.getCircleId() == 2)||(circleValues.getCircleId() == 3))
-		{
-			AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-					getActivity());
-	 
-				// set title
-				alertDialogBuilder.setTitle("Error");
-	 
-				// set dialog message
-				alertDialogBuilder
-					.setMessage("Circle Can't be deleted!")
-					.setCancelable(false)
-					.setPositiveButton("OK",new DialogInterface.OnClickListener() {
-						public void onClick(DialogInterface dialog,int id) {
-							
-						}
-					  });
-					
-	 
-					// create alert dialog
-					AlertDialog alertDialog = alertDialogBuilder.create();
-	 
-					// show it
-					alertDialog.show();
-		}
-		else
-		{
 		
-		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-				getActivity());
- 
-			// set title
-			alertDialogBuilder.setTitle("Confirm");
- 
-			// set dialog message
-			alertDialogBuilder
-				.setMessage("Are you sure you want to delete this circle?")
-				.setCancelable(false)
-				.setPositiveButton("Delete",new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog,int id) {
-						// if this button is clicked, close
-						// current activity
-						DeleteCircleController deleteCircleController = new DeleteCircleController();
-						deleteCircleController.setArguments(circleValues,new FragmentCallback(){
-						@Override
-						public void onTaskDone(String result) {
-							// TODO Auto-generated method stub
-							
-							Fragment fragment = new AllCirclesListFragment(); 
-							FragmentManager fragmentManager = AllCirclesListFragment.this.getFragmentManager();
-							fragmentManager.beginTransaction()
-									.replace(R.id.frame_container, fragment).addToBackStack("AllCirclesListFragment").commit();
-							
-						}
-			         });
-					}
-				  })
-				.setNegativeButton("Cancel",new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog,int id) {
-						// if this button is clicked, just close
-						// the dialog box and do nothing
-						dialog.cancel();
-					}
-				});
- 
-				// create alert dialog
-				AlertDialog alertDialog = alertDialogBuilder.create();
- 
-				// show it
-				alertDialog.show();
-		}	
+		this.circleValues = circleValues;
+		
+		
+
+	}
+
+	public void refresh() {
+		// TODO Auto-generated method stub
+		    AllCirclesListFragment currentFragment = new AllCirclesListFragment();
+		    android.app.FragmentTransaction fragTransaction = getFragmentManager().beginTransaction();
+		    fragTransaction.detach(currentFragment);
+		    fragTransaction.attach(currentFragment);
+		    fragTransaction.commit();
+		
 	}
  
 }
