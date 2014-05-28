@@ -4,7 +4,10 @@ import android.util.Log;
 
 public final class HttpConstants {
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> branch 'master' of https://github.com/mokhtar-ahmed/CarpoolingMobile.git
 	//Webservices URI addresses 
   //  public static final String SERVER_URL="http://192.168.200.1:9191/CarpoolingBackendFinal/service/";
     public static final String SERVER_URL="http://10.145.57.134:9191/CarpoolingBackendFinal/service/";
@@ -18,8 +21,13 @@ public final class HttpConstants {
 	public static final String RETRIEVE_USER_NOTIFICATION_SERVICE_URL="event/getUserJoinEvents";
 	public static final String RETRIEVE_EVENT_SERVICE_URL="event/getEvent";
 	public static final String UPDATE_EVENT_SERVICE_URL="event/updateEvent";
+<<<<<<< HEAD
 
 
+=======
+	public static final String ADD_COMMENT_URL="comment/addComment";
+	public static final String DELETE_COMMENT_URL = "comment/deleteComments";
+>>>>>>> branch 'master' of https://github.com/mokhtar-ahmed/CarpoolingMobile.git
 	public static final String RETRIVE_ALL_LOCATIONS_SERVICE_URL="location/allLocation";
 	public static final String RETRIVE_ALL_USER_CIRCLES_SERVICE_URL="viewcircle/view";
 	public static final String RETRIVE_EVENT_SERVICE_URL="event/getEvent";
