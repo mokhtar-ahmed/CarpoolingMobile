@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android" 
   >
@@ -7,23 +6,9 @@
      <solid
         android:color="#FFCBA4" >
     </solid>
+  
    <stroke android:width="1dip" android:color="#000000" />
 <corners
    android:topLeftRadius="14dp"
    android:topRightRadius="14dp" />
 </shape>
-=======
-<?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android" >
-  <stroke android:width="12dp"
-    android:color="#FFFFFF"/>
-  <gradient 
-    android:angle="225"
-    android:startColor="#ffffff"
-    android:endColor="#ffffff"/>
-   <stroke android:width="1dip" android:color="#000000" />
-<corners
-   android:topLeftRadius="14dp"
-   android:topRightRadius="14dp" />
-</shape>
->>>>>>> branch 'master' of https://github.com/mokhtar-ahmed/CarpoolingMobile.git

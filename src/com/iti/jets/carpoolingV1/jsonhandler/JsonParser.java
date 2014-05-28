@@ -7,12 +7,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.iti.jets.carpoolingV1.pojos.Circle;
-import com.iti.jets.carpoolingV1.pojos.Comment;
-<<<<<<< HEAD
-//import com.iti.jets.carpoolingV1.pojos.CustomUser;
-=======
-import com.iti.jets.carpoolingV1.pojos.CustomUser;
->>>>>>> branch 'master' of https://github.com/mokhtar-ahmed/CarpoolingMobile.git
 import com.iti.jets.carpoolingV1.pojos.Event;
 import com.iti.jets.carpoolingV1.pojos.Location;
 import com.iti.jets.carpoolingV1.pojos.User;
@@ -107,40 +101,9 @@ public class JsonParser {
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		try {
 			ev = new Event();
-			ev.setId(jsonObject.getInt("idEvent"));
-			ev.setName(jsonObject.getString("eventName"));
-<<<<<<< HEAD
-//			ev.setUserStatue(jsonObject.getString("userStatue"));
-			String dateInString = jsonObject.getString("eventDate");
-=======
-			ev.setUserStatue(jsonObject.getString("userStatue"));
-			String dateInString = jsonObject.getString("eventDate");
-			
-			try {
-				ev.setDate(formatter.parse(dateInString));
-				
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
-						
-		} catch (JSONException e) {
-			
-			e.printStackTrace();
-		}
-		
-		return ev;
-	}
-	public static Comment parseToCommentList(JSONObject jsonObject){
-		Comment ev =null;
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		try {
-			ev = new Comment();
 			ev.setId(jsonObject.getInt("id"));
-			ev.setUsername(jsonObject.getString("user"));
-			ev.setImage(jsonObject.getString("image"));
-			ev.setText(jsonObject.getString("text"));
+			ev.setName(jsonObject.getString("name"));
 			String dateInString = jsonObject.getString("date");
->>>>>>> branch 'master' of https://github.com/mokhtar-ahmed/CarpoolingMobile.git
 			
 			try {
 				ev.setDate(formatter.parse(dateInString));
@@ -156,69 +119,4 @@ public class JsonParser {
 		
 		return ev;
 	}
-<<<<<<< HEAD
-//	public static Comment parseToCommentList(JSONObject jsonObject){
-//		Comment ev =null;
-//		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//		try {
-//			ev = new Comment();
-//			ev.setId(jsonObject.getInt("id"));
-//			ev.setUsername(jsonObject.getString("user"));
-//			ev.setImage(jsonObject.getString("image"));
-//			ev.setText(jsonObject.getString("text"));
-//			String dateInString = jsonObject.getString("date");
-//			
-//			try {
-//				ev.setDate(formatter.parse(dateInString));
-//				
-//			} catch (ParseException e) {
-//				e.printStackTrace();
-//			}
-//						
-//		} catch (JSONException e) {
-//			
-//			e.printStackTrace();
-//		}
-//		
-//		return ev;
-//	}
-//	public static CustomUser parseToCustomUsertList(JSONObject jsonObject) {
-//		CustomUser ev =null;
-//		
-//		try {
-//			ev = new CustomUser();
-//			ev.setId(jsonObject.getInt("id"));
-//			ev.setUsername(jsonObject.getString("userName"));
-//			ev.setImage(jsonObject.getString("userImage"));
-//			ev.setUserStatue(jsonObject.getString("userStatue"));
-//		
-//						
-//		} catch (JSONException e) {
-//			
-//			e.printStackTrace();
-//		}
-//		
-//		return ev;
-//	}
-=======
-	public static CustomUser parseToCustomUsertList(JSONObject jsonObject) {
-		CustomUser ev =null;
-		
-		try {
-			ev = new CustomUser();
-			ev.setId(jsonObject.getInt("id"));
-			ev.setUsername(jsonObject.getString("userName"));
-			ev.setImage(jsonObject.getString("userImage"));
-			ev.setUserStatue(jsonObject.getString("userStatue"));
-		
-						
-		} catch (JSONException e) {
-			
-			e.printStackTrace();
-		}
-		
-		return ev;
-	}
->>>>>>> branch 'master' of https://github.com/mokhtar-ahmed/CarpoolingMobile.git
-
 }

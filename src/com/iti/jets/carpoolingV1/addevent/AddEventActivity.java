@@ -10,13 +10,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.iti.jets.carpoolingV1.R;
-import com.iti.jets.carpoolingV1.R.array;
 import com.iti.jets.carpoolingV1.pojos.EntityFactory;
 
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 
 import android.app.Fragment;
 import android.app.TimePickerDialog;
@@ -50,35 +48,21 @@ public class AddEventActivity extends Fragment{
 		Button tp;
 		Button dp;
 		String[] noOfSlotsArr = new String[]{"1","2","3","4","5"};
-		
 		Calendar c = Calendar.getInstance();
-		Calendar c1 = Calendar.getInstance();
-		
-        int mYear = c.get(Calendar.YEAR);
+        int  mYear = c.get(Calendar.YEAR);
         int mMonth = c.get(Calendar.MONTH);
         int mDay = c.get(Calendar.DAY_OF_MONTH);
         int mHour = c.get(Calendar.HOUR);
         int mMinute = c.get(Calendar.MINUTE);
 
-        int currentYear = c1.get(Calendar.YEAR);
-        int currentMonth = c1.get(Calendar.MONTH);
-        int currentDay = c1.get(Calendar.DAY_OF_MONTH);
-        int currentHour = c1.get(Calendar.HOUR);
-        int currentMinute = c1.get(Calendar.MINUTE);
-
-        
         ArrayList<Integer> selectedLocs = new ArrayList<Integer>();
         ArrayList<Integer> selectedCirs= new ArrayList<Integer>();
-        ArrayList<Integer> selectedBlocked= new ArrayList<Integer>();
-        
         int selectedFrom ;
         int selectedNoOfSlots ;
         
 		ArrayList<String> locs = new ArrayList<String>() ;
-		ArrayList<User> Users = new ArrayList<User>() ;
 		ArrayList<String> cirs = new ArrayList<String>() ;
-		ArrayList< String> ul = new ArrayList<String>();
-		Dialog prog ;
+
 	AddEventController cont ;
 		
 	public AddEventActivity(){}
@@ -289,35 +273,8 @@ public class AddEventActivity extends Fragment{
 
   		                   @Override
   		                   public void onClick(DialogInterface dialog, int which) {
-  		                	//   showBlockUserDialog();
-  		                  
-  		                	 if(selectedCirs != null){
-  		                		 JSONObject circlesIds = new JSONObject();
-  		                		 JSONArray circlesList = new JSONArray(); 
-  		                		
-  		       				for(Integer i  : selectedCirs){
-  		       					int cirId = EntityFactory.getCircleByName(cirs.get(i.intValue())).getId();
-  		       					
-								circlesList.put(cirId);
-  		       					System.out.println("retrive users in circle = "+i.intValue());	
-  		       				}
-  		       				
-  		       			    try {
-								circlesIds.put("circlesIds", circlesList);
-								cont.getCirclesUsers(circlesIds);
-		  		       			
-	  		       				prog = new Dialog(getActivity());
-	  		       				prog.setContentView(R.layout.custom_dialog);
-	  		       				prog.show();
-	  		       				
-							} catch (JSONException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-  		       			
-  		       			}
-  		                	 
-  		                	  
+  		                	   showBlockUserDialog();
+  		                
   		                   }
   		               });
   		  
@@ -379,15 +336,14 @@ public class AddEventActivity extends Fragment{
                                   mYear = yearSelected;
                                   mMonth = monthOfYear;
                                   mDay = dayOfMonth;
-                        
                                   
                                   dp.setText(""+mDay+"-"+mMonth+"-"+mYear);
                        }
       };
              
-    private TimePickerDialog.OnTimeSetListener mTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
+      private TimePickerDialog.OnTimeSetListener mTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
                       
-    public void onTimeSet(TimePicker view, int hourOfDay, int min) {
+       public void onTimeSet(TimePicker view, int hourOfDay, int min) {
                                        mHour = hourOfDay;
                                        mMinute = min;
                                        tp.setText(""+mHour+"-"+mMinute);
@@ -399,7 +355,9 @@ public class AddEventActivity extends Fragment{
 		// TODO Auto-generated method stub
 		switch (item.getItemId()) {
 		case R.id.add_event_icon:
-			saveEvent();return true;	
+			saveEvent();
+			
+		return true;	
 		
 
 		default:
@@ -412,16 +370,7 @@ public class AddEventActivity extends Fragment{
 		// TODO Auto-generated method stub
 	
 		Date d = new Date(mYear,mMonth,mDay,mHour,mMinute);
-		Date d1 = new Date(currentYear,currentMonth,currentDay,currentHour,currentMinute);
-		
-		if(d.compareTo(d1) <= 0){
-			
-			dp.setError("Wrong date");
-		}
-		
-		else {
-			
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		SimpleDateFormat formatter = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
 		String dateStr = formatter.format(d);
 		System.out.println("selected date is  " + dateStr);
 		
@@ -433,75 +382,35 @@ public class AddEventActivity extends Fragment{
 		try {
 			
 			input.put("eventName",eventName);
-			
-			input.put("eventDate", dateStr);
-			input.put("eventStatue", "new");
+			input.put("fromLocation", selectedFrom);
+			input.put("date", dateStr);
 			input.put("noOfSlots", selectedNoOfSlots);
 
-			  JSONObject loc = new JSONObject();
-			  Location l = EntityFactory.getLocationByAddress(locs.get(selectedFrom));
-	          loc.put("idLocation", l.getId());
-	          loc.put("address", l.getAddress());
-	        
-	        input.put("location", loc);
-	        
-	        int userId = EntityFactory.getUserInstance().getId();
-	        JSONObject user = new JSONObject();
-            user.put("id", userId);
-            input.put("user", user);
-            
-            
-            JSONArray locsTo = new JSONArray();
-
 			if(selectedLocs != null){
-				
-				int order = 1;
-				
 				for(Integer i  : selectedLocs){
-					
-					JSONObject eventLocationJson = new JSONObject();
-					JSONObject locJson = new JSONObject();
-					 Location ll = EntityFactory.getLocationByAddress(locs.get( i.intValue()));
-					 locJson.put("id",ll.getId());
-					eventLocationJson.put("toOrder",order++);
-	                eventLocationJson.put("location", locJson);    
-	                locsTo.put(eventLocationJson);
-					System.out.println(ll.getId());	
+					toLocations.put(i.intValue());
+					System.out.println(i.intValue());	
 				}
 			}
 			
 			if(selectedCirs != null){
 				for(Integer i  : selectedCirs){
-					int cirId = EntityFactory.getCircleByName(cirs.get(i.intValue())).getId();
-					circlesList.put(cirId);
+					circlesList.put(i.intValue());
 					System.out.println(i.intValue());	
 				}
 			}
 		
-			input.put("eventToLocations", locsTo);
-			input.put("cirlclesId", circlesList);
+			input.put("to", toLocations);
+			input.put("circles", circlesList);
 			
-			JSONArray blocked = new JSONArray();
-			
-			for(Integer i  : selectedBlocked){
-				int usrId = Users.get(i.intValue()).getId();
-				blocked.put(usrId);
-				System.out.println(usrId +"user blocked  id ");	
-			}
-	            
-	        input.put("blockUsers", blocked);
-	            
-	      // Toast.makeText(getActivity().getApplicationContext(), input.toString(), Toast.LENGTH_LONG).show();
-	           
-	        System.out.println(input.toString());
 			cont.addEventHandler(input.toString());
 			
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 	}
-}
 		
 	
 
@@ -514,30 +423,25 @@ public class AddEventActivity extends Fragment{
 
 
 
-    public void showBlockUserDialog(){
+    private void showBlockUserDialog(){
     	
-    	  	//		selectedCirs.clear();
-    	  		
-    	  			for(User u : Users)
-    	  				ul.add(u.getName());
-    	  				
-    	  			
+    	  			selectedCirs.clear();
     	  		       final Builder builderSingle = new AlertDialog.Builder(getActivity());
     	  		       
     	  		       builderSingle.setIcon(R.drawable.ic_action_locate);
     	  		      
     	  		       builderSingle.setTitle("Block Users");
     	  		       
-    	  			   builderSingle.setMultiChoiceItems(ul.toArray(new CharSequence[ul.size()]) , null,   new DialogInterface.OnMultiChoiceClickListener(){
+    	  			   builderSingle.setMultiChoiceItems(new String[]{"Mokhtar" , "Sarah" , "Norhan"} , null,   new DialogInterface.OnMultiChoiceClickListener(){
 
     	  					@Override
     	  					public void onClick(DialogInterface dialog,
     	  							int which, boolean isChecked) {
     	  						
-    	  						if(isChecked)
-    	  							selectedBlocked.add(which);
-    	  						else 
-    	  							selectedBlocked.remove(which);
+    	  						//if(isChecked)
+    	  						//	selectedCirs.add(which);
+    	  						//else 
+    	  							//selectedCirs.remove(which);
     	  						
     	  					}});
     	  		      

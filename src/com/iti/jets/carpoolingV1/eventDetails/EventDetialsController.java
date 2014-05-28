@@ -1,18 +1,10 @@
 package com.iti.jets.carpoolingV1.eventDetails;
 
-import java.util.ArrayList;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import android.widget.Toast;
 import com.iti.jets.carpoolingV1.httphandler.RetriveEvent;
-import com.iti.jets.carpoolingV1.httphandler.UpdateEvent;
-import com.iti.jets.carpoolingV1.jsonhandler.JsonParser;
-import com.iti.jets.carpoolingV1.pojos.Comment;
-import com.iti.jets.carpoolingV1.pojos.CustomUser;
-import com.iti.jets.carpoolingV1.pojos.EntityFactory;
-import com.iti.jets.carpoolingV1.pojos.Location;
 
 public class EventDetialsController {
 	EventDetailsActivity view;
@@ -23,62 +15,46 @@ public class EventDetialsController {
 	}
 	public void onPostExecute(String result) {
 		
-		//Toast.makeText(view.getActivity().getApplicationContext(), result, Toast.LENGTH_LONG).show();
+		Toast.makeText(view.getActivity().getApplicationContext(), result, Toast.LENGTH_LONG).show();
 		System.out.println(result);
 		
 		if(result.equals("No Connection") == false){
 			
 			try {
 				
-				JSONObject Obj = new JSONObject(result);
-				JSONObject eventObj	= Obj.getJSONObject("ResponseValue");
-				
+				JSONObject eventObj = new JSONObject(result);
+
 				
 					JSONArray toList = eventObj.getJSONArray("eventToLocation");
 					JSONArray members = eventObj.getJSONArray("joinEvent");
 					JSONArray comments = eventObj.getJSONArray("comments");
 					JSONObject loc = eventObj.getJSONObject("location");
 					
-				view.toTxt.setText("To :\t ");
+				view.eventTo.setText("To :\n\t");
 				for(int i=0;i<toList.length();i++){
 					
 					JSONObject jj = toList.getJSONObject(i);
-					view.toTxt.append(jj.getString("address")+",");
+					view.eventTo.append(jj.getString("address")+",");
 				}
 			
-				view.eventNameTxt.setText("Event Name :\t"+ eventObj.getString("eventName"));
-				
-				view.fromTxt.setText("From :\t"+ loc.getString("address"));
-				view.no_of_slots.setText("slots : \n \t"+ eventObj.getInt("noOfSlots"));
-				view.dp.setText("Date :\n\t"+eventObj.getString("eventDate"));	
-				
-				ArrayList<Comment> commentslist = new ArrayList<Comment>(); 
-				for (int i = 0; i < comments.length(); i++) {
+				view.eventName.setText("Event Name : \n \t"+ eventObj.getString("eventName"));
+				view.eventFrom.setText("From : \n \t"+ loc.getString("address"));
+				view.noOfSlots.setText("Number of avaliable slots : \n \t"+ eventObj.getInt("noOfSlots"));
+				view.eventDate.setText("Date :\n\t"+eventObj.getString("eventDate"));	
+				view.members.setText("Members :\n\t");
+				for(int i=0;i<members.length();i++){
 					
-					Comment comment = JsonParser.parseToCommentList(comments.getJSONObject(i));
-					System.out.println(comment.getId() +"coment id ");
-					
-					if(comment != null)
-						commentslist.add(comment);
-					
+					JSONObject jj = members.getJSONObject(i);
+					view.members.append(jj.getString("userName")+"\n\t");
 				}
-				view.commentsList = commentslist;
 				
-				view.fillCommentList();
-				ArrayList<CustomUser> userList = new ArrayList<CustomUser>(); 
-				for (int i = 0; i < members.length(); i++) {
+				view.comments.setText("Comments :\n\t");
+				for(int i=0;i<comments.length();i++){
 					
-					CustomUser us = JsonParser.parseToCustomUsertList(members.getJSONObject(i));
-					System.out.println(us.getId() +"custom user id ");
-					
-					if(us != null)
-						userList.add(us);
-					
+					JSONObject jj = comments.getJSONObject(i);
+					view.comments.append(jj.getString("user")+":\t"+jj.getString("text"));
 				}
-				view.usersList = userList;
-				EntityFactory.setUsersCustom(userList);
 				
-				view.fillUsersList();
 				
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
@@ -97,34 +73,6 @@ public class EventDetialsController {
 		
 		new RetriveEvent(this).execute(new String[]{parm});
 	
-	}
-	public void updateEventHandler(String string) {
-		// TODO Auto-generated method stub
-		new UpdateEvent(this).execute(new String[]{string});
-		
-	}
-	public void onUpdatePostExecute(String result) {
-		// TODO Auto-generated method stub
-		
-		
-		try {
-			
-			if(result.equals("No Connection") == false){
-				JSONObject ob = new JSONObject(result);
-				
-				if(ob.getBoolean("HasError") == true){
-					Toast.makeText(view.getActivity().getApplicationContext(),ob.getString("FaultsMsg"), Toast.LENGTH_LONG).show();			
-					
-				}else{
-					
-					Toast.makeText(view.getActivity().getApplicationContext(),ob.getString("ResponseValue"), Toast.LENGTH_LONG).show();
-				}
-			}
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
 	}
 
 }

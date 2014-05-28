@@ -4,7 +4,6 @@ package com.iti.jets.carpoolingV1.splashscreen;
 import java.io.IOException;
 import java.util.concurrent.atomic.AtomicInteger;
 
-<<<<<<< HEAD
 //import com.google.android.gms.common.ConnectionResult;
 //import com.google.android.gms.common.GooglePlayServicesUtil;
 //import com.google.android.gms.gcm.GoogleCloudMessaging;
@@ -13,12 +12,6 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.iti.carpoolingV1.pushdemo.MainActivity;
 import com.iti.carpoolingV1.pushdemo.MainActivity.NewTask;
-=======
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.google.android.gms.gcm.GoogleCloudMessaging;
-
->>>>>>> branch 'master' of https://github.com/mokhtar-ahmed/CarpoolingMobile.git
 import com.iti.jets.carpoolingV1.R;
 import com.iti.jets.carpoolingV1.httphandler.RetriveAllLocationServiceHandler;
 import com.iti.jets.carpoolingV1.loginactivity.LoginActivity;
@@ -148,11 +141,7 @@ public class SplashScreen extends Activity {
 	
 	private SharedPreferences getGCMPreferences(Context context) {
 
-<<<<<<< HEAD
 	    return getSharedPreferences(MainActivity.class.getSimpleName(),Context.MODE_PRIVATE);
-=======
-	    return getSharedPreferences(SplashScreen.class.getSimpleName(),Context.MODE_PRIVATE);
->>>>>>> branch 'master' of https://github.com/mokhtar-ahmed/CarpoolingMobile.git
 	}
 	
 	private static int getAppVersion(Context context) {
