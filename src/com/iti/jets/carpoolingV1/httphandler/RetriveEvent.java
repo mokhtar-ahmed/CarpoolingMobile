@@ -25,10 +25,17 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.iti.jets.carpoolingV1.addevent.AddEventController;
+<<<<<<< HEAD
 //import com.iti.jets.carpoolingV1.eventDetails.AcceptedEventDetialsController;
 //import com.iti.jets.carpoolingV1.eventDetails.EventDetialsController;
 //import com.iti.jets.carpoolingV1.eventDetails.InvitedEventDetailsActivity;
 //import com.iti.jets.carpoolingV1.eventDetails.InvitedEventDetialsController;
+=======
+import com.iti.jets.carpoolingV1.eventDetails.AcceptedEventDetialsController;
+import com.iti.jets.carpoolingV1.eventDetails.EventDetialsController;
+import com.iti.jets.carpoolingV1.eventDetails.InvitedEventDetailsActivity;
+import com.iti.jets.carpoolingV1.eventDetails.InvitedEventDetialsController;
+>>>>>>> branch 'master' of https://github.com/mokhtar-ahmed/CarpoolingMobile.git
 import com.iti.jets.carpoolingV1.eventshome.EventsHomeController;
 
 import android.os.AsyncTask;
@@ -47,6 +54,7 @@ import android.widget.Toast;
 
 public class RetriveEvent extends AsyncTask<String, Void, String> {
 	
+<<<<<<< HEAD
 //	String output;
 //	EventDetialsController controller =null ;
 //	InvitedEventDetialsController controller1 = null;
@@ -68,6 +76,29 @@ public class RetriveEvent extends AsyncTask<String, Void, String> {
 //		
 //		this.controller2 = controller;
 //	}
+=======
+	String output;
+	EventDetialsController controller =null ;
+	InvitedEventDetialsController controller1 = null;
+	AcceptedEventDetialsController controller2 = null;
+	
+	String url = HttpConstants.SERVER_URL + HttpConstants.RETRIVE_EVENT_SERVICE_URL;
+	
+	public RetriveEvent(EventDetialsController controller){
+	
+		this.controller = controller;
+	}
+	
+	public RetriveEvent(InvitedEventDetialsController controller){
+		
+		this.controller1 = controller;
+	}
+
+	public RetriveEvent(AcceptedEventDetialsController controller){
+		
+		this.controller2 = controller;
+	}
+>>>>>>> branch 'master' of https://github.com/mokhtar-ahmed/CarpoolingMobile.git
 @Override
 protected String doInBackground(String... params) {
 	          
@@ -103,6 +134,7 @@ protected String doInBackground(String... params) {
 	 }
 //
 	        @Override
+<<<<<<< HEAD
             protected void onPostExecute(String result) {
 //	        
 //	        	if(controller != null)
@@ -113,6 +145,18 @@ protected String doInBackground(String... params) {
 //	        	else if (controller2 != null ){
 //	        		controller2.onPostExecute(result);
 //	        	}
+=======
+	        protected void onPostExecute(String result) {
+	        
+	        	if(controller != null)
+	        		controller.onPostExecute(result);
+	        	else if (controller1 != null ){
+	        		controller1.onPostExecute(result);
+	        	}
+	        	else if (controller2 != null ){
+	        		controller2.onPostExecute(result);
+	        	}
+>>>>>>> branch 'master' of https://github.com/mokhtar-ahmed/CarpoolingMobile.git
 	        }
    
 }

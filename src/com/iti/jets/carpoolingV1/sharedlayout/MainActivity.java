@@ -177,7 +177,11 @@ public class MainActivity extends Activity {
 			
 			break;
 		case 1:
+<<<<<<< HEAD
 
+=======
+			fragment = new NotificationHome();
+>>>>>>> branch 'master' of https://github.com/mokhtar-ahmed/CarpoolingMobile.git
 			break;
 		case 2:
 			fragment = new EventsHome();
