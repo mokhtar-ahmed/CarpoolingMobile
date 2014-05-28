@@ -15,11 +15,6 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-<<<<<<< HEAD
-=======
-
- 
->>>>>>> branch 'master' of https://github.com/mokhtar-ahmed/CarpoolingMobile.git
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <permission android:name="com.iti.jets.carpoolingV1.pushdemo.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
@@ -29,7 +24,6 @@
         android:allowBackup="true"
         android:icon="@drawable/small_logo"
         android:label="@string/app_name"
-<<<<<<< HEAD
         android:theme="@style/AppTheme" >
         <receiver
             android:name="com.iti.jets.carpoolingV1.pushdemo.GcmBroadcastReceiver"
@@ -40,22 +34,7 @@
             </intent-filter>
         </receiver>
      <service android:name="com.iti.jets.carpoolingV1.pushdemo.GcmIntentService" />
-=======
-        android:theme="@style/AppTheme" >
-    
-        <receiver
-            android:name="com.iti.jets.carpoolingV1.pushdemo.GcmBroadcastReceiver"
-            android:permission="com.google.android.c2dm.permission.SEND" >
-            <intent-filter>
-                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-                <category android:name="com.iti.jets.carpoolingV1.pushdemo" />
-            </intent-filter>
-        </receiver>
-        
-        <service android:name="com.iti.jets.carpoolingV1.pushdemo.GcmIntentService" />
-        
   
->>>>>>> branch 'master' of https://github.com/mokhtar-ahmed/CarpoolingMobile.git
         <activity
             android:name="com.iti.jets.carpoolingV1.splashscreen.SplashScreen"
             android:label="5odny M3k">
@@ -99,18 +78,6 @@
       <meta-data android:name="com.google.android.gms.version"
       android:value="@integer/google_play_services_version" />
 
-<<<<<<< HEAD
-=======
-        <activity 
-            android:name="com.iti.jets.carpoolingV1.registrationactivity.RegisterActivity"
-            android:label="Register" >
-        </activity>
-        
-          <meta-data android:name="com.google.android.gms.version"
-      android:value="@integer/google_play_services_version" />
-     
-          
->>>>>>> branch 'master' of https://github.com/mokhtar-ahmed/CarpoolingMobile.git
     </application>
 
 </manifest>
