@@ -5,11 +5,10 @@ import android.util.Log;
 public final class HttpConstants {
 
 
-   //public static final String SERVER_URL="http://192.168.1.7:8090/CarpoolingBackendFinal/service/";
-    public static final String SERVER_URL="http://10.145.59.48:8090/CarpoolingBackendFinal/service/";
+	//Webservices URI addresses 
+  //  public static final String SERVER_URL="http://192.168.200.1:9191/CarpoolingBackendFinal/service/";
+    public static final String SERVER_URL="http://10.145.57.134:9191/CarpoolingBackendFinal/service/";
 	public static final String LOGIN_URL="user/newLogin";
-//	public static final String ADDEVENT_SERVICE_URL="home/addEvent";
-//	public static final String RETRIEVE_USER_EVENT_SERVICE_URL="event/getUserJoinEvents";
 	public static final String GET_CIRCLE_USERS_URL="newCircle/retrieveCirclesUsers";
 	public static final String JOIN_EVENT ="user/joinvent";
 	public static final String ACCEPT_EVENT ="user/accept";
@@ -19,6 +18,8 @@ public final class HttpConstants {
 	public static final String RETRIEVE_USER_NOTIFICATION_SERVICE_URL="event/getUserJoinEvents";
 	public static final String RETRIEVE_EVENT_SERVICE_URL="event/getEvent";
 	public static final String UPDATE_EVENT_SERVICE_URL="event/updateEvent";
+
+
 	public static final String RETRIVE_ALL_LOCATIONS_SERVICE_URL="location/allLocation";
 	public static final String RETRIVE_ALL_USER_CIRCLES_SERVICE_URL="viewcircle/view";
 	public static final String RETRIVE_EVENT_SERVICE_URL="event/getEvent";
