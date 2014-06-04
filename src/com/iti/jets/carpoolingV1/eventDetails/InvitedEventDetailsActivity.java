@@ -56,7 +56,8 @@ public class InvitedEventDetailsActivity extends Fragment implements OnItemClick
 	int idEvent;
 	
 	View rootView ;
-	 String userState;
+	String userState="Invited";
+	
 	ArrayList<CustomUser> usersList = new ArrayList<CustomUser>();
 	ArrayList<Comment> commentsList = new ArrayList<Comment>();
 	
@@ -80,11 +81,7 @@ public class InvitedEventDetailsActivity extends Fragment implements OnItemClick
          dp = (Button) rootView.findViewById(R.id.eventDateTxt);
         
          controller = new InvitedEventDetialsController(this);
-         
-       
-   
-             
-
+ 
          setHasOptionsMenu(true);
           
          Bundle args = getArguments();

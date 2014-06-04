@@ -57,6 +57,26 @@ public class Location  implements java.io.Serializable {
     }
 
 
+	@Override
+	public boolean equals(Object o) {
+		// TODO Auto-generated method stub
+		if(o instanceof Location){
+			if(((Location) o).getId().intValue() == this.id.intValue())
+				return true;
+			else 
+				return false;
+			
+		}else return false;
+	}
+
+
+	@Override
+	public int hashCode() {
+		// TODO Auto-generated method stub
+		return 17*(17+id);
+	}
+
+
 
 }
 

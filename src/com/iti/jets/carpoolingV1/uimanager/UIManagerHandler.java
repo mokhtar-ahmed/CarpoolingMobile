@@ -9,6 +9,7 @@ import android.os.Bundle;
 
 import com.iti.jets.carpoolingV1.R;
 import com.iti.jets.carpoolingV1.addevent.AddEventActivity;
+import com.iti.jets.carpoolingV1.eventDetails.AcceptedEventDetailsActivity;
 import com.iti.jets.carpoolingV1.eventDetails.EventDetailsActivity;
 import com.iti.jets.carpoolingV1.eventDetails.InvitedEventDetailsActivity;
 import com.iti.jets.carpoolingV1.eventRequests.RequestsHome;
@@ -89,6 +90,17 @@ public class UIManagerHandler {
 			}
 		}
 		else if (userState.equals("Accepted")== true){
+	
+			Fragment fragment = new AcceptedEventDetailsActivity();
+			fragment.setArguments(bundle);
+			
+			if (fragment != null) {
+				
+				FragmentManager fragmentManager = ac.getFragmentManager();
+				fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).addToBackStack("eventDetails").commit();
+	
+			}
+	
 			
 		}
 		else { 

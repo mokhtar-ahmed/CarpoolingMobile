@@ -52,7 +52,7 @@ public class EventCustomBaseAdapter extends BaseAdapter {
         Event rowItem = (Event) getItem(position);
  
         holder.txtDesc.setText(rowItem.getName());
-        holder.txtTitle.setText(rowItem.getDate().toString());
+   //     holder.txtTitle.setText(rowItem.getDate().toString());
         return convertView;
     }
  

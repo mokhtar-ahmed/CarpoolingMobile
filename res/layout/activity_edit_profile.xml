@@ -4,13 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/background"
     tools:context=".EditProfileActivity" >
     
     <TextView
         android:id="@+id/textView5"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        
         android:background="#F87217"
         android:textColor="#FFFFFF"
         android:text="Profile"
@@ -40,8 +40,7 @@
         android:layout_height="2px"
         android:background="#3BB9FF" />
     
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    <LinearLayout
     android:id="@+id/LinearLayout1"
     android:layout_width="match_parent"
     android:layout_height="60dp"
@@ -81,8 +80,7 @@
         android:layout_width="fill_parent"
         android:layout_height="2px"
         android:background="#3BB9FF" />
-     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+     <LinearLayout
     android:id="@+id/LinearLayout2"
     android:layout_width="match_parent"
     android:layout_height="60dp"

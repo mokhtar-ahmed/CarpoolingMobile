@@ -4,6 +4,7 @@ package com.iti.jets.carpoolingV1.sharedlayout;
 import java.util.ArrayList;
 
 import com.iti.jets.carpoolingV1.R;
+import com.iti.jets.carpoolingV1.SearchHome.SearchHome;
 import com.iti.jets.carpoolingV1.eventshome.EventsHome;
 import com.iti.jets.carpoolingV1.feedshome.FeedsHome;
 import com.iti.jets.carpoolingV1.homeactivity.HomeFragment;
@@ -71,11 +72,11 @@ public class MainActivity extends Activity {
 		// Photos
 		navDrawerItems.add(new NavDrawerItem(navMenuTitles[2], navMenuIcons.getResourceId(2, -1)));
 		// Communities, Will add a counter here
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[3], navMenuIcons.getResourceId(3, -1), true, "22"));
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[3], navMenuIcons.getResourceId(3, -1)));
 		// Pages
 		navDrawerItems.add(new NavDrawerItem(navMenuTitles[4], navMenuIcons.getResourceId(4, -1)));
 		// What's hot, We  will add a counter here
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[5], navMenuIcons.getResourceId(5, -1), true, "50+"));
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[5], navMenuIcons.getResourceId(5, -1)));
 		
 
 		// Recycle the typed array
@@ -186,10 +187,10 @@ public class MainActivity extends Activity {
 			fragment = new HomeFragment();
 			break;
 		case 5:
-			fragment = new HomeFragment();
+			fragment = new SearchHome();
 			break;
 		case 6:
-			fragment = new HomeFragment();
+			fragment = new SearchHome();
 			break;
 		default:
 			break;

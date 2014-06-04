@@ -1,5 +1,7 @@
 package com.iti.jets.carpoolingV1.addevent;
 
+import java.util.ArrayList;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -66,6 +68,8 @@ public class AddEventController {
 		// TODO Auto-generated method stub
 		try {
 			
+			ArrayList<User> ul = new ArrayList<User>();
+			
 			JSONObject js = new JSONObject(result);
 			JSONArray usrArr = js.getJSONArray("ResponseValue");
 		
@@ -77,9 +81,10 @@ public class AddEventController {
 				u.setId(jobj.getInt("id"));
 				u.setName(jobj.getString("username"));
 				
-				addEventActivity.Users.add(u);
+				ul.add(u);
 				
 			}
+			addEventActivity.Users = ul;
 			addEventActivity.showBlockUserDialog();
 			addEventActivity.prog.dismiss();
 			

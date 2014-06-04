@@ -6,12 +6,15 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import android.widget.Toast;
+
+import com.iti.jets.carpoolingV1.httphandler.LeaveEvent;
 import com.iti.jets.carpoolingV1.httphandler.RetriveEvent;
 import com.iti.jets.carpoolingV1.httphandler.UpdateEvent;
 import com.iti.jets.carpoolingV1.jsonhandler.JsonParser;
 import com.iti.jets.carpoolingV1.pojos.Comment;
 import com.iti.jets.carpoolingV1.pojos.CustomUser;
 import com.iti.jets.carpoolingV1.pojos.Location;
+import com.iti.jets.carpoolingV1.uimanager.UIManagerHandler;
 
 public class AcceptedEventDetialsController {
 	AcceptedEventDetailsActivity view;
@@ -117,6 +120,34 @@ public class AcceptedEventDetialsController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+	}
+	public void onLeavePostExecute(String result) {
+		// TODO Auto-generated method stub
+		
+		
+		try {
+			
+			if(result.equals("No Connection") == false){
+				JSONObject ob = new JSONObject(result);
+				
+				if(ob.getBoolean("HasError") == true){
+					Toast.makeText(view.getActivity().getApplicationContext(),ob.getString("FaultsMsg"), Toast.LENGTH_LONG).show();			
+					
+				}else{
+					
+					Toast.makeText(view.getActivity().getApplicationContext(),ob.getString("ResponseValue"), Toast.LENGTH_LONG).show();
+					UIManagerHandler.getoEventHome(view.getActivity());
+				}
+			}
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	public void leaveEventHandler(String string) {
+		new LeaveEvent(this).execute(new String[]{string});
 		
 	}
 

@@ -86,7 +86,6 @@ public class RegisterFragment extends Fragment{
 	     rootView = inflater.inflate(R.layout.activity_registeration,container, false);
 	     userImgView = (ImageView) rootView.findViewById(R.id.userImage);
 		 registerBtn = (Button) rootView.findViewById(R.id.registerBtn);
-		 loginBtn = (Button)  rootView.findViewById(R.id.loginBtn);
 		 nameEditText = (EditText)  rootView.findViewById(R.id.nameTxt);
 		 passwordEditText = (EditText)  rootView.findViewById(R.id.passwordTxt);
 		 phoneEditText = (EditText)  rootView.findViewById(R.id.PhoneTxt);
@@ -99,33 +98,14 @@ public class RegisterFragment extends Fragment{
 		 Editor editor = sharedPreferences.edit();
 		 editor.putBoolean("firstRunFlag", true);
 		 editor.commit();
-		
 		 phoneEditText.setOnFocusChangeListener(new OnFocusChangeListener() {
-			
-		
 			public void onFocusChange(View v, boolean hasFocus) {
-				
-		
-				// TODO Auto-generated method stub
-				
-				
-				
-				
-				
-				
+			// TODO Auto-generated method stub
+
 			}
 		});
 		 
-		 
-		 
-		 loginBtn.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View arg0) {
-				UIManagerHandler.goToLogin(RegisterFragment.this.getActivity());
-				
-			}
-		});
+
 		 dateEditText.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -134,10 +114,7 @@ public class RegisterFragment extends Fragment{
 				showDatePickerDialog();
 			}
 		});
-		 
-		 
-		
-		 
+ 
 		 registerBtn.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -270,7 +247,15 @@ public class RegisterFragment extends Fragment{
 		}
 		
 		public void getResultFromWebservice(String result) {
-
+			
+		if(result == null)
+		{
+			
+		}
+		else
+		{
+			
+		}
 		//Toast.makeText(RegisterFragment.this.getActivity().getApplicationContext(), "ENTERED FINAL", Toast.LENGTH_LONG).show();
 		//Toast.makeText(RegisterFragment.this.getActivity().getApplicationContext(), result, Toast.LENGTH_LONG).show();
 		JSONObject recievedResult;
@@ -290,6 +275,9 @@ public class RegisterFragment extends Fragment{
 		
 		if(Exist.equals("true"))
 		{
+			
+			getActivity().finish();
+			
 			Intent intent = new Intent(RegisterFragment.this.getActivity().getApplicationContext(),LoginActivity.class);
 			
 			startActivity(intent);

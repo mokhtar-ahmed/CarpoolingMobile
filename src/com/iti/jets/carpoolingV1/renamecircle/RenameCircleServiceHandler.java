@@ -22,6 +22,7 @@ import com.iti.jets.carpoolingV1.httphandler.HttpConstants;
 import com.iti.jets.carpoolingV1.pojos.EntityFactory;
 import com.iti.jets.carpoolingV1.retrieveallcircles.AllCirclesListFragment;
 import com.iti.jets.carpoolingV1.retrieveallcircles.RetrieveAllCirclesListController;
+import com.iti.jets.carpoolingV1.uimanager.UIManagerHandler;
 
 public class RenameCircleServiceHandler {
 	
@@ -70,7 +71,6 @@ public class RenameCircleServiceHandler {
     		}   
     		return returnServiceOutput;  
 
-		   
         }
 
         @Override
@@ -79,7 +79,8 @@ public class RenameCircleServiceHandler {
           super.onPostExecute(result);
   		  Log.d(result,"%%%%%%%%%%%%%%%returnService%%%%%%%%%%%%%%%%%%%");
   		 RetrieveAllCirclesListController controller = new RetrieveAllCirclesListController(EntityFactory.getUserInstance().getId(),allCirclesListFragment);
-  		 allCirclesListFragment.refresh();
+  		allCirclesListFragment.adapter.notifyDataSetChanged();
+  		 //UIManagerHandler.goToAllCirclesList(allCirclesListFragment.getActivity());
   		 
  	
         }

@@ -17,17 +17,21 @@ import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 
 import android.app.Fragment;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 
 import android.os.Bundle;
+import android.text.style.BulletSpan;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 
 import android.widget.Button;
@@ -47,12 +51,15 @@ public class AddEventActivity extends Fragment{
 		Button toTxt;
 		Button no_of_slots;
 		Button circles;
-		Button tp;
-		Button dp;
+		Button dateBtn;
+		TimePicker tp;
+		DatePicker dp;
+		
 		String[] noOfSlotsArr = new String[]{"1","2","3","4","5"};
 		
 		Calendar c = Calendar.getInstance();
 		Calendar c1 = Calendar.getInstance();
+		
 		
         int mYear = c.get(Calendar.YEAR);
         int mMonth = c.get(Calendar.MONTH);
@@ -60,26 +67,30 @@ public class AddEventActivity extends Fragment{
         int mHour = c.get(Calendar.HOUR);
         int mMinute = c.get(Calendar.MINUTE);
 
-        int currentYear = c1.get(Calendar.YEAR);
-        int currentMonth = c1.get(Calendar.MONTH);
-        int currentDay = c1.get(Calendar.DAY_OF_MONTH);
-        int currentHour = c1.get(Calendar.HOUR);
-        int currentMinute = c1.get(Calendar.MINUTE);
-
+        Boolean dateFlag=false;
+        Boolean firstLocation =true;
+		Boolean firstCircle = true;
+		
+        Date d; 
         
         ArrayList<Integer> selectedLocs = new ArrayList<Integer>();
         ArrayList<Integer> selectedCirs= new ArrayList<Integer>();
         ArrayList<Integer> selectedBlocked= new ArrayList<Integer>();
         
-        int selectedFrom ;
-        int selectedNoOfSlots ;
+        int selectedFrom  = -1;
+        int selectedNoOfSlots = 5;
         
 		ArrayList<String> locs = new ArrayList<String>() ;
+		ArrayList<String> locsFromList = new ArrayList<String>() ;
+		ArrayList<String> locsToList = new ArrayList<String>() ;
 		ArrayList<User> Users = new ArrayList<User>() ;
 		ArrayList<String> cirs = new ArrayList<String>() ;
 		ArrayList< String> ul = new ArrayList<String>();
-		Dialog prog ;
-	AddEventController cont ;
+		ArrayList<String> selectedToLocs = new ArrayList<String>();
+		String selectedFromLoc="";
+		ProgressDialog prog;
+		
+		AddEventController cont ;
 		
 	public AddEventActivity(){}
 	
@@ -96,8 +107,8 @@ public class AddEventActivity extends Fragment{
        toTxt =  (Button) rootView.findViewById(R.id.ToSpinner);
        no_of_slots = (Button) rootView.findViewById(R.id.avaliableSlots);
        circles = (Button) rootView.findViewById(R.id.circlesBtn); 
-       tp = (Button) rootView.findViewById(R.id.eventTimeTxt);
-       dp = (Button) rootView.findViewById(R.id.eventDateTxt);
+       dateBtn = (Button) rootView.findViewById(R.id.eventDateTxt);
+       
        cont = new AddEventController(this);
   
       ArrayList<Location> l =  EntityFactory.getLocationsInstance();
@@ -113,23 +124,49 @@ public class AddEventActivity extends Fragment{
     	  
       }
  
+     
+      
+       dateBtn.setOnClickListener(new View.OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			
+			showTimePickerDialog();
+			
+		}
+	});
+   
       toTxt.setOnClickListener(new View.OnClickListener() {
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 
-			selectedLocs.clear();
+			   
+			
 		       final Builder builderSingle = new AlertDialog.Builder(getActivity());
 		       
 		       builderSingle.setIcon(R.drawable.ic_action_locate);
 		      
 		       builderSingle.setTitle("Select Location");
 		       
-			   builderSingle.setMultiChoiceItems(locs.toArray(new CharSequence[locs.size()]),null,   new DialogInterface.OnMultiChoiceClickListener(){
+		      locsToList.clear();
+		      
+		       for(String l : locs)
+		    	   locsToList.add(l);
+  	
+		       if(selectedFromLoc.equals("") == false )
+		    	   locsToList.remove(selectedFromLoc);
+		       
+			   builderSingle.setMultiChoiceItems(locsToList.toArray(new CharSequence[locsToList.size()]),null,   new DialogInterface.OnMultiChoiceClickListener(){
 
 					@Override
 					public void onClick(DialogInterface dialog,
 							int which, boolean isChecked) {
+				
+						if(firstLocation){
+							selectedLocs.clear();
+							firstLocation = false;
+						}
 						
 						if(isChecked)
 							selectedLocs.add(which);
@@ -143,7 +180,7 @@ public class AddEventActivity extends Fragment{
 		                   @Override
 		                   public void onClick(DialogInterface dialog, int which) {
 		                	   	
-		                
+		                	   selectedLocs.clear();
 		                   }
 		               });
 		       builderSingle.setPositiveButton("Save",
@@ -152,9 +189,17 @@ public class AddEventActivity extends Fragment{
 		                   @Override
 		                   public void onClick(DialogInterface dialog, int which) {
 		                	  
-		                	   toTxt.setText("");
-		                	   	for(int s : selectedLocs)
-		                	   		toTxt.append(locs.get(s)+",");
+		                	   if(selectedLocs.isEmpty()){
+		                		   toTxt.setError("Field Required");
+		                		   
+		                	   }else{
+		                	  
+		                		   toTxt.setText("");
+		                	   	for(int s : selectedLocs){
+		                	   		toTxt.append(locsToList.get(s)+",");
+		                	   		selectedToLocs.add(locsToList.get(s));
+		                	   	}
+		                	   }
 		                   }
 		               });
 
@@ -164,7 +209,6 @@ public class AddEventActivity extends Fragment{
 	
 		}
 	});
-    
     
       fromTxt.setOnClickListener(new View.OnClickListener() {
   		@Override
@@ -177,7 +221,16 @@ public class AddEventActivity extends Fragment{
   		      
   		       builderSingle.setTitle("Select Location");
   		       
-  			   builderSingle.setSingleChoiceItems(locs.toArray(new CharSequence[locs.size()]),-1 ,   new DialogInterface.OnClickListener() {
+  		       locsFromList.clear();
+  		     
+  		       for(String l : locs)
+  		    	   locsFromList.add(l);
+  	
+  		       for(String in : selectedToLocs){
+  		    	 locsFromList.remove(in);
+  		       }
+  		       
+  			   builderSingle.setSingleChoiceItems(locsFromList.toArray(new CharSequence[locsFromList.size()]),-1 ,   new DialogInterface.OnClickListener() {
 				
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
@@ -201,7 +254,12 @@ public class AddEventActivity extends Fragment{
   		                   @Override
   		                   public void onClick(DialogInterface dialog, int which) {
   		                	   	
-  		                	   fromTxt.setText(locs.get(selectedFrom));
+  		                	   if(selectedFrom != -1){
+  		                		   fromTxt.setText(locsFromList.get(selectedFrom));
+  		                		   selectedFromLoc = locsFromList.get(selectedFrom);
+  		                	   }
+  		                	   else 
+  		                		   fromTxt.setText("Field Required");
   		                
   		                   }
   		               });
@@ -211,8 +269,7 @@ public class AddEventActivity extends Fragment{
   	
   		}
   	});
-      
-      
+         
       no_of_slots.setOnClickListener(new View.OnClickListener() {
     		@Override
     		public void onClick(View v) {
@@ -240,7 +297,7 @@ public class AddEventActivity extends Fragment{
     		                   @Override
     		                   public void onClick(DialogInterface dialog, int which) {
     		                	   	
-    		                
+    		                	   selectedNoOfSlots=5;
     		                   }
     		               });
     		       builderSingle.setPositiveButton("Save",
@@ -264,8 +321,9 @@ public class AddEventActivity extends Fragment{
   		public void onClick(View v) {
   			// TODO Auto-generated method stub
 
-  			selectedCirs.clear();
-  		       final Builder builderSingle = new AlertDialog.Builder(getActivity());
+  			   selectedCirs.clear();
+
+  			   final Builder builderSingle = new AlertDialog.Builder(getActivity());
   		       
   		       builderSingle.setIcon(R.drawable.ic_action_group);
   		      
@@ -276,7 +334,10 @@ public class AddEventActivity extends Fragment{
   					@Override
   					public void onClick(DialogInterface dialog,
   							int which, boolean isChecked) {
-  						
+  						if(firstCircle){
+  							selectedCirs.clear();
+  							firstCircle = false;
+  						}
   						if(isChecked)
   							selectedCirs.add(which);
   						else 
@@ -305,11 +366,11 @@ public class AddEventActivity extends Fragment{
   		       			    try {
 								circlesIds.put("circlesIds", circlesList);
 								cont.getCirclesUsers(circlesIds);
-		  		       			
-	  		       				prog = new Dialog(getActivity());
-	  		       				prog.setContentView(R.layout.custom_dialog);
-	  		       				prog.show();
-	  		       				
+		  		 
+								 prog = new  ProgressDialog(getActivity());
+								 prog.setMessage("Loading user's data ");
+								 prog.show();
+								
 							} catch (JSONException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
@@ -336,70 +397,28 @@ public class AddEventActivity extends Fragment{
   		               });
 
   		    
-
-
   		       builderSingle.show();
   		       
   	
   		}
   	});
       
-      
-      dp.setOnClickListener(new View.OnClickListener() {
 
-		@Override
-		public void onClick(View v) {
-			// TODO Auto-generated method stub
-			new DatePickerDialog(getActivity(),mDateSetListener,mYear, mMonth, mDay).show();
-		}
-		
-	
-	});
-      
-      tp.setOnClickListener(new View.OnClickListener() {
-
-		@Override
-		public void onClick(View v) {
-			// TODO Auto-generated method stub
-			new TimePickerDialog(getActivity(),mTimeSetListener,mHour, mMinute,false).show();
-		}
-		
-	
-	});
-      
       setHasOptionsMenu(true);
 
-        return rootView;
+      return rootView;
 
     } 
    
-    private DatePickerDialog.OnDateSetListener mDateSetListener =  new DatePickerDialog.OnDateSetListener() {
                 
-                 public void onDateSet(DatePicker view, int yearSelected,int monthOfYear, int dayOfMonth) {
-                                  mYear = yearSelected;
-                                  mMonth = monthOfYear;
-                                  mDay = dayOfMonth;
-                        
-                                  
-                                  dp.setText(""+mDay+"-"+mMonth+"-"+mYear);
-                       }
-      };
-             
-    private TimePickerDialog.OnTimeSetListener mTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
-                      
-    public void onTimeSet(TimePicker view, int hourOfDay, int min) {
-                                       mHour = hourOfDay;
-                                       mMinute = min;
-                                       tp.setText(""+mHour+"-"+mMinute);
-                                     }
-      };
-                               
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// TODO Auto-generated method stub
 		switch (item.getItemId()) {
 		case R.id.add_event_icon:
-			saveEvent();return true;	
+			saveEventHandler();
+			
+			return true;	
 		
 
 		default:
@@ -407,20 +426,108 @@ public class AddEventActivity extends Fragment{
 		}
 		
 	}
-	
-	private void saveEvent() {
-		// TODO Auto-generated method stub
-	
-		Date d = new Date(mYear,mMonth,mDay,mHour,mMinute);
-		Date d1 = new Date(currentYear,currentMonth,currentDay,currentHour,currentMinute);
+	private void saveEventHandler(){
 		
-		if(d.compareTo(d1) <= 0){
+		Builder b = new AlertDialog.Builder(getActivity());
+		b.setTitle("Save Event");
+		b.setMessage("You want to save ?");
+		b.setPositiveButton("Save", new DialogInterface.OnClickListener() {
 			
-			dp.setError("Wrong date");
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				if(checkError())
+					saveEvent();
+			}
+		});
+		
+		b.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+			
+			}
+		});
+		
+		b.show();
+		
+		
+	}
+
+	private void exitHandler(){
+		
+		Builder b = new AlertDialog.Builder(getActivity());
+		b.setTitle("Save Event");
+		b.setMessage("You want to Exit ?");
+		b.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+		b.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+			
+			}
+		});
+		
+		b.show();
+		
+		
+	}
+
+	private boolean checkError() {
+		
+		Boolean flag = true;
+		
+		if(eventNameTxt.getText().toString().equals("") == true){
+			eventNameTxt.setError("Field Required");
+			flag = false;
 		}
 		
-		else {
+		if(no_of_slots.getText().toString().equals("Avaliable Slots") == true ||
+				no_of_slots.getText().toString().equals("Field Required") == true	){
+			no_of_slots.setText("Field Required");
+			flag = false;
+		}
+		
+		if(dateFlag == false){
+			dateBtn.setText("Field Required");
+			flag = false;
+		}	
+		
+		if(circles.getText().toString().equals("Choose Circles") == true ||  selectedCirs.isEmpty()){
+			circles.setText("Field Required");
+			flag = false;
+		}
+		if(fromTxt.getText().toString().equals("From") == true ||  selectedFrom == -1){
+			fromTxt.setText("Field Required");
+			flag = false;
+		}
 			
+		if(toTxt.getText().toString().equals("To") == true ||  selectedLocs.isEmpty()){
+			toTxt.setText("Field Required");
+			flag = false;
+		}
+		
+		if(dateBtn.getText().toString().equals("Date") == true || dateFlag == false){
+			toTxt.setText("Field Required");
+			flag = false;
+		}
+		
+		return flag;
+	}
+
+	private void saveEvent() {
+
+		
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String dateStr = formatter.format(d);
 		System.out.println("selected date is  " + dateStr);
@@ -439,7 +546,7 @@ public class AddEventActivity extends Fragment{
 			input.put("noOfSlots", selectedNoOfSlots);
 
 			  JSONObject loc = new JSONObject();
-			  Location l = EntityFactory.getLocationByAddress(locs.get(selectedFrom));
+			  Location l = EntityFactory.getLocationByAddress(selectedFromLoc);
 	          loc.put("idLocation", l.getId());
 	          loc.put("address", l.getAddress());
 	        
@@ -457,12 +564,14 @@ public class AddEventActivity extends Fragment{
 				
 				int order = 1;
 				
-				for(Integer i  : selectedLocs){
+				for(String  str : selectedToLocs){
 					
 					JSONObject eventLocationJson = new JSONObject();
 					JSONObject locJson = new JSONObject();
-					 Location ll = EntityFactory.getLocationByAddress(locs.get( i.intValue()));
+					 
+					 Location ll = EntityFactory.getLocationByAddress(str);
 					 locJson.put("id",ll.getId());
+					
 					eventLocationJson.put("toOrder",order++);
 	                eventLocationJson.put("location", locJson);    
 	                locsTo.put(eventLocationJson);
@@ -494,30 +603,32 @@ public class AddEventActivity extends Fragment{
 	      // Toast.makeText(getActivity().getApplicationContext(), input.toString(), Toast.LENGTH_LONG).show();
 	           
 	        System.out.println(input.toString());
+	        
 			cont.addEventHandler(input.toString());
 			
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
+	
 }
 		
 	
-
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		// TODO Auto-generated method stub
 		 inflater.inflate(R.menu.add_event_menu, menu);
 		super.onCreateOptionsMenu(menu, inflater);
+
+		
 	}
-
-
-
+	
     public void showBlockUserDialog(){
     	
     	  	//		selectedCirs.clear();
     	  		
+   	   		selectedBlocked.clear();
+    	
     	  			for(User u : Users)
     	  				ul.add(u.getName());
     	  				
@@ -546,7 +657,7 @@ public class AddEventActivity extends Fragment{
     	  		                   @Override
     	  		                   public void onClick(DialogInterface dialog, int which) {
     	  		                	   	
-    	  		                
+    	  		                	   selectedBlocked.clear();
     	  		                   }
     	  		               });
     	  		  
@@ -555,6 +666,10 @@ public class AddEventActivity extends Fragment{
     	  		                   @Override
     	  		                   public void onClick(DialogInterface dialog, int which) {
     	  		                
+    	  		                	  circles.setText("");
+    	  		                	   
+    	  		                	   for(int s : selectedCirs)
+    	  		                		   circles.append(cirs.get(s)+",");
     	  		                   }
     	  		               });
 
@@ -566,6 +681,89 @@ public class AddEventActivity extends Fragment{
     	      
     	
     }
+    
+    public void showTimePickerDialog() {
+		
+		LayoutInflater inflater=LayoutInflater.from(getActivity());
+		  
+		final Dialog dialog = new Dialog(getActivity());
+		View root = inflater.inflate(R.layout.date_time_layout, null);
+		//View root = findViewById(R.layout.date_time_layout);
+	
+	    dialog.setContentView(root);
+	    dialog.setTitle("Select Event Date");
+	    
+	     dp = (DatePicker)root.findViewById(R.id.datePicker1);
+	     tp = (TimePicker)root.findViewById(R.id.timePicker1);
+		 Button setBtn = (Button)root.findViewById(R.id.setBtn);
+		 Button cancelBtn = (Button)root.findViewById(R.id.cancelBtn);
+		
+		
+		setBtn.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+			
+				mDay = dp.getDayOfMonth();
+				mMonth = dp.getMonth();
+				mYear = dp.getYear();
+				mMinute = tp.getCurrentMinute();
+			    mHour = tp.getCurrentHour();
+		
+			    int currentYear = c1.get(Calendar.YEAR);
+		        int currentMonth = c1.get(Calendar.MONTH);
+		        int currentDay = c1.get(Calendar.DAY_OF_MONTH);
+		        int currentHour = c1.get(Calendar.HOUR);
+		        int currentMinute = c1.get(Calendar.MINUTE);
+
+		        tp.setCurrentMinute(currentMinute);
+		        tp.setCurrentHour(currentHour);
+		        
+		        dp.init(currentYear, currentMonth, currentDay, null);
+
+		        dp.setMaxDate(new Date(currentYear+1 - 1900,currentMonth, currentDay).getTime());
+		        
+		        System.out.println("max date ");
+		        
+				d = new Date(mYear-1900,mMonth,mDay,mHour,mMinute);
+				 
+			    Date d1 = new Date(currentYear-1900,currentMonth,currentDay,currentHour,currentMinute);
+				
+			     if(d.compareTo(d1) <= 0){
+					
+					dateBtn.setText("Wrong Date");
+					dateFlag = false;
+					
+				}else{
+					
+					dateFlag = true;
+					dateBtn.setText(d.toString());
+				
+				}
+				
+			   
+				dialog.dismiss();
+			}
+			
+			
+		});
+		
+		cancelBtn.setOnClickListener(new View.OnClickListener() {
+			
+	
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				dialog.dismiss();
+			}
+		});
+		
+	
+		dialog.show();
+	}
+
+    
+    
 }
 	
 

@@ -30,8 +30,7 @@ public class RequestsHomeController {
 	
 		
 
-		
-		
+			
 	}
 	public void retriveAllEvents(String input) {
 	

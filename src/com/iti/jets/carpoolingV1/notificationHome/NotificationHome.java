@@ -10,6 +10,7 @@ import org.json.JSONObject;
 
 import com.iti.jets.carpoolingV1.R;
 import com.iti.jets.carpoolingV1.addevent.AddEventActivity;
+import com.iti.jets.carpoolingV1.jsonhandler.JsonParser;
 import com.iti.jets.carpoolingV1.pojos.EntityFactory;
 import com.iti.jets.carpoolingV1.pojos.Event;
 import com.iti.jets.carpoolingV1.pojos.Notification;
@@ -51,30 +52,24 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container,
 	
 	cont = new NotificationsHomeController(this);
 	
-	fillListViewData();
+	JSONObject input = new JSONObject();
+	try {
+		input.put("userId", EntityFactory.getUserInstance().getId());
+		System.out.println(input.toString());
+		cont.retriveAllNotification(input.toString());
+		
+	} catch (JSONException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	
+	
 	return rootView;
 }
 
 public void fillListViewData(){
 	
-	Activity ac = getActivity();
-	Event ev = new Event();
-	ev.setDate(new Date(1992,12,1));
-	ev.setId(1);
-	ev.setName("test");
-	
-	Notification no = new Notification();
-	no.setEvent(ev);
-	no.setId(1);
-	no.setUser(1);
-	no.setEventState("read");
-	no.setEventType("onvite");
-	no.setNotificationDate(new Date(1992,12,1));
-	
-	
-    values.add(no); 
-	
-    CustomBaseAdapter adapter = new CustomBaseAdapter(ac, values);
+    CustomBaseAdapter adapter = new CustomBaseAdapter(getActivity(), values);
     notificationsList.setAdapter(adapter);
     notificationsList.setOnItemClickListener(this);
 
@@ -84,6 +79,7 @@ public boolean onOptionsItemSelected(MenuItem item) {
 	// TODO Auto-generated method stub
 	switch (item.getItemId()) {
 	case R.id.addEvent:
+		
 		UIManagerHandler.goToAddEvent(getActivity());
 	return true;	
 	
@@ -98,7 +94,20 @@ public void onItemClick(AdapterView<?> parent, View view, int position, long id)
 	// TODO Auto-generated method stub
 	
 	
-	
+	JSONObject input = new JSONObject();
+	try {
+		
+		input.put("notificationId", values.get(position).getId());
+		cont.markAsReaded(input.toString());
+		int idev = values.get(position).getEvent().getId().intValue();
+		String state = values.get(position).getEvent().getUserStatue();
+		UIManagerHandler.goToEventDetails(getActivity(),idev,state);
+		
+	} catch (JSONException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+
 }
 
 @Override

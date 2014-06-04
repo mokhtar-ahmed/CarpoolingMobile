@@ -35,8 +35,9 @@ public class RequestsHome extends Fragment implements OnItemClickListener {
 	View rootView;
 	ListView eventsList;
     int idEvent;
+    ArrayList<CustomUser>userRequest = new ArrayList<CustomUser>();
 	List<CustomUser>values = new ArrayList<CustomUser>();
-
+	CustomBaseAdapter adapter;
 	RequestsHomeController cont;
 @Override
 public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,6 +55,13 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container,
 
     values = EntityFactory.getUsersCustom();
 
+    for(CustomUser us : values){
+    	
+    	if(us.getUserStatue().equals("Join") == true){
+    		userRequest.add(us);
+    		
+    	}
+    }
     cont = new RequestsHomeController(this);
     
     fillListViewData();
@@ -65,7 +73,7 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container,
 public void fillListViewData(){
 
 	Activity ac = getActivity();
-    CustomBaseAdapter adapter = new CustomBaseAdapter(ac, values , idEvent ,cont );
+    adapter = new CustomBaseAdapter(ac, userRequest , idEvent ,cont , this);
     eventsList.setAdapter(adapter);
     eventsList.setOnItemClickListener(this);
 

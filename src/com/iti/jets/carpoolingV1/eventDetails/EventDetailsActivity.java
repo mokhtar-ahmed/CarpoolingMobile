@@ -5,6 +5,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,6 +31,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.Fragment;
+import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
@@ -44,7 +48,7 @@ import android.widget.VideoView;
 import android.widget.AdapterView.OnItemClickListener;
 
 
-public class EventDetailsActivity extends Fragment implements OnItemClickListener{
+public class EventDetailsActivity extends Fragment {
 	
 	
 	EditText eventNameTxt;
@@ -53,12 +57,16 @@ public class EventDetailsActivity extends Fragment implements OnItemClickListene
 	Button no_of_slots;
 	ListView user;
 	ListView comments;
-	Button tp;
-	Button dp;
+	TimePicker tp;
+	DatePicker dp;
+	Button dateBtn;
 	Button userJoin;
 	Button sendComment;
 	EditText writeComment;
 	
+	CustomUserBaseAdapter usersAdapter;
+	CustomCommentBaseAdapter CommentsAdapter;
+	  
 	String[] noOfSlotsArr = new String[]{"1","2","3","4","5"};
 	
 	Calendar c = Calendar.getInstance();
@@ -70,28 +78,33 @@ public class EventDetailsActivity extends Fragment implements OnItemClickListene
     int mHour = c.get(Calendar.HOUR);
     int mMinute = c.get(Calendar.MINUTE);
 
-    int currentYear = c1.get(Calendar.YEAR);
-    int currentMonth = c1.get(Calendar.MONTH);
-    int currentDay = c1.get(Calendar.DAY_OF_MONTH);
-    int currentHour = c1.get(Calendar.HOUR);
-    int currentMinute = c1.get(Calendar.MINUTE);
-
+    Boolean dateFlag=true;
+    Boolean firstLocation =true;
+   
+    Date d = new Date(); 
     
     ArrayList<Integer> selectedLocs = new ArrayList<Integer>();
     ArrayList<Integer> selectedCirs= new ArrayList<Integer>();
     ArrayList<Integer> selectedBlocked= new ArrayList<Integer>();
     
-    int selectedFrom ;
-    int selectedNoOfSlots ;
+    int selectedFrom  = 0;
+    int selectedNoOfSlots = 5;
     
 	ArrayList<String> locs = new ArrayList<String>() ;
+	ArrayList<String> locsFromList = new ArrayList<String>() ;
+	ArrayList<String> locsToList = new ArrayList<String>() ;
 	ArrayList<User> Users = new ArrayList<User>() ;
 	ArrayList<String> cirs = new ArrayList<String>() ;
 	ArrayList< String> ul = new ArrayList<String>();
-	Dialog prog ;
+	Set<String> selectedToLocs = new HashSet(0);
+	String selectedFromLoc="";
+	ProgressDialog prog;
+	
 
 	int idEvent;
 	View rootView ;
+	
+	
 	 
 	ArrayList<CustomUser> usersList = new ArrayList<CustomUser>();
 	ArrayList<Comment> commentsList = new ArrayList<Comment>();
@@ -108,16 +121,14 @@ public class EventDetailsActivity extends Fragment implements OnItemClickListene
          
          eventNameTxt =   (EditText) rootView.findViewById(R.id.eventNameTxt);
          writeComment =   (EditText) rootView.findViewById(R.id.writeCommentTxt);
-         
+         dateBtn = (Button) rootView.findViewById(R.id.eventDateTxt);
          sendComment = (Button) rootView.findViewById(R.id.sendComment);
          fromTxt =  (Button) rootView.findViewById(R.id.FromSpinner);
          toTxt =  (Button) rootView.findViewById(R.id.ToSpinner);
          no_of_slots = (Button) rootView.findViewById(R.id.avaliableSlots);
          user = (ListView) rootView.findViewById(R.id.usersList); 
          comments = (ListView) rootView.findViewById(R.id.commentsList); 
-         tp = (Button) rootView.findViewById(R.id.eventTimeTxt);
-         dp = (Button) rootView.findViewById(R.id.eventDateTxt);
-        
+       
          controller = new EventDetialsController(this);
          
          ArrayList<Location> l =  EntityFactory.getLocationsInstance();
@@ -126,12 +137,7 @@ public class EventDetailsActivity extends Fragment implements OnItemClickListene
        	  locs.add(l.get(i).getAddress());
        	  
          }
-         ArrayList<Circle> l1 =  EntityFactory.getCirclesInstance();
-         for(int i=0; i< l1.size(); i++ ){
-       	  
-       	  cirs.add(l1.get(i).getCircleName());
-       	  
-         }
+    
          
          
          sendComment.setOnClickListener(new View.OnClickListener() {
@@ -141,7 +147,7 @@ public class EventDetailsActivity extends Fragment implements OnItemClickListene
 				// TODO Auto-generated method stub
 			
 				String commentText = writeComment.getText().toString();
-
+				writeComment.setText("");
 				JSONObject commentJson = new JSONObject();
 				JSONObject owner = new JSONObject();
 				JSONObject event = new JSONObject();
@@ -166,6 +172,16 @@ public class EventDetailsActivity extends Fragment implements OnItemClickListene
 		
 						new AddCommentServiceHandler(commentJson.toString());
 						
+						Comment newComment = new Comment();
+						newComment.setDate(date);
+						newComment.setImage("");
+						newComment.setText(commentText);
+						newComment.setUsername( EntityFactory.getUserInstance().getUsername());
+						
+						commentsList.add(newComment);
+						CommentsAdapter.notifyDataSetChanged();
+			
+						
 						
 					} catch (JSONException e) {
 						// TODO Auto-generated catch block
@@ -175,23 +191,47 @@ public class EventDetailsActivity extends Fragment implements OnItemClickListene
 			}
 		});
          
+         dateBtn.setOnClickListener(new View.OnClickListener() {
+     		
+     		@Override
+     		public void onClick(View v) {
+     			
+     			showTimePickerDialog();
+     			
+     		}
+     	});
+        
          toTxt.setOnClickListener(new View.OnClickListener() {
      		@Override
      		public void onClick(View v) {
      			// TODO Auto-generated method stub
 
-     			selectedLocs.clear();
+     			   
+     			
      		       final Builder builderSingle = new AlertDialog.Builder(getActivity());
      		       
      		       builderSingle.setIcon(R.drawable.ic_action_locate);
      		      
      		       builderSingle.setTitle("Select Location");
      		       
-     			   builderSingle.setMultiChoiceItems(locs.toArray(new CharSequence[locs.size()]),null,   new DialogInterface.OnMultiChoiceClickListener(){
+     		      locsToList.clear();
+     		      
+     		       for(String l : locs)
+     		    	   locsToList.add(l);
+       	
+     		       if(selectedFromLoc.equals("") == false )
+     		    	   locsToList.remove(selectedFromLoc);
+     		       
+     			   builderSingle.setMultiChoiceItems(locsToList.toArray(new CharSequence[locsToList.size()]),null,   new DialogInterface.OnMultiChoiceClickListener(){
 
      					@Override
      					public void onClick(DialogInterface dialog,
      							int which, boolean isChecked) {
+     				
+     						if(firstLocation){
+     							selectedLocs.clear();
+     							firstLocation = false;
+     						}
      						
      						if(isChecked)
      							selectedLocs.add(which);
@@ -205,7 +245,7 @@ public class EventDetailsActivity extends Fragment implements OnItemClickListene
      		                   @Override
      		                   public void onClick(DialogInterface dialog, int which) {
      		                	   	
-     		                
+     		                	   selectedLocs.clear();
      		                   }
      		               });
      		       builderSingle.setPositiveButton("Save",
@@ -214,9 +254,18 @@ public class EventDetailsActivity extends Fragment implements OnItemClickListene
      		                   @Override
      		                   public void onClick(DialogInterface dialog, int which) {
      		                	  
-     		                	   toTxt.setText("");
-     		                	   	for(int s : selectedLocs)
-     		                	   		toTxt.append(locs.get(s)+",");
+     		                	   if(selectedLocs.isEmpty()){
+     		                		   toTxt.setError("Field Required");
+     		                		   
+     		                	   }else{
+     		                	  
+     		                		   toTxt.setText("");
+     		                		   selectedToLocs.clear();
+     		                	   	for(int s : selectedLocs){
+     		                	   		toTxt.append(locsToList.get(s)+",");
+     		                	   		selectedToLocs.add(locsToList.get(s));
+     		                	   	}
+     		                	   }
      		                   }
      		               });
 
@@ -227,8 +276,7 @@ public class EventDetailsActivity extends Fragment implements OnItemClickListene
      		}
      	});
          
-         
-           fromTxt.setOnClickListener(new View.OnClickListener() {
+         fromTxt.setOnClickListener(new View.OnClickListener() {
        		@Override
        		public void onClick(View v) {
        			// TODO Auto-generated method stub
@@ -239,7 +287,16 @@ public class EventDetailsActivity extends Fragment implements OnItemClickListene
        		      
        		       builderSingle.setTitle("Select Location");
        		       
-       			   builderSingle.setSingleChoiceItems(locs.toArray(new CharSequence[locs.size()]),-1 ,   new DialogInterface.OnClickListener() {
+       		       locsFromList.clear();
+       		     
+       		       for(String l : locs)
+       		    	   locsFromList.add(l);
+       	
+       		       for(String in : selectedToLocs){
+       		    	 locsFromList.remove(in);
+       		       }
+       		       
+       			   builderSingle.setSingleChoiceItems(locsFromList.toArray(new CharSequence[locsFromList.size()]),-1 ,   new DialogInterface.OnClickListener() {
      				
      				@Override
      				public void onClick(DialogInterface dialog, int which) {
@@ -263,7 +320,12 @@ public class EventDetailsActivity extends Fragment implements OnItemClickListene
        		                   @Override
        		                   public void onClick(DialogInterface dialog, int which) {
        		                	   	
-       		                	   fromTxt.setText(locs.get(selectedFrom));
+       		                	   if(selectedFrom != -1){
+       		                		   fromTxt.setText(locsFromList.get(selectedFrom));
+       		                		   selectedFromLoc = locsFromList.get(selectedFrom);
+       		                	   }
+       		                	   else 
+       		                		   fromTxt.setText("Field Required");
        		                
        		                   }
        		               });
@@ -273,9 +335,8 @@ public class EventDetailsActivity extends Fragment implements OnItemClickListene
        	
        		}
        	});
-           
-           
-           no_of_slots.setOnClickListener(new View.OnClickListener() {
+              
+         no_of_slots.setOnClickListener(new View.OnClickListener() {
          		@Override
          		public void onClick(View v) {
          			// TODO Auto-generated method stub
@@ -302,7 +363,7 @@ public class EventDetailsActivity extends Fragment implements OnItemClickListene
          		                   @Override
          		                   public void onClick(DialogInterface dialog, int which) {
          		                	   	
-         		                
+         		                	   selectedNoOfSlots=5;
          		                   }
          		               });
          		       builderSingle.setPositiveButton("Save",
@@ -321,28 +382,6 @@ public class EventDetailsActivity extends Fragment implements OnItemClickListene
          		}
          	});
 
-           dp.setOnClickListener(new View.OnClickListener() {
-
-       		@Override
-       		public void onClick(View v) {
-       			// TODO Auto-generated method stub
-       			new DatePickerDialog(getActivity(),mDateSetListener,mYear, mMonth, mDay).show();
-       		}
-       		
-       	
-       	});
-             
-             tp.setOnClickListener(new View.OnClickListener() {
-
-       		@Override
-       		public void onClick(View v) {
-       			// TODO Auto-generated method stub
-       			new TimePickerDialog(getActivity(),mTimeSetListener,mHour, mMinute,false).show();
-       		}
-       		
-       	
-       	});
-             
 
          setHasOptionsMenu(true);
           
@@ -367,39 +406,35 @@ public class EventDetailsActivity extends Fragment implements OnItemClickListene
 
 	void fillUsersList(){
 		Activity ac = getActivity();
-		CustomUserBaseAdapter adapter = new CustomUserBaseAdapter(ac, usersList);
-	    user.setAdapter(adapter);
-	    user.setOnItemClickListener(this);
+		usersAdapter = new CustomUserBaseAdapter(ac, usersList);
+	    user.setAdapter(usersAdapter);
+	    user.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				showUsersListDialog();
+			}
+		});
 
 	    
 	}
 	void fillCommentList(){
 		Activity ac = getActivity();
-	    CustomCommentBaseAdapter adapter = new CustomCommentBaseAdapter(ac, commentsList);
-	    comments.setAdapter(adapter);
-	    comments.setOnItemClickListener(this);
+	    CommentsAdapter = new CustomCommentBaseAdapter(ac, commentsList);
+	    comments.setAdapter(CommentsAdapter);
+	    comments.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+			
+				showCommentsListDialog();
+			}
+		});
 
 	}
-	   private DatePickerDialog.OnDateSetListener mDateSetListener =  new DatePickerDialog.OnDateSetListener() {
-           
-           public void onDateSet(DatePicker view, int yearSelected,int monthOfYear, int dayOfMonth) {
-                            mYear = yearSelected;
-                            mMonth = monthOfYear;
-                            mDay = dayOfMonth;
-                  
-                            
-                            dp.setText(""+mDay+"-"+mMonth+"-"+mYear);
-                 }
-};
-       
-	private TimePickerDialog.OnTimeSetListener mTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
-	                
-	public void onTimeSet(TimePicker view, int hourOfDay, int min) {
-	                                 mHour = hourOfDay;
-	                                 mMinute = min;
-	                                 tp.setText(""+mHour+"-"+mMinute);
-	                               }
-	};
+
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		// TODO Auto-generated method stub
@@ -412,37 +447,39 @@ public class EventDetailsActivity extends Fragment implements OnItemClickListene
 		// TODO Auto-generated method stub
 		switch (item.getItemId()) {
 		case R.id.update:
-			saveEvent();return true;	
+			saveEventHandler();
+			return true;	
 		case R.id.request:
 			UIManagerHandler.getoRequestsHome(getActivity(),idEvent);
 			return true;
+		case R.id.cancel:
+			prog.setMessage("cancelling the event");
+			prog.show();
+			JSONObject obj = new JSONObject();
+			try {
+				obj.put("idEvent", idEvent);
+				controller.cancelEventHandler(obj.toString());
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		return true;
 
 		default:
 			return super.onOptionsItemSelected(item);
 		}
 		
 	}
-	private void saveEvent() {
-		// TODO Auto-generated method stub
 	
-		Date d = new Date(mYear,mMonth,mDay,mHour,mMinute);
-		Date d1 = new Date(currentYear,currentMonth,currentDay,currentHour,currentMinute);
+	private void saveEvent() {
 		
-		if(d.compareTo(d1) <= 0){
-			
-			dp.setError("Wrong date");
-		}
-		
-		else {
-			
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String dateStr = formatter.format(d);
 		System.out.println("selected date is  " + dateStr);
 		
-		
-		JSONArray toLocations  = new JSONArray();
-		JSONArray circlesList  = new JSONArray();
 		String eventName = eventNameTxt.getText().toString();
+		
 		JSONObject input = new JSONObject();
 		try {
 			
@@ -454,7 +491,7 @@ public class EventDetailsActivity extends Fragment implements OnItemClickListene
 			input.put("noOfSlots", selectedNoOfSlots);
 
 			  JSONObject loc = new JSONObject();
-			  Location l = EntityFactory.getLocationByAddress(locs.get(selectedFrom));
+			  Location l = EntityFactory.getLocationByAddress(selectedFromLoc);
 	          loc.put("idLocation", l.getId());
 	          loc.put("address", l.getAddress());
 	        
@@ -472,11 +509,14 @@ public class EventDetailsActivity extends Fragment implements OnItemClickListene
 				
 				int order = 1;
 				
-				for(Integer i  : selectedLocs){
+				
+				Iterator<String> it = selectedToLocs.iterator();
+			while(it.hasNext()){
 					
+			     	String str = it.next();
 					JSONObject eventLocationJson = new JSONObject();
 					JSONObject locJson = new JSONObject();
-					 Location ll = EntityFactory.getLocationByAddress(locs.get( i.intValue()));
+					 Location ll = EntityFactory.getLocationByAddress(str);
 					 locJson.put("id",ll.getId());
 					eventLocationJson.put("toOrder",order++);
 	                eventLocationJson.put("location", locJson);    
@@ -494,18 +534,213 @@ public class EventDetailsActivity extends Fragment implements OnItemClickListene
 			controller.updateEventHandler(input.toString());
 			
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
+	
 }
 		
-	
-	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int position,
-			long id) {
-		// TODO Auto-generated method stub
+	public void showTimePickerDialog() {
+			
+			LayoutInflater inflater=LayoutInflater.from(getActivity());
+			  
+			final Dialog dialog = new Dialog(getActivity());
+			View root = inflater.inflate(R.layout.date_time_layout, null);
+			//View root = findViewById(R.layout.date_time_layout);
 		
+		    dialog.setContentView(root);
+		    dialog.setTitle("Select Event Date");
+		    
+		     dp = (DatePicker)root.findViewById(R.id.datePicker1);
+		     tp = (TimePicker)root.findViewById(R.id.timePicker1);
+			 Button setBtn = (Button)root.findViewById(R.id.setBtn);
+			 Button cancelBtn = (Button)root.findViewById(R.id.cancelBtn);
+			
+			
+			setBtn.setOnClickListener(new View.OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+				
+					mDay = dp.getDayOfMonth();
+					mMonth = dp.getMonth();
+					mYear = dp.getYear();
+					mMinute = tp.getCurrentMinute();
+				    mHour = tp.getCurrentHour();
+			
+				    int currentYear = c1.get(Calendar.YEAR);
+			        int currentMonth = c1.get(Calendar.MONTH);
+			        int currentDay = c1.get(Calendar.DAY_OF_MONTH);
+			        int currentHour = c1.get(Calendar.HOUR);
+			        int currentMinute = c1.get(Calendar.MINUTE);
+
+			        tp.setCurrentMinute(currentMinute);
+			        tp.setCurrentHour(currentHour);
+			        dp.init(currentYear, currentMonth, currentDay, null);
+
+					 d = new Date(mYear-1900,mMonth,mDay,mHour,mMinute);
+				     Date d1 = new Date(currentYear-1900,currentMonth,currentDay,currentHour,currentMinute);
+					
+				     if(d.compareTo(d1) <= 0){
+						
+						dateBtn.setText("Wrong Date");
+						dateFlag = false;
+						
+					}else{
+						
+						dateFlag = true;
+						dateBtn.setText(d.toString());
+					
+					}
+					
+				   
+					dialog.dismiss();
+				}
+				
+				
+			});
+			
+			cancelBtn.setOnClickListener(new View.OnClickListener() {
+				
+		
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					dialog.dismiss();
+				}
+			});
+			
+		
+			dialog.show();
+		}
+
+	private void saveEventHandler(){
+			
+			Builder b = new AlertDialog.Builder(getActivity());
+			b.setTitle("Save Event");
+			b.setMessage("You want to save ?");
+			b.setPositiveButton("Save", new DialogInterface.OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					// TODO Auto-generated method stub
+					if(checkError())
+						saveEvent();
+				}
+			});
+			
+			b.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					// TODO Auto-generated method stub
+				
+				}
+			});
+			
+			b.show();
+			
+			
+		}
+	
+	private void exitHandler(){
+			
+			Builder b = new AlertDialog.Builder(getActivity());
+			b.setTitle("Save Event");
+			b.setMessage("You want to Exit ?");
+			b.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					// TODO Auto-generated method stub
+					
+				}
+			});
+			
+			b.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					// TODO Auto-generated method stub
+				
+				}
+			});
+			
+			b.show();
+			
+			
+		}
+
+	private boolean checkError() {
+			
+			Boolean flag = true;
+			
+			if(eventNameTxt.getText().toString().equals("") == true){
+				eventNameTxt.setError("Field Required");
+				flag = false;
+			}
+			
+			if(no_of_slots.getText().toString().equals("Avaliable Slots") == true ||
+					no_of_slots.getText().toString().equals("Field Required") == true	){
+				no_of_slots.setText("Field Required");
+				flag = false;
+			}
+			
+			if(dateFlag == false){
+				dateBtn.setText("Field Required");
+				flag = false;
+			}	
+		
+			if(fromTxt.getText().toString().equals("From") == true ||  selectedFromLoc.equals("") == true){
+				fromTxt.setText("Field Required");
+				flag = false;
+			}
+				
+			if(toTxt.getText().toString().equals("To") == true ||  selectedToLocs.isEmpty()){
+				toTxt.setText("Field Required");
+				flag = false;
+			}
+			
+			if(dateBtn.getText().toString().equals("Date") == true || dateFlag == false){
+				toTxt.setText("Field Required");
+				flag = false;
+			}
+			
+			return flag;
+		}
+
+
+
+	private void showCommentsListDialog() {
+		
+		
+		LayoutInflater inflater=LayoutInflater.from(getActivity());
+		View root = inflater.inflate(R.layout.activity_events_home, null);
+		ListView newCommentList = (ListView) root.findViewById(R.id.home_events_list);
+
+		  CustomCommentBaseAdapter adapter = new CustomCommentBaseAdapter(getActivity(), commentsList);
+		  newCommentList.setAdapter(adapter);
+		    
+		Dialog d = new Dialog(getActivity());
+		d.setTitle("Comments");
+		d.setContentView(root);
+		d.show();
+	}
+
+	private void showUsersListDialog() {
+		// TODO Auto-generated method stub
+		LayoutInflater inflater=LayoutInflater.from(getActivity());
+		View root = inflater.inflate(R.layout.activity_events_home, null);
+	
+		ListView newUsersList = (ListView) root.findViewById(R.id.home_events_list);
+
+		CustomUserBaseAdapter adapter = new CustomUserBaseAdapter(getActivity(), usersList);
+		newUsersList.setAdapter(adapter);
+		//newUsersList.setOnItemClickListener(this);
+
+		Dialog d = new Dialog(getActivity());
+		d.setTitle("Users");
+		d.setContentView(root);
+		d.show();
 	}
 	
 	

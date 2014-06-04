@@ -58,7 +58,7 @@ public class EntityFactory {
 		return null;
 			
 		}
-public static Circle getCircleByName(String name){
+	public static Circle getCircleByName(String name){
 		
 		for (int i = 0; i < circles.size(); i++) {
 			
@@ -69,6 +69,27 @@ public static Circle getCircleByName(String name){
 		return null;
 			
 		}
+	public static int getLocationId(String address){
 		
+		for(Location l : locations){
+			
+			if(l.getAddress().equals(address)== true)
+				return l.getId();
+			
+		}
+		
+		return -1;
+	}
+	public static int SearchLocationId(String address){
+		
+		for(Location l : locations){
+			
+			if(l.getAddress().contains(address)== true)
+				return l.getId();
+			
+		}
+		
+		return -1;
+	}
 	
 }

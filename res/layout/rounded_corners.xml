@@ -8,8 +8,6 @@
         android:color="#a9c5ac" >
     </solid>
  
-   
- 
     <!-- view border color and width -->
     <stroke
         android:width="3dp"

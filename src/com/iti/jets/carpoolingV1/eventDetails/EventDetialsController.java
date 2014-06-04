@@ -1,11 +1,17 @@
 package com.iti.jets.carpoolingV1.eventDetails;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import android.R.integer;
 import android.widget.Toast;
+
+import com.iti.jets.carpoolingV1.httphandler.CancelEvent;
 import com.iti.jets.carpoolingV1.httphandler.RetriveEvent;
 import com.iti.jets.carpoolingV1.httphandler.UpdateEvent;
 import com.iti.jets.carpoolingV1.jsonhandler.JsonParser;
@@ -13,6 +19,7 @@ import com.iti.jets.carpoolingV1.pojos.Comment;
 import com.iti.jets.carpoolingV1.pojos.CustomUser;
 import com.iti.jets.carpoolingV1.pojos.EntityFactory;
 import com.iti.jets.carpoolingV1.pojos.Location;
+import com.iti.jets.carpoolingV1.uimanager.UIManagerHandler;
 
 public class EventDetialsController {
 	EventDetailsActivity view;
@@ -40,18 +47,38 @@ public class EventDetialsController {
 					JSONObject loc = eventObj.getJSONObject("location");
 					
 				view.toTxt.setText("To :\t ");
+				
 				for(int i=0;i<toList.length();i++){
 					
 					JSONObject jj = toList.getJSONObject(i);
-					view.toTxt.append(jj.getString("address")+",");
+					String add= jj.getString("address");
+					view.selectedToLocs.add(add);
+					view.toTxt.append(add+",");
 				}
 			
+				view.eventNameTxt.setText("");
 				view.eventNameTxt.setText("Event Name :\t"+ eventObj.getString("eventName"));
 				
-				view.fromTxt.setText("From :\t"+ loc.getString("address"));
-				view.no_of_slots.setText("slots : \n \t"+ eventObj.getInt("noOfSlots"));
-				view.dp.setText("Date :\n\t"+eventObj.getString("eventDate"));	
+				String from  = loc.getString("address");
+				view.selectedFromLoc = from ;
+				view.fromTxt.setText("From :\t"+ from );
 				
+				int no = eventObj.getInt("noOfSlots");
+				
+				view.selectedNoOfSlots = no;
+				view.no_of_slots.setText("slots : \n \t"+ no);
+				
+				String dateStr = eventObj.getString("eventDate");
+				
+				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				try {
+					view.d = formatter.parse(dateStr);
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				view.dateBtn.setText("Date :\n\t"+view.d.toString());	
+				 
 				ArrayList<Comment> commentslist = new ArrayList<Comment>(); 
 				for (int i = 0; i < comments.length(); i++) {
 					
@@ -62,6 +89,7 @@ public class EventDetialsController {
 						commentslist.add(comment);
 					
 				}
+				
 				view.commentsList = commentslist;
 				
 				view.fillCommentList();
@@ -124,6 +152,35 @@ public class EventDetialsController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+	}
+	public void onCancelPostExecute(String result) {
+		
+	try {
+		
+		
+			if(result.equals("No Connection") == false){
+				JSONObject ob = new JSONObject(result);
+				
+				view.prog.dismiss();
+				if(ob.getBoolean("HasError") == true){
+					Toast.makeText(view.getActivity().getApplicationContext(),ob.getString("FaultsMsg"), Toast.LENGTH_LONG).show();			
+					
+				}else{
+		
+					
+					Toast.makeText(view.getActivity().getApplicationContext(),ob.getString("ResponseValue"), Toast.LENGTH_LONG).show();
+					UIManagerHandler.getoEventHome(view.getActivity());
+				}
+			}
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	public void cancelEventHandler(String string) {
+		new CancelEvent(this).execute(new String[]{string});
 		
 	}
 

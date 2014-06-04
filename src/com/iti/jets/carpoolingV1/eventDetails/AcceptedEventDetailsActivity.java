@@ -43,7 +43,7 @@ import android.widget.VideoView;
 import android.widget.AdapterView.OnItemClickListener;
 
 
-public class AcceptedEventDetailsActivity extends Fragment implements OnItemClickListener{
+public class AcceptedEventDetailsActivity extends Fragment {
 	
 	
 	EditText eventNameTxt;
@@ -75,6 +75,9 @@ public class AcceptedEventDetailsActivity extends Fragment implements OnItemClic
     int currentHour = c1.get(Calendar.HOUR);
     int currentMinute = c1.get(Calendar.MINUTE);
 
+    CustomUserBaseAdapter usersAdapter;
+	CustomCommentBaseAdapter CommentsAdapter;
+	
     
     ArrayList<Integer> selectedLocs = new ArrayList<Integer>();
     ArrayList<Integer> selectedCirs= new ArrayList<Integer>();
@@ -102,7 +105,6 @@ public class AcceptedEventDetailsActivity extends Fragment implements OnItemClic
             Bundle savedInstanceState) {
 		 
 
-		 
          rootView = inflater.inflate(R.layout.activity_event_details, container, false);
          
          eventNameTxt =   (EditText) rootView.findViewById(R.id.eventNameTxt);
@@ -118,10 +120,7 @@ public class AcceptedEventDetailsActivity extends Fragment implements OnItemClic
          dp = (Button) rootView.findViewById(R.id.eventDateTxt);
         
          controller = new AcceptedEventDetialsController(this);
-         
-        
-         
-         
+           
          sendComment.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -129,7 +128,7 @@ public class AcceptedEventDetailsActivity extends Fragment implements OnItemClic
 				// TODO Auto-generated method stub
 			
 				String commentText = writeComment.getText().toString();
-
+				writeComment.setText("");
 				JSONObject commentJson = new JSONObject();
 				JSONObject owner = new JSONObject();
 				JSONObject event = new JSONObject();
@@ -154,6 +153,16 @@ public class AcceptedEventDetailsActivity extends Fragment implements OnItemClic
 		
 						new AddCommentServiceHandler(commentJson.toString());
 						
+						Comment newComment = new Comment();
+						newComment.setDate(date);
+						newComment.setImage("");
+						newComment.setText(commentText);
+						newComment.setUsername( EntityFactory.getUserInstance().getUsername());
+						
+						commentsList.add(newComment);
+						CommentsAdapter.notifyDataSetChanged();
+			
+						
 						
 					} catch (JSONException e) {
 						// TODO Auto-generated catch block
@@ -162,11 +171,7 @@ public class AcceptedEventDetailsActivity extends Fragment implements OnItemClic
 					
 			}
 		});
-         
-       
-           
-       
-
+      
          setHasOptionsMenu(true);
           
          Bundle args = getArguments();
@@ -190,19 +195,36 @@ public class AcceptedEventDetailsActivity extends Fragment implements OnItemClic
 
 	void fillUsersList(){
 		Activity ac = getActivity();
-		CustomUserBaseAdapter adapter = new CustomUserBaseAdapter(ac, usersList);
-	    user.setAdapter(adapter);
-	    user.setOnItemClickListener(this);
+		usersAdapter = new CustomUserBaseAdapter(ac, usersList);
+	    user.setAdapter(usersAdapter);
+	    user.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				showUsersListDialog();
+			}
+		});
 
 	    
 	}
+	
 	void fillCommentList(){
 		Activity ac = getActivity();
-	    CustomCommentBaseAdapter adapter = new CustomCommentBaseAdapter(ac, commentsList);
-	    comments.setAdapter(adapter);
-	    comments.setOnItemClickListener(this);
+	    CommentsAdapter = new CustomCommentBaseAdapter(ac, commentsList);
+	    comments.setAdapter(CommentsAdapter);
+	    comments.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+			
+				showCommentsListDialog();
+			}
+		});
 
 	}
+	
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		// TODO Auto-generated method stub
@@ -210,11 +232,58 @@ public class AcceptedEventDetailsActivity extends Fragment implements OnItemClic
 		super.onCreateOptionsMenu(menu, inflater);
 	}
 
+
+	private void showCommentsListDialog() {
+	
+	
+	LayoutInflater inflater=LayoutInflater.from(getActivity());
+	View root = inflater.inflate(R.layout.activity_events_home, null);
+	ListView newCommentList = (ListView) root.findViewById(R.id.home_events_list);
+
+	  CustomCommentBaseAdapter adapter = new CustomCommentBaseAdapter(getActivity(), commentsList);
+	  newCommentList.setAdapter(adapter);
+	    
+	Dialog d = new Dialog(getActivity());
+	d.setTitle("Comments");
+	d.setContentView(root);
+	d.show();
+}
+
+	private void showUsersListDialog() {
+	// TODO Auto-generated method stub
+	LayoutInflater inflater=LayoutInflater.from(getActivity());
+	View root = inflater.inflate(R.layout.activity_events_home, null);
+
+	ListView newUsersList = (ListView) root.findViewById(R.id.home_events_list);
+
+	CustomUserBaseAdapter adapter = new CustomUserBaseAdapter(getActivity(), usersList);
+	newUsersList.setAdapter(adapter);
+	//newUsersList.setOnItemClickListener(this);
+
+	Dialog d = new Dialog(getActivity());
+	d.setTitle("Users");
+	d.setContentView(root);
+	d.show();
+}
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// TODO Auto-generated method stub
 		switch (item.getItemId()) {
 		case R.id.leave:
+			JSONObject obj = new JSONObject();
+			try {
+				
+				obj.put("eventId", idEvent);
+				obj.put("userId", EntityFactory.getUserInstance().getId().intValue());
+				
+				controller.leaveEventHandler(obj.toString());
+				
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 			return true;	
 		
 
@@ -225,12 +294,7 @@ public class AcceptedEventDetailsActivity extends Fragment implements OnItemClic
 	}
 	
 	
-	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int position,
-			long id) {
-		// TODO Auto-generated method stub
-		
-	}
+
 	
 	
 }

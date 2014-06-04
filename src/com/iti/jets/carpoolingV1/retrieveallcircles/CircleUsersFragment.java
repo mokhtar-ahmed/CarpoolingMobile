@@ -177,7 +177,7 @@ public class CircleUsersFragment extends Fragment {
 				e.printStackTrace();
 			}
         	Resources res = getResources();
-	        ListView list = ( ListView )rootView.findViewById(R.id.list );  
+	        ListView list = ( ListView )rootView.findViewById(R.id.list );  // List defined in XML ( See Below )
 	             
 	            /**************** Create Custom Adapter *********/
 	        CirclesUsersArrayAdapter adapter = new  CirclesUsersArrayAdapter(CircleUsersFragment.this,circleUsersList,res);
@@ -213,7 +213,7 @@ public class CircleUsersFragment extends Fragment {
 		    fragment.setArguments(args);
 			FragmentManager fragmentManager = getFragmentManager();
 			fragmentManager.beginTransaction()
-					.replace(R.id.frame_container, fragment).addToBackStack("AllCirclesListFragment").commit();
+					.replace(R.id.frame_container, fragment).commit();
 			break;
 
 		case R.id.del:

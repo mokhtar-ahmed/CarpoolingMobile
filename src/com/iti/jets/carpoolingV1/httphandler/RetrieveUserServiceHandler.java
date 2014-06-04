@@ -28,14 +28,12 @@ public class RetrieveUserServiceHandler {
 	JSONObject userToRetrieve;
 	String  returnServiceOutput;
 	RetrieveUserController retrieveUserController;
-	int userId = 0;
 	public RetrieveUserServiceHandler(RetrieveUserController retrieveUserController, int userId) {
 		// TODO Auto-generated constructor stub
 	    userToRetrieve = new JSONObject();
 	    try {
 			userToRetrieve.put("userId", userId);
 			this.retrieveUserController = retrieveUserController;
-			this.userId = userId;
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -58,7 +56,7 @@ public class RetrieveUserServiceHandler {
             JSONObject userToLoginJS ;
             try {
             	userToLoginJS = new JSONObject();
-				userToLoginJS.put("userId",userId);
+				userToLoginJS.put("userId",id);
 				nameValuePairs.add(new BasicNameValuePair("userToLoginJS",userToLoginJS.toString()));
 			} catch (JSONException e1) {
 				// TODO Auto-generated catch block

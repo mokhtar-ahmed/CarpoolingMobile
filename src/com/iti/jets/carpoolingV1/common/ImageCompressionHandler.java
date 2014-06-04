@@ -44,6 +44,8 @@ public class ImageCompressionHandler {
 	private ImageLoadingUtils utils;
 	//private EditProfileActivity editProfileObj;
 	private RegisterFragment addCircleActObj;
+	public static int flag = 1;
+	
 	
 	
 	public ImageCompressionHandler(String imageData,RegisterFragment registerActivity)
@@ -80,6 +82,10 @@ public class ImageCompressionHandler {
 			int actualWidth = options.outWidth;
 			float maxHeight = 816.0f;
 			float maxWidth = 612.0f;
+			if(actualHeight == 0)
+			{
+				actualHeight = 100;
+			}
 			float imgRatio = actualWidth / actualHeight;
 			float maxRatio = maxWidth / maxHeight;
 
@@ -198,8 +204,8 @@ public class ImageCompressionHandler {
 			super.onPostExecute(result);
 			
 			if(fromGallery){
-				Toast.makeText(addCircleActObj.getActivity().
-						getApplicationContext(), "Enterediffromgallery", Toast.LENGTH_LONG).show();
+//				Toast.makeText(addCircleActObj.getActivity().
+//						getApplicationContext(), "Enterediffromgallery", Toast.LENGTH_LONG).show();
 				Bundle bundle = new Bundle();
 				bundle.putString("FILE_PATH", result);
 				if(bundle != null){

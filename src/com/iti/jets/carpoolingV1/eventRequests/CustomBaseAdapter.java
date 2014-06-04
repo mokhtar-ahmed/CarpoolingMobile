@@ -1,5 +1,6 @@
 package com.iti.jets.carpoolingV1.eventRequests;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONException;
@@ -26,14 +27,19 @@ public class CustomBaseAdapter extends BaseAdapter {
     List<CustomUser> rowItems;
     int idEvent;
     RequestsHomeController controller;
-    public CustomBaseAdapter(Context context, List<CustomUser> items, int idEvent , RequestsHomeController controller) {
-        this.context = context;
-        this.rowItems = items;
-        this.idEvent = idEvent;
-        this.controller = controller;
+    RequestsHome view;
+    
+    public CustomBaseAdapter(Context context, List<CustomUser> items, int idEvent
+    		, RequestsHomeController controller , RequestsHome view ) {
+    	 this.context = context;
+    	 this.view = view;
+         this.rowItems = items;
+         this.idEvent = idEvent;
+         this.controller = controller;
     }
  
-    /*private view holder class*/
+   
+	/*private view holder class*/
     private class ViewHolder {
         ImageView imageView;
         TextView txtTitle;
@@ -41,7 +47,7 @@ public class CustomBaseAdapter extends BaseAdapter {
         Button reject;
     }
  
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder holder = null;
  
         LayoutInflater mInflater = (LayoutInflater)
@@ -54,6 +60,8 @@ public class CustomBaseAdapter extends BaseAdapter {
             holder.reject = (Button) convertView.findViewById(R.id.RejectBtn);
             holder.imageView = (ImageView) convertView.findViewById(R.id.icon);
             convertView.setTag(holder);
+            
+         
         }
         else {
             holder = (ViewHolder) convertView.getTag();
@@ -83,7 +91,10 @@ public class CustomBaseAdapter extends BaseAdapter {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 
-			controller.acceptHandler(ob.toString());
+				controller.acceptHandler(ob.toString());
+				view.userRequest.remove(position);
+				view.adapter.notifyDataSetChanged();
+				
 			}
 		});
         holder.reject.setOnClickListener(new View.OnClickListener() {
@@ -91,6 +102,9 @@ public class CustomBaseAdapter extends BaseAdapter {
 			@Override
 			public void onClick(View v) {
 				controller.rejectHandler(ob.toString());
+				rowItems.remove(position);
+				view.userRequest.remove(position);
+				view.adapter.notifyDataSetChanged();	
             }
 		});
                 

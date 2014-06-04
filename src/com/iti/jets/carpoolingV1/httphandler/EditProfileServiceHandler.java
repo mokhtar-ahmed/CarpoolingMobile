@@ -30,7 +30,7 @@ public class EditProfileServiceHandler {
 		this.userDataObj = userDataObj;
 		this.imgJsonObject = imgJsonObj;
 		EditProfileWebserviceAsyncTask task = new EditProfileWebserviceAsyncTask ();
-		task.execute(HttpConstants.SERVER_URL+HttpConstants.Edit_Profile_URL);
+		task.execute(uri);
 		
 	}
 

@@ -11,9 +11,10 @@ import com.iti.jets.carpoolingV1.pojos.Comment;
 import com.iti.jets.carpoolingV1.pojos.CustomUser;
 import com.iti.jets.carpoolingV1.pojos.Event;
 import com.iti.jets.carpoolingV1.pojos.Location;
+import com.iti.jets.carpoolingV1.pojos.Notification;
 import com.iti.jets.carpoolingV1.pojos.User;
 
-public class JsonParser {
+public abstract class JsonParser {
 
 
     
@@ -105,7 +106,6 @@ public class JsonParser {
 			ev = new Event();
 			ev.setId(jsonObject.getInt("idEvent"));
 			ev.setName(jsonObject.getString("eventName"));
-			ev.setUserStatue(jsonObject.getString("userStatue"));
 			String dateInString = jsonObject.getString("eventDate");
 			
 			try {
@@ -114,7 +114,8 @@ public class JsonParser {
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
-						
+		
+			ev.setUserStatue(jsonObject.getString("userStatue"));
 		} catch (JSONException e) {
 			
 			e.printStackTrace();
@@ -165,5 +166,32 @@ public class JsonParser {
 		
 		return ev;
 	}
+	public static Notification parseToNotifications(JSONObject jsonObject){
+		Notification ns = new Notification();
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		
 
+		try {
+			ns.setId(jsonObject.getInt("id"));
+			ns.setEvent(JsonParser.parseToEventList(jsonObject.getJSONObject("event")));
+			ns.setMessage(jsonObject.getString("message"));
+			ns.setUser(jsonObject.getInt("userId"));
+			try {
+				ns.setNotificationDate(formatter.parse(jsonObject.getString("date")));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			ns.setEventType(jsonObject.getString("eventType"));
+			ns.setEventState(jsonObject.getString("eventState"));
+			
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+		return ns;
+		
+	}
 }

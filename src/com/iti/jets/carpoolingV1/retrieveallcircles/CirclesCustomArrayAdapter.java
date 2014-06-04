@@ -30,17 +30,12 @@ public class CirclesCustomArrayAdapter extends BaseAdapter  implements OnClickLi
          private AllCirclesListFragment activity;
          private ArrayList data;
          private static LayoutInflater inflater=null;
-         Boolean checkBoxVisibleFlag = false;
-         
 		
 		public static boolean deleteflag;
          public Resources res;
          Circle CircleValues=null;
          int i=0;
-         public CirclesCustomArrayAdapter()
-         {
-        	 
-         }
+         
           
          /*************  CustomAdapter Constructor *****************/
          public CirclesCustomArrayAdapter(AllCirclesListFragment a, ArrayList d,Resources resLocal) {
@@ -79,7 +74,6 @@ public class CirclesCustomArrayAdapter extends BaseAdapter  implements OnClickLi
              public ImageView circleImage;
              public CheckBox checkBox;
              
-             
       
              
          }
@@ -102,10 +96,7 @@ public class CirclesCustomArrayAdapter extends BaseAdapter  implements OnClickLi
                  holder.circleImage=(ImageView)vi.findViewById(R.id.circleImage);
                  holder.checkBox = (CheckBox)vi.findViewById(R.id.chkbox);
                  
-                 if(checkBoxVisibleFlag)
-                 {
-                	 holder.checkBox.setVisibility(0); 
-                 }
+           
                 /************  Set holder with LayoutInflater ************/
                  vi.setTag( holder );
                  
@@ -187,9 +178,7 @@ public class CirclesCustomArrayAdapter extends BaseAdapter  implements OnClickLi
         }   
         
         public void setCheckBoxVisible(){
-        
-        	  checkBoxVisibleFlag = true;
-        	  notifyDataSetChanged();
+        	
         }
           
 }

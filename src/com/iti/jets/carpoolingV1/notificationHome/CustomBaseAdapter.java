@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class CustomBaseAdapter extends BaseAdapter {
@@ -27,6 +28,7 @@ public class CustomBaseAdapter extends BaseAdapter {
  
     /*private view holder class*/
     private class ViewHolder {
+    	LinearLayout container;
         ImageView imageView;
         TextView txtTitle;
         TextView txtDesc;
@@ -38,8 +40,10 @@ public class CustomBaseAdapter extends BaseAdapter {
         LayoutInflater mInflater = (LayoutInflater)
             context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         if (convertView == null) {
-            convertView = mInflater.inflate(R.layout.activity_friends, null);
+            convertView = mInflater.inflate(R.layout.notification_cell, null);
             holder = new ViewHolder();
+            
+            holder.container = (LinearLayout) convertView.findViewById(R.id.container);
             holder.txtDesc = (TextView) convertView.findViewById(R.id.label1);
             holder.txtTitle = (TextView) convertView.findViewById(R.id.label2);
             holder.imageView = (ImageView) convertView.findViewById(R.id.icon);
@@ -50,10 +54,17 @@ public class CustomBaseAdapter extends BaseAdapter {
         }
  
         Notification rowItem = (Notification) getItem(position);
- 
-        holder.txtDesc.setText(rowItem.getEvent().getName());
+     
+        holder.txtDesc.setText(rowItem.getMessage());
         holder.txtTitle.setText(rowItem.getNotificationDate().toString());
         
+        if(rowItem.getEventType().equals("unread")){
+        	holder.imageView.setImageResource(R.drawable.ic_action_email);
+        }else if(rowItem.getEventType().equals("read")){
+        	
+        	holder.container.setBackgroundColor(context.getResources().getColor(R.color.readed_container));
+        	holder.imageView.setImageResource(R.drawable.ic_action_read);
+        }
     
  
         return convertView;

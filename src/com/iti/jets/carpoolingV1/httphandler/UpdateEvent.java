@@ -74,9 +74,11 @@ protected String doInBackground(String... params) {
 						
 		    	
 	        } catch (ClientProtocolException e) {
+	        	output ="No Connection";
 				e.printStackTrace();
 			
 			} catch (IOException e) {
+				output ="No Connection";
 				e.printStackTrace();
 				
 			}

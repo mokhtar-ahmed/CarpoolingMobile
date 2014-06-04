@@ -8,8 +8,7 @@
     tools:context=".OptionsActivity" >
 
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+
         android:id="@+id/LinearLayout2"
         android:layout_width="263dp"
         android:layout_height="0dip"
