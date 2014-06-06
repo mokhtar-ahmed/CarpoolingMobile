@@ -70,6 +70,7 @@ public class GcmIntentService extends IntentService {
     // This is just one simple example of what you might choose to do with
     // a GCM message.
     private void sendNotification(String msg) {
+    	
         mNotificationManager = (NotificationManager)
                 this.getSystemService(Context.NOTIFICATION_SERVICE);
 
@@ -85,6 +86,7 @@ public class GcmIntentService extends IntentService {
         .setContentText(msg);
 
         mBuilder.setContentIntent(contentIntent);
+        
         mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
     }
 }
