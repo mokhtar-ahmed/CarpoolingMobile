@@ -14,6 +14,7 @@ import com.iti.jets.carpoolingV1.jsonhandler.JsonParser;
 import com.iti.jets.carpoolingV1.pojos.Comment;
 import com.iti.jets.carpoolingV1.pojos.CustomUser;
 import com.iti.jets.carpoolingV1.pojos.Location;
+import com.iti.jets.carpoolingV1.uimanager.UIManagerHandler;
 
 public class InvitedEventDetialsController {
 	InvitedEventDetailsActivity view;
@@ -80,7 +81,7 @@ public class InvitedEventDetialsController {
 		// TODO Auto-generated method stub
 		view.prog.dismiss();
 		Toast.makeText(view.getActivity().getApplicationContext(), result, Toast.LENGTH_LONG).show();
-		
+		UIManagerHandler.getoEventHome(view.getActivity());
 		
 	}
 	
