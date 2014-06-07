@@ -8,8 +8,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="horizontal"
-    
-    android:background="#768dec">
+>
 
 
       <ImageView
@@ -31,6 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Mokhtar"
+            android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#ffffff"
             />
 		<TextView
@@ -39,8 +39,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Mokhtar"
+            android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#ffffff"
             />
+
+		
      
      </LinearLayout>
       

@@ -59,12 +59,12 @@
     <!-- Nav Drawer List Item Icons -->
     <!-- Keep them in order as the titles are in -->
     <array name="nav_drawer_icons">
-        <item>@drawable/ic_action_read</item>
-        <item>@drawable/ic_user</item>
-        <item>@drawable/ic_action_new_account</item>
+        <item>@drawable/feeds_icon</item>
+        <item>@drawable/notifications_icon</item>
+        <item>@drawable/events_ico</item>
         <item>@drawable/ic_action_group</item>
+        <item>@drawable/ic_user</item>
         <item>@drawable/ic_action_search</item>
-        <item>@drawable/ic_action_settings</item>
     </array>
      
     <!-- Content Description -->

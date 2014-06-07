@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 	<LinearLayout 
-	    android:layout_width="match_parent"
 	     xmlns:android="http://schemas.android.com/apk/res/android"
-	    android:layout_height="wrap_content"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
 	    android:paddingBottom="@dimen/activity_vertical_margin"
 	    android:paddingLeft="@dimen/activity_horizontal_margin"
 	    android:paddingRight="@dimen/activity_horizontal_margin"
 	    android:paddingTop="@dimen/activity_vertical_margin"
 	    android:orientation="vertical"
 	    android:weightSum="100"
-	   android:background="@drawable/background"
-	    
-	   >
+	   android:background="@color/background_color">
 	    
 	
 	    
@@ -46,11 +44,15 @@
 	          android:drawableLeft="@drawable/ic_action_locate" 
 	          android:background="@drawable/text_back"
 	          android:hint="Search"
+	          android:textColor="#ffffff"
 	          android:inputType="textAutoComplete" />
 
 	          <Spinner
 	              android:id="@+id/searchType"
 	              android:layout_width="0dp"
+	              android:layout_marginTop="7dp"
+	              android:layout_marginLeft="5dp"
+	              android:background="@color/btn_color"
 	              android:layout_height="wrap_content"
 	              android:layout_weight="30" />
 	          
@@ -61,19 +63,39 @@
 	           android:layout_width="match_parent"
 	           android:layout_height="wrap_content"
 	           android:layout_gravity="center"
+	           android:layout_marginTop="10dp"
+	           android:textColor="@color/background_color"
+	           android:background="@drawable/custom_btn"
 	           android:text="Search" />
 
+	       	    
+	    <LinearLayout 
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="horizontal"
+	    android:weightSum="100">
+
+	        <ImageView
+	            android:id="@+id/imageView1"
+	            android:layout_marginTop="10dp"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"       
+	            android:src="@drawable/location_icon" />
+	       
 	       <TextView
 	           android:id="@+id/textView1"
 	           android:layout_width="wrap_content"
 	           android:layout_height="wrap_content"
-	           android:text="@string/search_Result"
+	           android:text="Trips"
 	           android:textColor="#ffffff"
 	           android:layout_marginTop="16dp"
+	           android:layout_marginLeft="10dp"
 	           android:textAppearance="?android:attr/textAppearanceLarge" />
-	
-	 
-		   </LinearLayout>	    
+ 	
+ 		</LinearLayout>	
+		 
+	    </LinearLayout>	 
+		      
 		<LinearLayout
 		    android:layout_width="match_parent"
 		    android:layout_height="0dp"
@@ -82,12 +104,18 @@
 		    android:paddingLeft="@dimen/activity_horizontal_margin"
 		    android:paddingRight="@dimen/activity_horizontal_margin"
 		    android:paddingTop="@dimen/activity_vertical_margin"
+		    android:background="#64b0e3"
 		    android:layout_weight="70"
 	    >
 		 <ListView
 		        android:id="@+id/event_list"
 		        android:layout_width="match_parent"
-		        android:layout_height="match_parent"/>
+		        android:layout_height="match_parent"
+		        android:layout_gravity="start"
+		        android:choiceMode="singleChoice"
+		        android:divider="@drawable/divider"
+		        android:dividerHeight="4dp"
+		        android:listSelector="@color/background_color"/>
 		     </LinearLayout>
 		     
 		</LinearLayout>

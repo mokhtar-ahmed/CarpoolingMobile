@@ -77,7 +77,7 @@ public class InvitedEventDetailsActivity extends Fragment implements OnItemClick
          toTxt =  (Button) rootView.findViewById(R.id.ToSpinner);
          no_of_slots = (Button) rootView.findViewById(R.id.avaliableSlots);
          
-         tp = (Button) rootView.findViewById(R.id.eventTimeTxt);
+        // tp = (Button) rootView.findViewById(R.id.eventTimeTxt);
          dp = (Button) rootView.findViewById(R.id.eventDateTxt);
         
          controller = new InvitedEventDetialsController(this);

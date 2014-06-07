@@ -453,6 +453,7 @@ public class EventDetailsActivity extends Fragment {
 			UIManagerHandler.getoRequestsHome(getActivity(),idEvent);
 			return true;
 		case R.id.cancel:
+			prog = new ProgressDialog(getActivity());
 			prog.setMessage("cancelling the event");
 			prog.show();
 			JSONObject obj = new JSONObject();

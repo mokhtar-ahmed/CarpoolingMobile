@@ -15,6 +15,7 @@ import com.iti.jets.carpoolingV1.eventDetails.InvitedEventDetailsActivity;
 import com.iti.jets.carpoolingV1.eventRequests.RequestsHome;
 import com.iti.jets.carpoolingV1.eventshome.EventsHome;
 import com.iti.jets.carpoolingV1.loginactivity.LoginActivity;
+import com.iti.jets.carpoolingV1.notificationHome.NoNotificationHome;
 
 import com.iti.jets.carpoolingV1.registrationactivity.RegisterActivity;
 
@@ -49,6 +50,16 @@ public class UIManagerHandler {
 		}
 	}
 	
+	public static void goToNoNotificationHome(Activity ac){
+		
+		Fragment fragment = new NoNotificationHome();
+		if (fragment != null) {
+			
+			FragmentManager fragmentManager = ac.getFragmentManager();
+
+			fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).addToBackStack("addEvent").commit();
+		}
+	}
 	public static void getoEventHome(Activity ac){
 	
 	Fragment ff = new EventsHome();

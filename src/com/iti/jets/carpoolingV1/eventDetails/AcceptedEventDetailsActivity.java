@@ -116,7 +116,7 @@ public class AcceptedEventDetailsActivity extends Fragment {
          no_of_slots = (Button) rootView.findViewById(R.id.avaliableSlots);
          user = (ListView) rootView.findViewById(R.id.usersList); 
          comments = (ListView) rootView.findViewById(R.id.commentsList); 
-         tp = (Button) rootView.findViewById(R.id.eventTimeTxt);
+         //tp = (Button) rootView.findViewById(R.id.eventTimeTxt);
          dp = (Button) rootView.findViewById(R.id.eventDateTxt);
         
          controller = new AcceptedEventDetialsController(this);

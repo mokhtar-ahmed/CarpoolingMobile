@@ -9,9 +9,34 @@
 	    android:paddingRight="@dimen/activity_horizontal_margin"
 	    android:paddingTop="@dimen/activity_vertical_margin"
 	    android:orientation="vertical"
-	    android:background="@drawable/background"
+	    android:background="@color/background_color"
+	    android:weightSum="100">
+		
+	<LinearLayout 
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="horizontal"
 	    android:weightSum="100">
 
+	        <ImageView
+	            android:id="@+id/imageView1"
+	            android:layout_marginTop="10dp"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"       
+	            android:src="@drawable/event_ico" />
+	       
+	       <TextView
+	           android:id="@+id/textView1"
+	           android:layout_width="wrap_content"
+	           android:layout_height="wrap_content"
+	           android:text="Top Events"
+	           android:textColor="#ffffff"
+	           android:layout_marginTop="16dp"
+	           android:layout_marginLeft="10dp"
+	           android:textAppearance="?android:attr/textAppearanceLarge" />
+ 	
+ 		</LinearLayout>
+	    
 	 <LinearLayout 
 	    android:layout_width="match_parent"
 	    android:layout_height="0dp"
@@ -20,30 +45,47 @@
 	    android:paddingRight="@dimen/activity_horizontal_margin"
 	    android:paddingTop="@dimen/activity_vertical_margin"
 	    android:orientation="vertical"
+	    android:background="#64b0e3"
 	    android:layout_weight="50">
-	    
-		<TextView
-		    android:paddingTop="5dp"
-		    android:paddingBottom="5dp"
-		    android:layout_width="match_parent"
-		    android:layout_height="wrap_content"
-		    android:text="   Top Events"
-		    android:textAlignment="center"
-		    android:background="@drawable/rounded_shape"
-		    android:textAppearance="?android:attr/textAppearanceLarge" />
 
 		<ListView 
 		    android:paddingTop="5dp"
 		    android:paddingBottom="5dp"
 		    android:id="@+id/TopEvents"
-		    android:layout_width="match_parent"
-		    android:layout_height="wrap_content"
-
-		    
-		    ></ListView>
+		           android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_gravity="start"
+		        android:choiceMode="singleChoice"
+		        android:divider="@drawable/divider"
+		        android:dividerHeight="4dp"
+		        android:listSelector="@color/background_color"/>
+		
 		    
 	</LinearLayout>	
-	
+	<LinearLayout 
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="horizontal"
+	    android:weightSum="100">
+
+	        <ImageView
+	            android:id="@+id/imageView1"
+	            android:layout_marginTop="10dp"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"       
+	            android:src="@drawable/unread" />
+	       
+	       <TextView
+	           android:id="@+id/textView1"
+	           android:layout_width="wrap_content"
+	           android:layout_height="wrap_content"
+	           android:text="Top Notification"
+	           android:textColor="#ffffff"
+	           android:layout_marginTop="16dp"
+	           android:layout_marginLeft="10dp"
+	           android:textAppearance="?android:attr/textAppearanceLarge" />
+ 	
+ 		</LinearLayout>
 	 
 	<LinearLayout 
 	    android:layout_width="match_parent"
@@ -53,27 +95,22 @@
 	    android:paddingRight="@dimen/activity_horizontal_margin"
 	    android:paddingTop="@dimen/activity_vertical_margin"
 	    android:orientation="vertical"
+	    android:background="#64b0e3"
 	    android:layout_weight="50">
-	    
-	    <TextView
-		    android:paddingTop="5dp"
-		    android:paddingBottom="5dp"
-		    android:layout_width="match_parent"
-		    android:layout_height="wrap_content"
-		    android:text="   Top Notification"
-		    android:textAlignment="center"
-		    android:background="@drawable/rounded_shape"
-		    android:textAppearance="?android:attr/textAppearanceLarge" />
 
 		<ListView 
 		    android:paddingTop="5dp"
 		    android:paddingBottom="5dp"
 		    android:id="@+id/TopNotification"
 		    android:layout_width="match_parent"
-		    android:layout_height="wrap_content"
-		    
-		    
-		    ></ListView>
+		        android:layout_height="wrap_content"
+		        android:layout_gravity="start"
+		        android:choiceMode="singleChoice"
+		        android:divider="@drawable/divider"
+		        android:dividerHeight="4dp"
+		        android:listSelector="@color/background_color"/>
+		
+
 	
 	</LinearLayout>	
 	

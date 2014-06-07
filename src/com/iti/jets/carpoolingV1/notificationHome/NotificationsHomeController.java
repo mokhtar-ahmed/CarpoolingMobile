@@ -16,6 +16,7 @@ import com.iti.jets.carpoolingV1.jsonhandler.JsonParser;
 import com.iti.jets.carpoolingV1.pojos.Circle;
 import com.iti.jets.carpoolingV1.pojos.Event;
 import com.iti.jets.carpoolingV1.pojos.Notification;
+import com.iti.jets.carpoolingV1.uimanager.UIManagerHandler;
 
 public class NotificationsHomeController {
 
@@ -46,10 +47,15 @@ public class NotificationsHomeController {
 					
 				}
 				
-				Collections.sort(nfList);
-				
-				view.values = nfList;
-				view.fillListViewData();
+				if(nfList.size() == 0){
+					UIManagerHandler.goToNoNotificationHome(view.getActivity());
+				}
+				else {
+					Collections.sort(nfList);
+					
+					view.values = nfList;
+					view.fillListViewData();
+				}
 					
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block

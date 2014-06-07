@@ -50,9 +50,13 @@ public class CustomBaseAdapter extends BaseAdapter {
  
         holder.txtDesc.setText(rowItem.getName());
         holder.txtTitle.setText(rowItem.getDate().toString());
-    	//Bitmap bmp = BitmapFactory.decodeByteArray(rowItem.getImage(), 0, rowItem.getImage().length);
-        //holder.imageView.setImageBitmap(bmp);
- 
+        if(rowItem.getUserStatue().equals("Create")){
+        	holder.imageView.setImageResource(R.drawable.event_ico);
+        }else {
+        	
+        	//holder.container.setBackgroundColor(context.getResources().getColor(R.color.readed_container));
+        	holder.imageView.setImageResource(R.drawable.events_ico);
+        }
         return convertView;
     }
  
