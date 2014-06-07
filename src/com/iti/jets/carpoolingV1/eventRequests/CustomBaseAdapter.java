@@ -92,6 +92,7 @@ public class CustomBaseAdapter extends BaseAdapter {
 				// TODO Auto-generated method stub
 
 				controller.acceptHandler(ob.toString());
+				rowItems.remove(position);
 				view.userRequest.remove(position);
 				view.adapter.notifyDataSetChanged();
 				
