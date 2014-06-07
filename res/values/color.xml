@@ -7,7 +7,7 @@
     <color name="counter_text_bg">#626262</color>
     <color name="counter_text_color">#c5c4c4</color>
     <color name="readed_container">#fdaeaf</color>
-    <color name="action_bar_color">#1f3a93</color>
+    <color name="action_bar_color">#ffffff</color>
     <color name="background_color">#3598db</color>
     <color name="btn_pressed_color">#ee5527</color>
     <color name="btn_color">#ffd364</color>
