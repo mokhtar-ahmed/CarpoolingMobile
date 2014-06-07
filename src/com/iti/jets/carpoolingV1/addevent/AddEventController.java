@@ -8,6 +8,8 @@ import org.json.JSONObject;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.ProgressDialog;
+import android.view.View;
 import android.widget.Toast;
 
 import com.iti.jets.carpoolingV1.R;
@@ -20,6 +22,7 @@ import com.iti.jets.carpoolingV1.uimanager.UIManagerHandler;
 public class AddEventController {
 
 	AddEventActivity addEventActivity;
+	
 	
 	public AddEventController(AddEventActivity addEventActivity) {
 		// TODO Auto-generated constructor stub
@@ -37,10 +40,14 @@ public class AddEventController {
 		
 			JSONObject obj;
 			try {
+				
 				obj = new JSONObject(result);
+				
 				if ( obj.getBoolean("HasError") == true ){
 					Toast.makeText(addEventActivity.getActivity().getApplicationContext(), obj.getString("FaultsMsg"), Toast.LENGTH_LONG).show();	
 				}else{
+				
+					addEventActivity.prog.dismiss();
 					UIManagerHandler.getoEventHome(addEventActivity.getActivity());
 				}
 			} catch (JSONException e) {

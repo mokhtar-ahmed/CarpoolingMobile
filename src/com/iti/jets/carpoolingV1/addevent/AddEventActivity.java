@@ -605,7 +605,10 @@ public class AddEventActivity extends Fragment{
 	      // Toast.makeText(getActivity().getApplicationContext(), input.toString(), Toast.LENGTH_LONG).show();
 	           
 	        System.out.println(input.toString());
-	        
+	     
+	        prog = new ProgressDialog(getActivity());
+	        prog.setMessage("Add event");
+	        prog.show();
 			cont.addEventHandler(input.toString());
 			
 		} catch (JSONException e) {
@@ -631,6 +634,8 @@ public class AddEventActivity extends Fragment{
     	  		
    	   		selectedBlocked.clear();
     	
+   	   		ul.clear();
+   	   		
     	  			for(User u : Users)
     	  				ul.add(u.getName());
     	  				
