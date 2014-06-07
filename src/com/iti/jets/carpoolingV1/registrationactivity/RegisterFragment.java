@@ -11,6 +11,7 @@ import org.json.JSONObject;
 
 import com.iti.jets.carpoolingV1.R;
 
+import com.iti.jets.carpoolingV1.addcircleactivity.AddCircleFragment;
 import com.iti.jets.carpoolingV1.common.DatePickerFragment;
 import com.iti.jets.carpoolingV1.common.ImageCompressionHandler;
 import com.iti.jets.carpoolingV1.pojos.EntityFactory;
@@ -18,6 +19,7 @@ import com.iti.jets.carpoolingV1.pojos.User;
 
 import com.iti.jets.carpoolingV1.editprofileactivity.EditProfileActivity;
 import com.iti.jets.carpoolingV1.editprofileactivity.EditProfileController;
+import com.iti.jets.carpoolingV1.editprofileactivity.EditProfileFragement;
 import com.iti.jets.carpoolingV1.loginactivity.LoginActivity;
 import com.iti.jets.carpoolingV1.uimanager.UIManagerHandler;
 
@@ -37,6 +39,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.text.InputType;
 import android.text.SpannableStringBuilder;
 import android.text.style.ForegroundColorSpan;
 import android.util.Base64;
@@ -58,6 +61,7 @@ import android.widget.Toast;
 public class RegisterFragment extends Fragment{
 
 	boolean flag = true;
+	boolean imageChoosedFlag = false;
 	Uri selectedImageUri;
 	Button registerBtn,loginBtn,calenderBtn;
 	EditText nameEditText,passwordEditText,phoneEditText,dateEditText,emailEditText;
@@ -94,6 +98,7 @@ public class RegisterFragment extends Fragment{
 		 radioSexGroup = (RadioGroup) rootView.findViewById(R.id.radioSexGroup);
 		 maleRadioBtn = (RadioButton) rootView.findViewById(R.id.maleRadioBtn);
 		 femaleRadioBtn = (RadioButton) rootView.findViewById(R.id.femaleRadioBtn);
+		 dateEditText .setInputType(InputType.TYPE_NULL);
 		 SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getActivity());
 		 Editor editor = sharedPreferences.edit();
 		 editor.putBoolean("firstRunFlag", true);
@@ -133,6 +138,10 @@ public class RegisterFragment extends Fragment{
 				{
 					nameEditText.setError("Name field required");
 				}
+				else if(nameEditText.getText().toString().length()<3)
+				{
+					nameEditText.setError("At least 3 char");
+				}
 				else if(passwordEditText.getText().toString().length()<6)
 				{
 					passwordEditText.setError("At least 6 char");
@@ -152,7 +161,10 @@ public class RegisterFragment extends Fragment{
 				
 				else if(imgBitmap == null)
 				{
-					showDialog("You didn't choose an image");
+					imgBitmap = BitmapFactory.decodeResource(
+							RegisterFragment.this.getResources(), R.drawable.photo);
+					imageChoosedFlag = false;
+//					showDialog("You didn't choose an image");
 				}
 				else
 				{
@@ -238,7 +250,7 @@ public class RegisterFragment extends Fragment{
 		public void showDatePickerDialog() {
 		   DatePickerFragment newFragment = new DatePickerFragment(RegisterFragment.this);
 		   
-		    newFragment.show(this.getFragmentManager(), "DatePicker");
+		   newFragment.show(this.getFragmentManager(), "DatePicker");
 		}	
 		
 		public EditText getDateTxt()
@@ -248,42 +260,32 @@ public class RegisterFragment extends Fragment{
 		
 		public void getResultFromWebservice(String result) {
 			
-		if(result == null)
+		if(result != null)
 		{
 			
 		}
-		else
-		{
-			
-		}
+		
+		
 		//Toast.makeText(RegisterFragment.this.getActivity().getApplicationContext(), "ENTERED FINAL", Toast.LENGTH_LONG).show();
 		//Toast.makeText(RegisterFragment.this.getActivity().getApplicationContext(), result, Toast.LENGTH_LONG).show();
-		JSONObject recievedResult;
+		JSONObject recievedResult = null;
 		JSONObject ResponseValue;
+		String HasError = null;
 		String Exist = null;
 	    try {
 			 recievedResult = new JSONObject(result);
 			 ResponseValue = recievedResult.getJSONObject("ResponseValue");
 			 //Toast.makeText(RegisterFragment.this.getActivity().getApplicationContext(),  "TTTTTTTTTTTT"+"    "+ResponseValue.getString("register").toString() , Toast.LENGTH_LONG).show();
      		 Exist = ResponseValue.getString("register").toString();
+     		 HasError = recievedResult.getString("HasError");
+     		 
 			 //Toast.makeText(RegisterFragment.this.getActivity().getApplicationContext(),Exist, Toast.LENGTH_LONG).show();
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		
-		if(Exist.equals("true"))
-		{
-			
-			getActivity().finish();
-			
-			Intent intent = new Intent(RegisterFragment.this.getActivity().getApplicationContext(),LoginActivity.class);
-			
-			startActivity(intent);
-	 
-		}
-		else
+		if(HasError.equalsIgnoreCase("true"))
 		{
 			AlertDialog alertDialog = new AlertDialog.Builder(
                     RegisterFragment.this.getActivity()).create();
@@ -292,7 +294,12 @@ public class RegisterFragment extends Fragment{
 		    alertDialog.setTitle("Error");
 		
 		    // Setting Dialog Message
-		    alertDialog.setMessage("This username already exists please choose different one");
+		    try {
+				alertDialog.setMessage(recievedResult.getString("FaultsMsg").toString());
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		
 		    // Setting Icon to Dialog
 		    alertDialog.setIcon(R.drawable.tick33);
@@ -312,6 +319,17 @@ public class RegisterFragment extends Fragment{
     // Showing Alert Message
     alertDialog.show();
 		}
+		else if(Exist.equals("true"))
+		{
+			
+			getActivity().finish();
+			
+			Intent intent = new Intent(RegisterFragment.this.getActivity().getApplicationContext(),LoginActivity.class);
+			
+			startActivity(intent);
+	 
+		}
+		
 	
 	
 	}

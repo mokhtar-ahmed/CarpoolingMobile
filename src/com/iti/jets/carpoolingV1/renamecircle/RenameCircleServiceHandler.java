@@ -17,7 +17,7 @@ import org.json.JSONObject;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.iti.jets.carpoolingV1.common.Circle;
+import com.iti.jets.carpoolingV1.common.Circle2;
 import com.iti.jets.carpoolingV1.httphandler.HttpConstants;
 import com.iti.jets.carpoolingV1.pojos.EntityFactory;
 import com.iti.jets.carpoolingV1.retrieveallcircles.AllCirclesListFragment;
@@ -29,9 +29,9 @@ public class RenameCircleServiceHandler {
 	AllCirclesListFragment allCirclesListFragment;
 	String url;
 	String returnServiceOutput,newCircleName;
-	Circle circleValues;
+	Circle2 circleValues;
 	public void connectToWebService(String newCircleName,
-			Circle circleValues, AllCirclesListFragment allCirclesListFragment) {
+			Circle2 circleValues, AllCirclesListFragment allCirclesListFragment) {
 		// TODO Auto-generated method stub
 		url = HttpConstants.SERVER_URL + HttpConstants.UPDATE_CIRCLE_URL ;
 		this.circleValues = circleValues;

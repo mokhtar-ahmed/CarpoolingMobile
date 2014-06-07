@@ -11,6 +11,9 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -124,7 +127,14 @@ public class SyncContactsCustomArrayAdapter extends BaseAdapter  implements OnCl
  
                   holder.nameTxt.setText( UserValues.getName() );
                   holder.phoneTxt.setText(UserValues.getPhone());
-                  if(UserValues.getImageURL().equals("EMPTY"))
+                  
+                  byte [] encodeByte=Base64.decode(UserValues.getImageURL(),Base64.DEFAULT);
+         		 System.out.println(UserValues.getImageURL());
+         		 System.out.println(encodeByte);
+         	     Bitmap bitmap=BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+         	      // Bitmap bitmap = BitmapFactory.decodeStream(this.getContentResolver().openInputStream(userToRetrieve.getString("imageString")));
+         	     holder.userImage.setImageBitmap(bitmap);
+                  if(UserValues.getImageURL().equals("image"))
                   {
                 	  holder.userImage.setImageResource(
                               res.getIdentifier(

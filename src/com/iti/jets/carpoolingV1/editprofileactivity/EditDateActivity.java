@@ -2,6 +2,9 @@ package com.iti.jets.carpoolingV1.editprofileactivity;
 
 import java.util.Calendar;
 import com.iti.jets.carpoolingV1.R;
+import com.iti.jets.carpoolingV1.common.DatePickerFragment;
+import com.iti.jets.carpoolingV1.registrationactivity.RegisterFragment;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -34,11 +37,14 @@ public class EditDateActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				newDate = dateEditText.getText().toString();
-				Intent intent = new Intent(getApplicationContext(),EditProfileActivity.class);
-				intent.putExtra("newDate", newDate);
-				intent.putExtra("flag", "1");
-				startActivity(intent);
+				//DatePickerFragment newFragment = new DatePickerFragment( EditDateActivity.this);
+				   
+			    //newFragment.show(this.getFragmentManager(), "Calender");
+//				newDate = dateEditText.getText().toString();
+//				Intent intent = new Intent(getApplicationContext(),EditProfileActivity.class);
+//				intent.putExtra("newDate", newDate);
+//				intent.putExtra("flag", "1");
+//				startActivity(intent);
 			}
 		});
 		  

@@ -10,7 +10,7 @@ import org.json.JSONObject;
 import com.iti.jets.carpoolingV1.R;
 import com.iti.jets.carpoolingV1.R.layout;
 import com.iti.jets.carpoolingV1.R.menu;
-import com.iti.jets.carpoolingV1.common.Circle;
+import com.iti.jets.carpoolingV1.common.Circle2;
 import com.iti.jets.carpoolingV1.common.User;
 import com.iti.jets.carpoolingV1.retrieveallcircles.CircleUsersFragment;
 import com.iti.jets.carpoolingV1.retrieveallcircles.CirclesUsersArrayAdapter;
@@ -22,6 +22,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.ListActivity;
+import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -50,7 +51,10 @@ public class SyncContactsFragment extends Fragment {
     private User tempUser;
     private int userId,circleId; 
     private View rootView;
-
+    public ProgressDialog dialog;
+    ArrayList<String> existingUsers = new ArrayList<String>();
+    Bundle args;
+    boolean existBeforeFlag = false;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
@@ -59,23 +63,15 @@ public class SyncContactsFragment extends Fragment {
          rootView = inflater.inflate(R.layout.sync_contacts_view,container, false);
          circleId = SyncContactsFragment.this.getArguments().getInt("circle_Id");
 	         userId =  SyncContactsFragment.this.getArguments().getInt("user_Id");
+	         
 	         System.out.println("RRRRRRRRr"+circleId);
 	         System.out.println("RRRRRRRRr"+ userId);
+	      args = getArguments();
+	      existingUsers = args.getStringArrayList("ExistingUsers");
          addFriendToCircleBtn = (Button)rootView.findViewById(R.id.addFriendBtn);
-// 		Bundle newIntent = getActivity().getIntent().getExtras();
-// 		if (newIntent != null) {
-// 			
-// 			circleId = newIntent.getInt("circle_Id");
-// 			//Toast.makeText(getActivity().getApplicationContext(), "YES@@  "+circleId, Toast.LENGTH_LONG).show();
-// 			userId = newIntent.getInt("user_Id");
-// 		}
-      
- 		//Toast.makeText(getActivity().getApplicationContext(), "AFTERYES@@  "+circleId, Toast.LENGTH_LONG).show();
      	ContentResolver contentResolver = getActivity().getContentResolver();
  		SyncContactsController controller = new SyncContactsController(contentResolver,this);
  		addUserToCircleCont = new AddUserToCircleController(this);
- 		
- 		
  		addFriendToCircleBtn.setOnClickListener(new View.OnClickListener() {
  			
  			JSONArray selectedUsersJSArr = new JSONArray();
@@ -177,8 +173,24 @@ public class SyncContactsFragment extends Fragment {
 				}
 				
 				namesList.add(tempUser.getName());
-				registeredFriendsList.add(tempUser);
-				Toast.makeText(getActivity().getApplicationContext(),tempUser.getName(),Toast.LENGTH_LONG).show();
+//				for(int j=0;j<existingUsers.size();i++)
+//				{
+//					if(tempUser.getName().equalsIgnoreCase(existingUsers.get(j)))
+//					{
+//						existBeforeFlag = true;
+//						break;
+//					}
+//					else
+//					{
+//						existBeforeFlag = false;
+//					}
+//				}
+//				if(!existBeforeFlag)
+//				{
+					registeredFriendsList.add(tempUser);
+//				}
+				
+//				Toast.makeText(getActivity().getApplicationContext(),tempUser.getName(),Toast.LENGTH_LONG).show();
 				System.out.println("Size"+"  "+registeredFriendsList.size());
 				
 			}			

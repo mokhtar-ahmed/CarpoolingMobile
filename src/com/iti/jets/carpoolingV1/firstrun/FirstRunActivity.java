@@ -27,9 +27,21 @@ public class FirstRunActivity extends FragmentActivity {
 //
 //    // Add the fragment to the 'fragment_container' FrameLayout
     getSupportFragmentManager().beginTransaction()
-            .add(R.id.framee, firstFragment).commit();
+            .add(R.id.framee, firstFragment).addToBackStack("firstFragment").commit();
 
-
+  
+	}
+	
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		super.onBackPressed();
+		
+		getFragmentManager().popBackStack();
+		
+	    // Default action on back pressed
+	   
+		
 	}
 
 }

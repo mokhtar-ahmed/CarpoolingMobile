@@ -15,9 +15,11 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.iti.jets.carpoolingV1.retrieveallcircles.AllCirclesListFragment;
 import com.iti.jets.carpoolingV1.retrieveallcircles.AllCirclesListFragment.FragmentCallback;
 
 
@@ -25,13 +27,15 @@ public class RetrieveCircleUsersServiceHandler {
 
 	JSONObject circleIdJs;
 	FragmentCallback fragment_CallBack;
+	AllCirclesListFragment allCirclesListFragment;
 	String Url, returnServiceOutput;
 	public void connectToWebService(int circleId,
-			FragmentCallback fragmentCallback2, String uri) {
+			FragmentCallback fragmentCallback2, String uri, AllCirclesListFragment allCirclesListFragment) {
 		// TODO Auto-generated method stub
 		circleIdJs = new JSONObject();
 		try {
 			circleIdJs.put("circleId", circleId);
+			this.allCirclesListFragment = allCirclesListFragment;
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -40,6 +44,8 @@ public class RetrieveCircleUsersServiceHandler {
 		Url = uri;
 		WebserviceAsyncTask task = new WebserviceAsyncTask();
 		task.execute(Url);
+//		allCirclesListFragment.dialog2 = ProgressDialog.show(allCirclesListFragment.getActivity(), "", "Loading...Please wait...", true);
+//		allCirclesListFragment.dialog2.show();
 	}
 
 	private class WebserviceAsyncTask extends AsyncTask<String, Void, String> {
@@ -71,7 +77,7 @@ public class RetrieveCircleUsersServiceHandler {
               
           super.onPostExecute(result);
   		  Log.d(result,"%%%%%%%%%%%%%%%returnService%%%%%%%%%%%%%%%%%%%");
-  
+  		  allCirclesListFragment.dialog2.dismiss();
   		  fragment_CallBack.onTaskDone(result);
  	
         }

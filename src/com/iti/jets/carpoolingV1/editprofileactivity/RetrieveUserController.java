@@ -4,13 +4,18 @@ import com.iti.jets.carpoolingV1.httphandler.RetrieveUserServiceHandler;
 
 public class RetrieveUserController {
 
-	EditProfileActivity editProfileActivity;
+	public EditProfileFragement editProfileActivity;
 	
-	public RetrieveUserController(EditProfileActivity editProfileActivity, int userId) {
+	public RetrieveUserController(EditProfileFragement editProfileFragement, int userId) {
 		// TODO Auto-generated constructor stub
-		this.editProfileActivity = editProfileActivity;
+		this.editProfileActivity = editProfileFragement;
+		System.out.print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"+"   "+userId);
 		RetrieveUserServiceHandler handler = new RetrieveUserServiceHandler(this,userId);
 		
+	}
+
+	public RetrieveUserController(EditProfileFragement editProfileFragement) {
+		// TODO Auto-generated constructor stub
 	}
 
 	public void getResultFromWebService(String result) {

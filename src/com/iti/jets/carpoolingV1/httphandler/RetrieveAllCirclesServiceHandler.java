@@ -15,6 +15,8 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
@@ -55,6 +57,8 @@ public class RetrieveAllCirclesServiceHandler {
 		}
 		WebserviceAsyncTask task = new WebserviceAsyncTask();
 		task.execute(webserviceURI);
+		circlesListRefrence.dialog = ProgressDialog.show(circlesListRefrence.getActivity(), "", "Loading...Please wait...", true);
+		circlesListRefrence.dialog.show();
 		
 	}
 	
@@ -89,6 +93,7 @@ public class RetrieveAllCirclesServiceHandler {
         protected void onPostExecute(String result) {
               
         	System.out.println("%%%%%%%%%%%%%RESULT"+"  "+result+"%%%%%%%%%%%%%");
+        	circlesListRefrence.dialog.dismiss();
 		    circlesListRefrence.getUserCircles(result);
 			
         	

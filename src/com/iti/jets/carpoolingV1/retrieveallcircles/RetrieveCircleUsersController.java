@@ -17,13 +17,13 @@ public class RetrieveCircleUsersController {
 	FragmentCallback fragmentCallback;
 	private RetrieveCircleUsersServiceHandler ruServiceHandler;
 	private String uri;
-	public void setArguments(int circle_Id, FragmentCallback fragmentCallback2) {
+	public void setArguments(AllCirclesListFragment allCirclesListFragment, int circle_Id, FragmentCallback fragmentCallback2) {
 		// TODO Auto-generated method stub
 		circleId =  circle_Id; 
 		this.fragmentCallback = fragmentCallback2;
 		ruServiceHandler = new RetrieveCircleUsersServiceHandler();
 		uri = HttpConstants.SERVER_URL + HttpConstants.RETRIEVE_CIRCLE_USRES_URL;
-		ruServiceHandler.connectToWebService(circleId,fragmentCallback2 ,uri);
+		ruServiceHandler.connectToWebService(circleId,fragmentCallback2 ,uri,allCirclesListFragment);
 	}
 
 }

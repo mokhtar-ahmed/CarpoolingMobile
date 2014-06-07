@@ -23,7 +23,7 @@
             android:layout_height="40dip"
             android:layout_marginTop="350dip"
             android:layout_marginLeft="60dip"
-            android:background="@drawable/bstyle"
+            android:background="@drawable/rounded_corners"
             android:textColor="#FFFFFF"
             android:text="Add" />
     </RelativeLayout>

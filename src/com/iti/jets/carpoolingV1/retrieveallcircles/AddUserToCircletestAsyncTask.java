@@ -29,13 +29,14 @@ public class AddUserToCircletestAsyncTask extends AsyncTask<String, Void, String
 	 private String returnServiceOutput;
 	 JSONObject tempObj = null;
      JSONArray usersListJSArray;
-	    public AddUserToCircletestAsyncTask(FragmentCallback fragmentCallback, int circleId, ArrayList<User> circleActualUsersList) {
+     CircleUsersFragment circleUsersFragment;
+	    public AddUserToCircletestAsyncTask(CircleUsersFragment circleUsersFragment, FragmentCallback fragmentCallback, int circleId, ArrayList<User> circleActualUsersList) {
 	        mFragmentCallback = fragmentCallback;
 	        this.circleId = circleId;
 	        usersList = circleActualUsersList;
 	        usersListJSArray = new JSONArray();
 	        User tempUser;
-	        
+	        this.circleUsersFragment = circleUsersFragment;
 	        for(int i=0;i<usersList.size();i++)
 				try {
 					{
@@ -92,6 +93,7 @@ public class AddUserToCircletestAsyncTask extends AsyncTask<String, Void, String
 		// TODO Auto-generated method stub
 		super.onPostExecute(result);
 		  Log.d(result,"%%%%%%%%%%%%%%%returnService%%%%%%%%%%%%%%%%%%%");
+		  circleUsersFragment.dialog.dismiss();
 		 mFragmentCallback.onTaskDone(result);
 	}
 }

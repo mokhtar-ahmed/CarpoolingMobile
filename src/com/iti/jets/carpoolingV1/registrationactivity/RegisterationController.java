@@ -30,7 +30,16 @@ public class RegisterationController {
 		
 		
 		utils = new ImageLoadingUtils(registerActivity.getActivity().getApplicationContext());
-		bmpScaled = utils.decodeBitmapFromPath(filePath);
+		
+		if(!registerActivity.imageChoosedFlag)
+		{
+			bmpScaled = registerActivity.imgBitmap;
+		}
+		else
+		{
+			bmpScaled = utils.decodeBitmapFromPath(filePath);
+		}
+		
 		imgHandler = new ImageHandler();
 		imageString = imgHandler.BitMapToString(bmpScaled);
 		this.registerActivity = registerActivity;

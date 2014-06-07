@@ -17,8 +17,9 @@ import org.json.JSONObject;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.iti.jets.carpoolingV1.pojos.Circle;
 import com.iti.jets.carpoolingV1.retrieveallcircles.AllCirclesListFragment.FragmentCallback;
-import com.iti.jets.carpoolingV1.common.Circle;
+import com.iti.jets.carpoolingV1.common.Circle2;
 import com.iti.jets.carpoolingV1.httphandler.AddUserToCircleServiceHandler;
 import com.iti.jets.carpoolingV1.httphandler.DeleteCircleServiceHandler;
 import com.iti.jets.carpoolingV1.httphandler.HttpConstants;
@@ -26,13 +27,13 @@ import com.iti.jets.carpoolingV1.httphandler.HttpConstants;
 public class DeleteCircleController {
 
 	String returnServiceOutput;
-	Circle circleObj;
+	Circle2 circleObj;
 	FragmentCallback fragmentCallback;
 	private DeleteCircleServiceHandler delCircleHanler;
 	private String uri;
 	
-	public void setArguments(Circle circleValues,FragmentCallback fragmentCallback2) {
-			circleObj = circleValues; 
+	public void setArguments(Circle2 circleValues2,FragmentCallback fragmentCallback2) {
+			circleObj = circleValues2; 
 			this.fragmentCallback = fragmentCallback2;
 			delCircleHanler = new DeleteCircleServiceHandler();
 			uri = HttpConstants.SERVER_URL + HttpConstants.DELETE_CIRCLE_URL;

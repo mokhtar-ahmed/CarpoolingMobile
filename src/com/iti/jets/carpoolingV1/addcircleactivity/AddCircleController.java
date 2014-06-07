@@ -50,7 +50,7 @@ public class AddCircleController {
 		//imgHandler = new ImageHandler();
 	}
 	
-	public void setArguments(String circleName, Bitmap imgBitmap,
+	public void setArguments(String circleName, int i,
 			String filePath, FragmentCallback fragmentCallback2) {
 		// TODO Auto-generated method stub
 		//bmpScaled = utils.decodeBitmapFromPath(filePath);
@@ -61,9 +61,7 @@ public class AddCircleController {
 		fragmentCallback = fragmentCallback2;
 		try {
 			circleDataObj.put("circleName", circleName);
-		
-			imgJsonObj.put("image", imageStr);
-			
+			imgJsonObj.put("image", i);
 			addCircleHanlerObject = new AddCircleServiceHandler(this);
 			addCircleHanlerObject.connectToWebService(circleDataObj,imgJsonObj,uri);
 		} catch (JSONException e) {

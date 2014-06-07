@@ -18,6 +18,7 @@ import com.iti.jets.carpoolingV1.common.User;
 import com.iti.jets.carpoolingV1.synccontactsactivity.SyncContactsFragment;
 import com.iti.jets.carpoolingV1.synccontactsactivity.SyncContactsController;
 
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
@@ -45,6 +46,9 @@ public class SyncContactsServiceHandler {
 		this.jsArray = array;
 		SyncContactsWebserviceAsyncTask task = new SyncContactsWebserviceAsyncTask();
 		task.execute(webserviceURI);
+		
+		syncContactsActivity.dialog = ProgressDialog.show(syncContactsActivity.getActivity(), "", "Loading...Please wait...", true);
+		syncContactsActivity.dialog.show();
 		this.syncContactsActivity  = syncContactsActivity;
 		
 	}
@@ -78,9 +82,10 @@ public class SyncContactsServiceHandler {
         @Override
         protected void onPostExecute(String result) {
               
+        	syncContactsActivity.dialog.dismiss();
         	SyncContactsController controller = new SyncContactsController();
-        	Toast.makeText(syncContactsActivity.getActivity().getApplicationContext(), "FROM SERVICE HANDLER", Toast.LENGTH_LONG).show();
-        	Toast.makeText(syncContactsActivity.getActivity().getApplicationContext(), result, Toast.LENGTH_LONG).show();
+//        	Toast.makeText(syncContactsActivity.getActivity().getApplicationContext(), "FROM SERVICE HANDLER", Toast.LENGTH_LONG).show();
+//        	Toast.makeText(syncContactsActivity.getActivity().getApplicationContext(), result, Toast.LENGTH_LONG).show();
         	syncContactsActivity.getResultFromService(result);
         	
         	

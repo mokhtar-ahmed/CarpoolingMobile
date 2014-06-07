@@ -5,8 +5,12 @@ import android.util.Log;
 public final class HttpConstants {
 
 	//Webservices URI addresses 
-  //  public static final String SERVER_URL="http://192.168.200.1:9191/CarpoolingBackendFinal/service/";
-    public static final String SERVER_URL="http://10.145.68.128:9191/CarpoolingBackendFinal/service/";
+
+//  public static final String SERVER_URL="http://192.168.200.1:9191/CarpoolingBackendFinal/service/";
+  //public static final String SERVER_URL="http://10.145.67.14:9191/CarpoolingBackendFinal/service/";
+  public static final String SERVER_URL="http://10.145.68.85:8090/CarpoolingBackendFinal/service/";
+	
+
 	public static final String LOGIN_URL="user/newLogin";
 	public static final String GET_CIRCLE_USERS_URL="newCircle/retrieveCirclesUsers";
 	public static final String JOIN_EVENT ="user/joinvent";
@@ -22,10 +26,12 @@ public final class HttpConstants {
 	public static final String RETRIVE_ALL_LOCATIONS_SERVICE_URL="location/allLocation";
 	public static final String RETRIVE_ALL_USER_CIRCLES_SERVICE_URL="viewcircle/view";
 	public static final String RETRIVE_EVENT_SERVICE_URL="event/getEvent";
-	public static final String RETRIEVE_ALL_CIRCLES_URL="viewcircle/view";
+	public static final String RETRIEVE_ALL_CIRCLES_URL="retrieveAllCircles/retrieve";
 	public static final String RETRIEVE_USER_CIRCLES_URL="viewcircle/view2";
 	public static final String REGISTER_SERVICE_URL="register/reg";
-	public static final String Edit_Profile_URL = "editprofileservice/edit";
+	public static final String Edit_Profile_URL="editprofileservice/edit";
+	
+	public static final String RETRIEVE_USER_INFO = "RetrieveUserService/retrieve";
 	public static final String ADD_CIRCLE_SERVICE_URL = "addCircle/add";
 	public static final String SYNC_CONTACTS_URL="syncContacts/sync";
 	public static final String ADD_USERTO_CIRCLE_SERVICE_URL="addUserToCircle/addUser";
@@ -42,8 +48,7 @@ public final class HttpConstants {
 	public static final String SEARCH_EVENT_BY_DRIVER = "searchEventByDriver";
 	public static final String SEARCH_EVENT_BY_LOCATION = "searchEventByFromLocation";
 	public static final String CANCEL_EVENT_SERVICE_URL = "event/cancelEvent";
-	public static final String LEAVE_EVENT_SERVICE_URL="user/leaveEvent";
-		
+	public static final String LEAVE_EVENT_SERVICE_URL="user/leaveEvent";	
 	//Connection Constants
 	public static final int timeoutSocket = 5000;
 	public static final int timeoutConnection = 5000;

@@ -11,6 +11,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import android.os.AsyncTask;
@@ -22,13 +23,13 @@ public class DeleteUserFromCircleServiceHandler {
 
 	String returnServiceOutput;	
 	String Url = null;	
-	User userObj;
+	JSONArray userToDelJsArr = new JSONArray();
 	int circleId;
 	FragmentCallback fragmentCallback;
-	public void connectToWebService(int circleId, User userObj,
+	public void connectToWebService(int circleId, JSONArray userToDelJsArr,
 			FragmentCallback fragmentCallback, String uri) {
 		// TODO Auto-generated method stub
-		this.userObj = userObj;
+		this.userToDelJsArr = userToDelJsArr;
 		this.fragmentCallback = fragmentCallback;
 		Url = uri;
 		this.circleId = circleId;
@@ -47,7 +48,7 @@ public class DeleteUserFromCircleServiceHandler {
             try {
             	
             	 existInJS.put("circleId",circleId);
-            	 existInJS.put("userId",userObj.getUserId());
+            	 existInJS.put("userToDelJsArr",userToDelJsArr);
     		} catch (JSONException e1) {
     			// TODO Auto-generated catch block
     			e1.printStackTrace();

@@ -6,6 +6,7 @@ import java.util.List;
 import org.json.*;
 
 import com.iti.jets.carpoolingV1.R;
+import com.iti.jets.carpoolingV1.common.ContactObj;
 import com.iti.jets.carpoolingV1.common.User;
 import com.iti.jets.carpoolingV1.httphandler.*;
 import com.iti.jets.carpoolingV1.jsonhandler.*;
@@ -24,8 +25,8 @@ import android.widget.*;
 public class SyncContactsController {
 
 	
-	private ArrayList<String> contactListNumber = new ArrayList<String>();
-	private ArrayList<String> contactListTemp = new ArrayList<String>();
+	private ArrayList<ContactObj> contactListNumber = new ArrayList<ContactObj>();
+	private ArrayList<ContactObj> contactListTemp = new ArrayList<ContactObj>();
 	private JSONArray contactListJSArray;
 	private JsonConverter jsonConverterObject;
 	private SyncContactsServiceHandler syncContactsHanlerObject;
@@ -41,12 +42,28 @@ public class SyncContactsController {
 	public SyncContactsController ( ContentResolver contentResolver , SyncContactsFragment syncContactsActivity){
 		
 		this.contentResolver = contentResolver;
-		contactListJSArray = new JSONArray();
+		JSONArray contactListJSArray = new JSONArray();
 		//Fetching Contact List From User's Phone
 		contactListNumber = this.fetchContacts();
 		//Converting ArrayList To JSONarray
 		jsonConverterObject = new JsonConverter();
-		contactListJSArray = jsonConverterObject.arrayListToJSONArray(contactListNumber); 
+//		contactListJSArray = jsonConverterObject.arrayListToJSONArray(contactListNumber); 
+		for (int i=0;i<contactListNumber.size();i++)
+		{
+			ContactObj contactObj = contactListNumber.get(i);
+			JSONObject tempJsObj = new JSONObject();
+			try {
+				tempJsObj.put("contactName", contactObj.getName());
+				tempJsObj.put("contactPhone", contactObj.getPhoneNo());
+			
+				
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			contactListJSArray.put(tempJsObj);
+		}
 		Log.d("URLLLLLLLLLLLLLLL",url);
 		syncContactsHanlerObject = new SyncContactsServiceHandler();
 		syncContactsHanlerObject.connectToWebService(contactListJSArray,syncContactsActivity,url);
@@ -56,8 +73,10 @@ public class SyncContactsController {
 	
 	
 	
-	public ArrayList<String> fetchContacts() {
+	public ArrayList<ContactObj> fetchContacts() {
         String phoneNumber = null;
+         
+        String name  = null;
         String email = null;
         Uri CONTENT_URI = ContactsContract.Contacts.CONTENT_URI;
         String full_Name = ContactsContract.Contacts.DISPLAY_NAME;
@@ -84,8 +103,11 @@ public class SyncContactsController {
                     // Query and loop for every phone number of the contact
                     Cursor phoneCursor = contentResolver.query(PhoneCONTENT_URI, null, Phone_CONTACT_ID + " = ?", new String[] { contact_id }, null);
                     while (phoneCursor.moveToNext()) {
-                        phoneNumber = phoneCursor.getString(phoneCursor.getColumnIndex(NUMBER));   
-                        contactListTemp.add(phoneNumber);
+                    	
+                    	phoneNumber = phoneCursor.getString(phoneCursor.getColumnIndex(NUMBER));  
+                        name = cursor.getString(cursor.getColumnIndex( DISPLAY_NAME ));
+                        
+                        contactListTemp.add(new ContactObj(name, phoneNumber));
                         output.append("\n Phone number:" + phoneNumber);
                     }
                     phoneCursor.close();
