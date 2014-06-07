@@ -2,7 +2,7 @@ package com.iti.jets.carpoolingV1.pojos;
 
 import java.util.Date;
 
-public class Comment  implements java.io.Serializable {
+public class Comment  implements java.io.Serializable , Comparable<Comment> {
 
 
      private Integer id;
@@ -51,6 +51,15 @@ public class Comment  implements java.io.Serializable {
 	}
 	public Comment() {
 		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public int compareTo(Comment another) {
+		
+		if(this.date.compareTo(another.getDate()) <= 0)
+			return 1;
+		else
+			return -1;
 	}
 
 

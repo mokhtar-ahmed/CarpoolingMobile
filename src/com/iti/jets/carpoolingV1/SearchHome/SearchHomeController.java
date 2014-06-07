@@ -34,6 +34,7 @@ public class SearchHomeController {
 	public void onDriverPostExecute(String result) {
 		// TODO Auto-generated method stub
 	
+		view.prog.dismiss();
 		System.out.println(result);
 		
 		if(result.equals("No Connection")== false){
@@ -85,9 +86,11 @@ public class SearchHomeController {
 
 	public void onLocationPostExecute(String result) {
 		// TODO Auto-generated method stub
-System.out.println(result);
+		System.out.println(result);
 		
+		view.prog.dismiss();
 		if(result.equals("No Connection")== false){
+			
 			
 			
 			ArrayList<Event> events = new ArrayList<Event>();

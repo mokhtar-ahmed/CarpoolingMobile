@@ -117,6 +117,8 @@ public class AddEventActivity extends Fragment{
     	  locs.add(l.get(i).getAddress());
     	  
       }
+      
+     
       ArrayList<Circle> l1 =  EntityFactory.getCirclesInstance();
       for(int i=0; i< l1.size(); i++ ){
     	  

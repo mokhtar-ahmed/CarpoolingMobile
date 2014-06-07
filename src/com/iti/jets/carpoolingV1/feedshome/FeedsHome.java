@@ -16,6 +16,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -49,6 +50,7 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container,
 	setHasOptionsMenu(true);
 	
 	cont = new FeedsHomeController(this);
+	
 	
 	fillEventListViewData();
 	fillNotificationtListViewData();

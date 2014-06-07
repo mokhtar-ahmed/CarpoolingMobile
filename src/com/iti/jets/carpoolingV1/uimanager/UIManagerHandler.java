@@ -49,7 +49,7 @@ public class UIManagerHandler {
 			fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).addToBackStack("addEvent").commit();
 		}
 	}
-	
+
 	public static void goToNoNotificationHome(Activity ac){
 		
 		Fragment fragment = new NoNotificationHome();

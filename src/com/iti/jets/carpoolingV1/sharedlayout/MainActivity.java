@@ -112,10 +112,14 @@ public class MainActivity extends Activity {
 		};
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
 
+		
 		if (savedInstanceState == null) {
 			// on first time display view for first nav item
+			
 			displayView(0);
 		}
+		
+		
 	}
 
 	/**
@@ -172,7 +176,6 @@ public class MainActivity extends Activity {
 		switch (position) {
 		case 0:
 			fragment = new FeedsHome();
-			
 			break;
 		case 1:
 			fragment = new NotificationHome();
@@ -196,10 +199,11 @@ public class MainActivity extends Activity {
 			break;
 		}
 
+		
 		if (fragment != null) {
 			FragmentManager fragmentManager = getFragmentManager();
 			fragmentManager.beginTransaction()
-					.replace(R.id.frame_container, fragment).addToBackStack("home").commit();
+					.replace(R.id.frame_container, fragment).commit();
 
 			// update selected item and title, then close the drawer
 			mDrawerList.setItemChecked(position, true);

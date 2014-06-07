@@ -134,7 +134,7 @@ public class EventDetialsController {
 	public void onUpdatePostExecute(String result) {
 		// TODO Auto-generated method stub
 		
-		
+		view.prog.dismiss();
 		try {
 			
 			if(result.equals("No Connection") == false){
@@ -146,6 +146,7 @@ public class EventDetialsController {
 				}else{
 					
 					Toast.makeText(view.getActivity().getApplicationContext(),ob.getString("ResponseValue"), Toast.LENGTH_LONG).show();
+					UIManagerHandler.getoEventHome(view.getActivity());
 				}
 			}
 		} catch (JSONException e) {
@@ -155,7 +156,8 @@ public class EventDetialsController {
 		
 	}
 	public void onCancelPostExecute(String result) {
-		
+	
+		view.prog.dismiss();
 	try {
 		
 		
