@@ -117,6 +117,8 @@ public class AddEventActivity extends Fragment{
     	  locs.add(l.get(i).getAddress());
     	  
       }
+      
+     
       ArrayList<Circle> l1 =  EntityFactory.getCirclesInstance();
       for(int i=0; i< l1.size(); i++ ){
     	  
@@ -603,7 +605,10 @@ public class AddEventActivity extends Fragment{
 	      // Toast.makeText(getActivity().getApplicationContext(), input.toString(), Toast.LENGTH_LONG).show();
 	           
 	        System.out.println(input.toString());
-	        
+	     
+	        prog = new ProgressDialog(getActivity());
+	        prog.setMessage("Add event");
+	        prog.show();
 			cont.addEventHandler(input.toString());
 			
 		} catch (JSONException e) {
@@ -629,6 +634,8 @@ public class AddEventActivity extends Fragment{
     	  		
    	   		selectedBlocked.clear();
     	
+   	   		ul.clear();
+   	   		
     	  			for(User u : Users)
     	  				ul.add(u.getName());
     	  				

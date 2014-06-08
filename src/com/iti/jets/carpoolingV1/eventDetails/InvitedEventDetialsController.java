@@ -74,6 +74,7 @@ public class InvitedEventDetialsController {
 	
 	}
 	public void joinEventHandler(String string) {
+		
 		// TODO Auto-generated method stub
 		new JoinEvent(this).execute(new String[]{string});
 	}

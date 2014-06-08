@@ -126,6 +126,7 @@ public class AcceptedEventDetialsController {
 		// TODO Auto-generated method stub
 		
 		
+		view.prog.dismiss();
 		try {
 			
 			if(result.equals("No Connection") == false){

@@ -3,7 +3,7 @@ package com.iti.jets.carpoolingV1.pojos;
 
 import java.util.Date;
 
-public class Event implements java.io.Serializable {
+public class Event implements java.io.Serializable , Comparable<Event>{
 
 
   private Integer id;
@@ -46,6 +46,14 @@ public void setUserStatue(String userStatue) {
 	this.userStatue = userStatue;
 }
 
+@Override
+public int compareTo(Event another) {
+	
+	if(this.date.compareTo(another.getDate()) <= 0)
+		return 1;
+	else
+		return -1;
+}
 
  
  

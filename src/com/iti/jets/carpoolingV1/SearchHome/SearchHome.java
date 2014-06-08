@@ -19,6 +19,7 @@ import com.iti.jets.carpoolingV1.R;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -42,7 +43,7 @@ public class SearchHome extends Fragment implements OnItemClickListener {
 	Button searchBtn;
 	Spinner searchType;
 	EditText searchTxt;
-	
+	ProgressDialog prog ;
 	
 	List<Event>values = new ArrayList<Event>();
 	SearchHomeController cont ;
@@ -86,6 +87,9 @@ private void search(){
 	
 	if(txt.equals("")== false){
 		
+		prog = new ProgressDialog(getActivity());
+		prog.setMessage("load the events");
+		prog.show();
 		if(searchType.getSelectedItem() == "Driver"){
 			
 	

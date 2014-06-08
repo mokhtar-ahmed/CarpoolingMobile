@@ -93,7 +93,7 @@ public class CustomBaseAdapter extends BaseAdapter {
 
 				controller.acceptHandler(ob.toString());
 				rowItems.remove(position);
-				view.userRequest.remove(position);
+				//view.userRequest.remove(position);
 				view.adapter.notifyDataSetChanged();
 				
 			}
@@ -104,7 +104,7 @@ public class CustomBaseAdapter extends BaseAdapter {
 			public void onClick(View v) {
 				controller.rejectHandler(ob.toString());
 				rowItems.remove(position);
-				view.userRequest.remove(position);
+				//view.userRequest.remove(position);
 				view.adapter.notifyDataSetChanged();	
             }
 		});

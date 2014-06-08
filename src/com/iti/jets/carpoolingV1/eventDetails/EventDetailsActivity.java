@@ -4,6 +4,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -129,6 +131,29 @@ public class EventDetailsActivity extends Fragment {
          user = (ListView) rootView.findViewById(R.id.usersList); 
          comments = (ListView) rootView.findViewById(R.id.commentsList); 
        
+         
+         comments.setOnTouchListener(new View.OnTouchListener() {
+        	    // Setting on Touch Listener for handling the touch inside ScrollView
+        	    @Override
+        	    public boolean onTouch(View v, MotionEvent event) {
+        	    // Disallow the touch request for parent scroll on touch of child view
+        	    	v.getParent().requestDisallowInterceptTouchEvent(true);
+        	    return false;
+        	    }
+        	});
+         
+         
+         user.setOnTouchListener(new View.OnTouchListener() {
+        	    // Setting on Touch Listener for handling the touch inside ScrollView
+        	    @Override
+        	    public boolean onTouch(View v, MotionEvent event) {
+        	    // Disallow the touch request for parent scroll on touch of child view
+        	    	v.getParent().requestDisallowInterceptTouchEvent(true);
+        	    return false;
+        	    }
+        	});
+         
+         
          controller = new EventDetialsController(this);
          
          ArrayList<Location> l =  EntityFactory.getLocationsInstance();
@@ -178,7 +203,9 @@ public class EventDetailsActivity extends Fragment {
 						newComment.setText(commentText);
 						newComment.setUsername( EntityFactory.getUserInstance().getUsername());
 						
+						
 						commentsList.add(newComment);
+						Collections.sort(commentsList);
 						CommentsAdapter.notifyDataSetChanged();
 			
 						
@@ -447,6 +474,7 @@ public class EventDetailsActivity extends Fragment {
 		// TODO Auto-generated method stub
 		switch (item.getItemId()) {
 		case R.id.update:
+			
 			saveEventHandler();
 			return true;	
 		case R.id.request:
@@ -531,6 +559,10 @@ public class EventDetailsActivity extends Fragment {
 	            
 	      // Toast.makeText(getActivity().getApplicationContext(), input.toString(), Toast.LENGTH_LONG).show();
 	           
+			prog = new ProgressDialog(getActivity());
+			prog.setMessage("cancelling the event");
+			prog.show();
+			
 	        System.out.println(input.toString());
 			controller.updateEventHandler(input.toString());
 			
@@ -718,6 +750,7 @@ public class EventDetailsActivity extends Fragment {
 		View root = inflater.inflate(R.layout.activity_events_home, null);
 		ListView newCommentList = (ListView) root.findViewById(R.id.home_events_list);
 
+		  Collections.sort(commentsList);
 		  CustomCommentBaseAdapter adapter = new CustomCommentBaseAdapter(getActivity(), commentsList);
 		  newCommentList.setAdapter(adapter);
 		    

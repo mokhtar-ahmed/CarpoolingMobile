@@ -1,6 +1,7 @@
 package com.iti.jets.carpoolingV1.eventshome;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -54,6 +55,7 @@ public class EventsHomeController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			Collections.sort(events);
 		    view.values = events;
 			view.fillListViewData();
 			

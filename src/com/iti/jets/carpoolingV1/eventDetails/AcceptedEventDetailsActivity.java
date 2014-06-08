@@ -27,6 +27,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.Fragment;
+import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
@@ -57,6 +58,8 @@ public class AcceptedEventDetailsActivity extends Fragment {
 	Button userJoin;
 	Button sendComment;
 	EditText writeComment;
+	
+	ProgressDialog prog;
 	
 	String[] noOfSlotsArr = new String[]{"1","2","3","4","5"};
 	
@@ -90,7 +93,6 @@ public class AcceptedEventDetailsActivity extends Fragment {
 	ArrayList<User> Users = new ArrayList<User>() ;
 	ArrayList<String> cirs = new ArrayList<String>() ;
 	ArrayList< String> ul = new ArrayList<String>();
-	Dialog prog ;
 
 	int idEvent;
 	View rootView ;
@@ -120,7 +122,28 @@ public class AcceptedEventDetailsActivity extends Fragment {
          dp = (Button) rootView.findViewById(R.id.eventDateTxt);
         
          controller = new AcceptedEventDetialsController(this);
-           
+     
+         comments.setOnTouchListener(new View.OnTouchListener() {
+     	    // Setting on Touch Listener for handling the touch inside ScrollView
+     	    @Override
+     	    public boolean onTouch(View v, MotionEvent event) {
+     	    // Disallow the touch request for parent scroll on touch of child view
+     	    	v.getParent().requestDisallowInterceptTouchEvent(true);
+     	    return false;
+     	    }
+     	});
+      
+      
+      user.setOnTouchListener(new View.OnTouchListener() {
+     	    // Setting on Touch Listener for handling the touch inside ScrollView
+     	    @Override
+     	    public boolean onTouch(View v, MotionEvent event) {
+     	    // Disallow the touch request for parent scroll on touch of child view
+     	    	v.getParent().requestDisallowInterceptTouchEvent(true);
+     	    return false;
+     	    }
+     	});
+      
          sendComment.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -273,6 +296,10 @@ public class AcceptedEventDetailsActivity extends Fragment {
 		case R.id.leave:
 			JSONObject obj = new JSONObject();
 			try {
+				
+				prog = new ProgressDialog(getActivity());
+				prog.setMessage("save your aciton");
+				prog.show();
 				
 				obj.put("eventId", idEvent);
 				obj.put("userId", EntityFactory.getUserInstance().getId().intValue());

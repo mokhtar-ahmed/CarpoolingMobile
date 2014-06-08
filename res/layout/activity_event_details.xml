@@ -232,6 +232,7 @@
 		    android:choiceMode="singleChoice"
 		    android:divider="@drawable/divider"
 		    android:dividerHeight="4dp"
+		    android:background="@drawable/rect_shape"
 		    android:listSelector="@color/background_color"/>
 	
 	</LinearLayout>
@@ -245,6 +246,7 @@
 	    android:paddingRight="@dimen/activity_horizontal_margin"
 	    android:paddingTop="@dimen/activity_vertical_margin"
 	    android:orientation="vertical"
+	    
 	   >
 	  <LinearLayout 
 	    android:layout_width="match_parent"
@@ -270,9 +272,7 @@
 	           android:textAppearance="?android:attr/textAppearanceLarge" />
  	
  		</LinearLayout>
-<ScrollView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+
 		<ListView
 		    android:paddingTop="5dp"
 		    android:paddingBottom="5dp"
@@ -283,9 +283,9 @@
 		    android:choiceMode="singleChoice"
 		    android:divider="@drawable/divider"
 		    android:dividerHeight="4dp"
+		     android:background="@drawable/rect_shape"
 		    android:listSelector="@color/background_color"/>	
-	</ScrollView>
-		    
+	
 	</LinearLayout>
 	
    </LinearLayout>
