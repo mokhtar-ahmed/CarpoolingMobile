@@ -38,7 +38,7 @@
                <TextView
                     android:id="@+id/nameTxt"
                     android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
+                    android:layout_width="105sp"
                     android:layout_weight="1" android:layout_gravity="left|center_vertical"
                     android:textSize="16sp"
                     android:layout_marginLeft="10dip"
@@ -53,7 +53,7 @@
                     
                     android:id="@+id/phoneTxt"
                     android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
+                    android:layout_width="105sp"
                     android:layout_weight="1"
                     android:layout_gravity="left|center_vertical"
                     android:textSize="16sp"
@@ -63,16 +63,16 @@
                     android:text="PHONETEXT"
                     android:gravity="left"/>
               </TableRow>
-            </TableLayout>               
-                <CheckBox
-        		android:id="@+id/chkbox"
-        		android:layout_marginTop="10dip"
-        		android:layout_marginLeft="50dip"
-        		android:layout_width="40dip"
-        		android:layout_height="40dip"
-        		
-        		
-        		 />
+            </TableLayout>
+
+              <CheckBox
+                  android:id="@+id/chkbox"
+                  android:layout_width="40dip"
+                  android:layout_height="40dip"
+                  android:layout_marginLeft="30dip"
+                  android:layout_marginTop="10dip"
+                  android:visibility="invisible" />
+
  </TableRow>
 
 

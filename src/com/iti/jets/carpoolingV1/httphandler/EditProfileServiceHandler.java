@@ -12,10 +12,14 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
+
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.iti.jets.carpoolingV1.common.ShowDialog;
 import com.iti.jets.carpoolingV1.editprofileactivity.EditProfileController;
+import com.iti.jets.carpoolingV1.editprofileactivity.EditProfileFragement;
 import com.iti.jets.carpoolingV1.synccontactsactivity.SyncContactsController;
 
 
@@ -24,14 +28,17 @@ public class EditProfileServiceHandler {
 
 	private String returnServiceOutput;
 	private JSONObject userDataObj, imgJsonObject;
+	EditProfileFragement editProfileObj;
 	public void connectToWebService(JSONObject userDataObj,
-			JSONObject imgJsonObj, String uri) {
+			JSONObject imgJsonObj, String uri, EditProfileFragement editProfileObj) {
 		
 		this.userDataObj = userDataObj;
 		this.imgJsonObject = imgJsonObj;
+		this.editProfileObj = editProfileObj;
 		EditProfileWebserviceAsyncTask task = new EditProfileWebserviceAsyncTask ();
-		task.execute(uri);
-		
+		task.execute(HttpConstants.SERVER_URL+HttpConstants.Edit_Profile_URL);
+		editProfileObj.dialog = ProgressDialog.show(editProfileObj.getActivity(), "", "Loading...Please wait...", true);
+		editProfileObj.dialog.show();
 	}
 
 	private class EditProfileWebserviceAsyncTask extends AsyncTask<String, Void, String> {
@@ -62,12 +69,27 @@ public class EditProfileServiceHandler {
 
         @Override
         protected void onPostExecute(String result) {
-              
-        	EditProfileController controller = new EditProfileController();
+        	//editProfileObj.getActivity().runOnUiThread(changeMessage);  
+        	editProfileObj.dialog.dismiss();
         	
-        	controller.getServiceData(result);
+        	if(result.equals("true"))
+        	{
+        		ShowDialog showDialog = new ShowDialog();
+        		showDialog.showDialog("", "Your Profile was Successfully updated", editProfileObj.getActivity());
+        	}
+//        	EditProfileController controller = new EditProfileController();
+//        	
+//        	controller.getServiceData(result);
         	
         	
         }
       }	
+	
+//	private Runnable changeMessage = new Runnable() {
+//	    @Override
+//	    public void run() {
+//	        //Log.v(TAG, strCharacters);
+//	    	editProfileObj.dialog.setMessage("Profile Updated Successfully");
+//	    }
+//	};
 }

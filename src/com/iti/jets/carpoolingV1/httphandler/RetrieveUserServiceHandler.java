@@ -17,7 +17,9 @@ import org.json.JSONObject;
 import com.iti.jets.carpoolingV1.editprofileactivity.EditProfileActivity;
 import com.iti.jets.carpoolingV1.editprofileactivity.GoToEditProfileActivity;
 import com.iti.jets.carpoolingV1.editprofileactivity.RetrieveUserController;
+import com.iti.jets.carpoolingV1.pojos.EntityFactory;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.widget.Toast;
@@ -39,7 +41,10 @@ public class RetrieveUserServiceHandler {
 			e.printStackTrace();
 		}
 		WebserviceAsyncTask task = new WebserviceAsyncTask();
-		task.execute( HttpConstants.SERVER_URL+ HttpConstants.Edit_Profile_URL);
+		task.execute( HttpConstants.SERVER_URL+ HttpConstants.RETRIEVE_USER_INFO);
+		retrieveUserController.editProfileActivity.dialog = ProgressDialog.show(retrieveUserController.editProfileActivity.getActivity(), "", "Loading...Please wait...", true);
+		retrieveUserController.editProfileActivity.dialog.show();
+		
 	
 	}
 
@@ -52,7 +57,7 @@ public class RetrieveUserServiceHandler {
             HttpPost httpPost = new HttpPost(url);
             List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);	
 //            Log.d("RRRRRRRRRRRRRRRR",userToLoginJS.toString());
-            int id = 13;
+            int id = EntityFactory.getUserInstance().getId();
             JSONObject userToLoginJS ;
             try {
             	userToLoginJS = new JSONObject();
@@ -81,7 +86,7 @@ public class RetrieveUserServiceHandler {
 
         @Override
         protected void onPostExecute(String result) {
-              
+        	retrieveUserController.editProfileActivity.dialog.dismiss();  
         	retrieveUserController.getResultFromWebService(result);	
         
         }

@@ -31,11 +31,14 @@ public class AddCircleServiceHandler {
 	}
 	
 	private String returnServiceOutput;
-	private JSONObject circleDataObj, imgJsonObject;
+	private JSONObject circleDataObj = new JSONObject();
+	private JSONObject imgJsonObject = new JSONObject();
+	
 	public void connectToWebService(JSONObject circleDataObj,
 			JSONObject imgJsonObj, String uri) {
 		// TODO Auto-generated method stub
 		this.circleDataObj = circleDataObj;
+		this.imgJsonObject = imgJsonObj;
 		try {
 			int userId = EntityFactory.getUserInstance().getId();
 			circleDataObj.put("userId", userId);
@@ -60,7 +63,7 @@ public class AddCircleServiceHandler {
             HttpPost httpPost = new HttpPost(url);
             List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);	
 			nameValuePairs.add(new BasicNameValuePair("circleDataObj",circleDataObj.toString()));
-			//nameValuePairs.add(new BasicNameValuePair("imagJsObj",imgJsonObject.toString()));
+			nameValuePairs.add(new BasicNameValuePair("imagJsObj",imgJsonObject.toString()));
 			try {	 		
 			httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
             HttpResponse httpResponse= httpClient.execute(httpPost);

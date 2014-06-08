@@ -13,20 +13,22 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import com.iti.jets.carpoolingV1.pojos.Circle;
 import com.iti.jets.carpoolingV1.retrieveallcircles.AllCirclesListFragment.FragmentCallback;
 import android.os.AsyncTask;
 import android.util.Log;
-import com.iti.jets.carpoolingV1.common.Circle;
+import com.iti.jets.carpoolingV1.common.Circle2;
 
 public class DeleteCircleServiceHandler {
 
    String returnServiceOutput;	
    String Url = null;	
-   Circle circleObj;
+   Circle2 circleObj;
    FragmentCallback fragmentCallback;
-	public void connectToWebService(Circle circleObj,FragmentCallback fragmentCallback2, String uri) {
+	public void connectToWebService(Circle2 circleObj2,FragmentCallback fragmentCallback2, String uri) {
 		// TODO Auto-generated method stub
-		this.circleObj = circleObj;
+		this.circleObj = circleObj2;
 		this.fragmentCallback = fragmentCallback2;
 		Url = uri;
 		WebserviceAsyncTask task = new WebserviceAsyncTask();
