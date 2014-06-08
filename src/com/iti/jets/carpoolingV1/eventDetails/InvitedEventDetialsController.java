@@ -41,18 +41,19 @@ public class InvitedEventDetialsController {
 					JSONArray comments = eventObj.getJSONArray("comments");
 					JSONObject loc = eventObj.getJSONObject("location");
 					
-				view.toTxt.setText("To :\t ");
+				view.toTxt.setText("");
 				for(int i=0;i<toList.length();i++){
 					
 					JSONObject jj = toList.getJSONObject(i);
 					view.toTxt.append(jj.getString("address")+",");
 				}
 			
-				view.eventNameTxt.setText("Event Name :\t"+ eventObj.getString("eventName"));
-				
-				view.fromTxt.setText("From :\t"+ loc.getString("address"));
-				view.no_of_slots.setText("slots : \n \t"+ eventObj.getInt("noOfSlots"));
-				view.dp.setText("Date :\n\t"+eventObj.getString("eventDate"));	
+				view.eventNameTxt.setText(""+ eventObj.getString("eventName"));
+				view.getActivity().getActionBar().setTitle(eventObj.getString("eventName"));
+		        
+				view.fromTxt.setText(""+ loc.getString("address"));
+				view.no_of_slots.setText(""+ eventObj.getInt("noOfSlots"));
+				view.dp.setText(""+eventObj.getString("eventDate"));	
 				
 		
 			} catch (JSONException e) {

@@ -102,6 +102,8 @@ public class AddEventActivity extends Fragment{
 		 
         View rootView = inflater.inflate(R.layout.activity_add_event, container, false);
 
+        getActivity().getActionBar().setTitle("Add Event");
+        
        eventNameTxt =   (EditText) rootView.findViewById(R.id.eventNameTxt);
        fromTxt =  (Button) rootView.findViewById(R.id.FromSpinner);
        toTxt =  (Button) rootView.findViewById(R.id.ToSpinner);

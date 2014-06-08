@@ -15,6 +15,8 @@ import com.iti.jets.carpoolingV1.httphandler.LoginServiceHandler;
 import com.iti.jets.carpoolingV1.jsonhandler.JsonParser;
 import com.iti.jets.carpoolingV1.pojos.Circle;
 import com.iti.jets.carpoolingV1.pojos.EntityFactory;
+import com.iti.jets.carpoolingV1.pojos.Event;
+import com.iti.jets.carpoolingV1.pojos.Notification;
 import com.iti.jets.carpoolingV1.pojos.User;
 import com.iti.jets.carpoolingV1.uimanager.UIManagerHandler;
 
@@ -24,17 +26,18 @@ import android.app.FragmentManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.media.audiofx.NoiseSuppressor;
 import android.preference.PreferenceManager;
 import android.widget.Toast;
 
 
 public class LoginController {
 
-	Activity activity;
+	LoginActivity activity;
 	String name = "myPref";	
 	String username;
 	String password;
-	public LoginController(	Activity activity){
+	public LoginController(	LoginActivity activity){
 		this.activity = activity;
 		
 	}
@@ -79,6 +82,7 @@ public class LoginController {
 		
 		
 		//Toast.makeText(activity,result, Toast.LENGTH_LONG).show();
+		activity.prog.dismiss();
 		
 		if(result != null ){
 
@@ -106,6 +110,39 @@ public class LoginController {
 						}
 						
 						EntityFactory.setCirclesInstance(cirs);
+						
+						
+						ArrayList<Event> evs = new ArrayList<Event>();
+						JSONArray eventsJson = resultJson.getJSONArray("events");
+						
+						for(int i =0 ; i<eventsJson.length(); i++){
+							Event ev = JsonParser.parseToEventList(eventsJson.getJSONObject(i));
+							
+							
+							
+							if(ev != null)
+								evs.add(ev);
+						}
+						
+						EntityFactory.setEvents(evs);
+						
+						
+		
+						ArrayList<Notification> notifs = new ArrayList<Notification>();
+						JSONArray notifsJson = resultJson.getJSONArray("notifications");
+						
+						for(int i =0 ; i<notifsJson.length(); i++){
+							Notification notifi = JsonParser.parseToNotifications(notifsJson.getJSONObject(i));
+							
+							
+							if(notifi != null)
+								notifs.add(notifi);
+						}
+						
+						EntityFactory.setNotificationsInstance(notifs);
+		
+						
+						
 						saveShared();
 
 						 SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);

@@ -51,6 +51,7 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container,
 	
 	cont = new EventsHomeController(this);
 	
+	getActivity().getActionBar().setTitle("Events");
 	
 	JSONObject input = new JSONObject();
 	int id = EntityFactory.getUserInstance().getId();

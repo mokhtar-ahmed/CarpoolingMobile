@@ -55,6 +55,7 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container,
 
     values = EntityFactory.getUsersCustom();
 
+    getActivity().getActionBar().setTitle("Requests");
     for(CustomUser us : values){
     	
     	if(us.getUserStatue().equals("Join") == true){

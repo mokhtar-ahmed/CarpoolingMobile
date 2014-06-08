@@ -51,7 +51,7 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container,
 	
 	cont = new FeedsHomeController(this);
 	
-	
+	getActivity().getActionBar().setTitle("Feeds");
 	fillEventListViewData();
 	fillNotificationtListViewData();
 
@@ -59,85 +59,41 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container,
 }
 
 public void fillEventListViewData(){
-	
-	Event ev = new Event();
-	ev.setDate(new Date());
-	ev.setId(1);
-	ev.setName("Event1");
-	
-	Event ev1 = new Event();
-	ev.setDate(new Date());
-	ev.setId(1);
-	ev.setName("Event3");
-	
-	
-	Event ev2 = new Event();
-	ev.setDate(new Date());
-	ev.setId(1);
-	ev.setName("Event2");
-	
-	eventValues.add(ev);
-	eventValues.add(ev1);
-	eventValues.add(ev2);
-	
+
+	eventValues =EntityFactory.getEventInstance();
 	Activity ac = getActivity();
 	EventCustomBaseAdapter adapter = new EventCustomBaseAdapter(ac, eventValues);
     eventsList.setAdapter(adapter);
-    eventsList.setOnItemClickListener(this);
+    eventsList.setOnItemClickListener(new OnItemClickListener() {
+
+		@Override
+		public void onItemClick(AdapterView<?> parent, View view, int position,
+				long id) {
+			// TODO Auto-generated method stub
+		 UIManagerHandler.goToEventDetails(getActivity(), eventValues.get(position).getId(),
+				 eventValues.get(position).getUserStatue());	
+		}
+	});
 
 }
 
 public void fillNotificationtListViewData(){
-	Event ev = new Event();
-	ev.setDate(new Date());
-	ev.setId(1);
-	ev.setName("Event1");
 	
-	Event ev1 = new Event();
-	ev.setDate(new Date());
-	ev.setId(1);
-	ev.setName("Event3");
+	notificationValues = EntityFactory.getNotificationsInstance();
 	
-	
-	Event ev2 = new Event();
-	ev.setDate(new Date());
-	ev.setId(1);
-	ev.setName("Event2");
-	
-	eventValues.add(ev);
-	eventValues.add(ev1);
-	eventValues.add(ev2);
-	
-	
-	Notification no = new Notification();
-	no.setEvent(ev);
-	no.setEventState("goinig");
-	no.setEventType("public");
-	no.setNotificationDate(new Date());
-	
-	Notification no1 = new Notification();
-	no1.setEvent(ev1);
-	no1.setEventState("cancelled");
-	no1.setEventType("public");
-	no1.setNotificationDate(new Date());
-	
-	Notification no2 = new Notification();
-	no2.setEvent(ev2);
-	no2.setEventState("goinig");
-	no2.setEventType("public");
-	no2.setNotificationDate(new Date());
-	
-
-	
-	notificationValues.add(no);
-	notificationValues.add(no1);
-	notificationValues.add(no2);
-
 	Activity ac = getActivity();
 	CustomBaseAdapter adapter = new CustomBaseAdapter(ac, notificationValues);
     notificationsList.setAdapter(adapter);
-    notificationsList.setOnItemClickListener(this);
+    notificationsList.setOnItemClickListener(new OnItemClickListener() {
 
+		@Override
+		public void onItemClick(AdapterView<?> parent, View view, int position,
+				long id) {
+			// TODO Auto-generated method stub
+		 UIManagerHandler.goToEventDetails(getActivity(), notificationValues.get(position).getEvent().getId(),
+				 notificationValues.get(position).getEvent().getUserStatue());	
+		}
+	});
 }
 
 @Override

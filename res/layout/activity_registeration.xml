@@ -4,31 +4,21 @@
     android:id="@+id/FrameLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ADDFFF"
-    tools:context=".ProfileActivity" >
+    android:background="@color/background_color"
+     >
 
     <ScrollView
         android:id="@+id/ScrollView1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".RegisterActivity" >
+      >
 
         <LinearLayout
             android:id="@+id/LinearLayout1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            tools:context=".MainActivity" >
-
-            <TextView
-                android:id="@+id/textView5"
-                android:layout_width="fill_parent"
-                android:layout_height="35dp"
-                android:background="#FFFFFF"
-                android:text="Register"
-                android:textColor="#FFFFFF"
-                android:textSize="35px"
-                android:textStyle="italic" />
+            >
 
             <LinearLayout
                 android:id="@+id/LinearLayout11"
@@ -45,7 +35,7 @@
                     android:layout_marginRight="30dip"
                     android:layout_marginTop="20dp"
                     android:layout_weight="0.27"
-                    android:src="@drawable/photo" />
+                    android:src="@drawable/ic_action_user" />
             </LinearLayout>
 
             <LinearLayout
@@ -54,7 +44,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="20dp"
                 android:orientation="vertical"
-                tools:context=".MainActivity" >
+                >
 
                 <EditText
                     android:id="@+id/PhoneTxt"
@@ -62,12 +52,13 @@
                     android:layout_height="35dp"
                     android:layout_gravity="center"
                     android:layout_marginTop="6dp"
-                    android:background="@drawable/round"
+                    
                     android:drawableLeft="@drawable/ic_action_call"
                     android:ems="10"
                     android:hint="@string/phone"
                     android:inputType="phone"
                     android:maxLength="50"
+                    android:background="@drawable/rect_shape"
                     android:textColorHint="#ffffff" />
 
                 <EditText
@@ -76,7 +67,7 @@
                     android:layout_height="35dp"
                     android:layout_gravity="center"
                     android:layout_marginTop="6dp"
-                    android:background="@drawable/round"
+                    android:background="@drawable/rect_shape"
                     android:drawableLeft="@drawable/ic_action_edit"
                     android:ems="10"
                     android:hint="Username"
@@ -90,11 +81,12 @@
                     android:layout_height="35dp"
                     android:layout_gravity="center"
                     android:layout_marginTop="6dp"
-                    android:background="@drawable/round"
+                   
                     android:drawableLeft="@drawable/ic_action_edit"
                     android:ems="10"
                     android:hint="@string/password"
                     android:inputType="textPassword"
+                     android:background="@drawable/rect_shape"
                     android:maxLength="50"
                     android:textColorHint="#ffffff" />
 
@@ -104,11 +96,12 @@
                     android:layout_height="35dp"
                     android:layout_gravity="center"
                     android:layout_marginTop="6dp"
-                    android:background="@drawable/round"
+                  
                     android:drawableLeft="@drawable/ic_action_email"
                     android:ems="10"
                     android:hint="@string/email"
                     android:inputType="textEmailAddress"
+                     android:background="@drawable/rect_shape"
                     android:maxLength="50"
                     android:textColorHint="#ffffff" >
                 </EditText>
@@ -118,9 +111,10 @@
                     android:layout_width="210dp"
                     android:layout_height="35dp"
                     android:layout_gravity="center"
-                    android:background="@drawable/round"
+                 
                     android:drawableLeft="@drawable/ic_action_edit"
                     android:editable="false"
+                     android:background="@drawable/rect_shape"
                     android:layout_marginTop="6dp"
                     android:ems="10"
                     android:hint="Click to pick date"
@@ -172,7 +166,8 @@
                         android:layout_centerInParent="true"
                         android:layout_marginLeft="70dip"
                         android:gravity="center_horizontal"
-                        android:background="@drawable/bstyle"
+                       
+                         android:background="@drawable/custom_btn"
                         android:shadowColor="#151B54"
                         android:text="Sign up"
                         android:textAlignment="center"

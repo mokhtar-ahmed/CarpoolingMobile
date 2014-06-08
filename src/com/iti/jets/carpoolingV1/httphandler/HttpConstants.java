@@ -6,8 +6,8 @@ public final class HttpConstants {
 
 	//Webservices URI addresses 
 
-//  public static final String SERVER_URL="http://192.168.200.1:9191/CarpoolingBackendFinal/service/";
-  public static final String SERVER_URL="http://10.145.68.128:9191/CarpoolingBackendFinal/service/";
+  public static final String SERVER_URL="http://192.168.200.1:9191/CarpoolingBackendFinal/service/";
+//  public static final String SERVER_URL="http://10.145.68.128:9191/CarpoolingBackendFinal/service/";
 
 
 	public static final String LOGIN_URL="user/newLogin";
