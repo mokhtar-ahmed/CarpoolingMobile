@@ -76,6 +76,10 @@
             android:label="Register" >
         </activity>
         
+        <activity 
+            android:name="com.iti.jets.carpoolingV1.firstrun.FirstRunActivity"
+            android:label="Home" >
+        </activity>
           <meta-data android:name="com.google.android.gms.version"
       android:value="@integer/google_play_services_version" />
      
