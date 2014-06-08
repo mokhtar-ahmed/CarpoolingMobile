@@ -187,17 +187,17 @@ public class AddCircleFragment extends Fragment {
 					userIcon7 = BitmapFactory.decodeResource(
 							AddCircleFragment.this.getResources(), R.drawable.pp9);
 				}
-				if(userIcon8 != null)
-				{
-					userIcon8.recycle();
-					userIcon8 = BitmapFactory.decodeResource(
-							AddCircleFragment.this.getResources(), R.drawable.pp10);
-				}
-				else
-				{
-					userIcon8 = BitmapFactory.decodeResource(
-							AddCircleFragment.this.getResources(), R.drawable.pp10);
-				}
+//				if(userIcon8 != null)
+//				{
+//					userIcon8.recycle();
+//					userIcon8 = BitmapFactory.decodeResource(
+//							AddCircleFragment.this.getResources(), R.drawable.pp10);
+//				}
+//				else
+//				{
+//					userIcon8 = BitmapFactory.decodeResource(
+//							AddCircleFragment.this.getResources(), R.drawable.pp10);
+//				}
 
 				gridArray.add(new ImageItem(userIcon1,R.drawable.p1));
 				gridArray.add(new ImageItem(userIcon2,R.drawable.p6));

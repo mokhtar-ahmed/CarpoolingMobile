@@ -1,15 +1,28 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item
-        android:id="@+id/add"
-        android:orderInCategory="100"
-        android:showAsAction="ifRoom"
-        android:title="add"/>
-    
-     <item
-        android:id="@+id/del"
-        android:orderInCategory="100"
-        android:showAsAction="ifRoom"
-        android:title="delete"/>
+        android:id="@+id/options"
+        android:icon="@drawable/opt3"
+        android:showAsAction="always">
+        <menu>
+            <item
+                android:id="@+id/add"
+                android:orderInCategory="100"
+                android:icon="@drawable/add2"
+                android:title="add"/>
+            <item
+                android:id="@+id/del"
+                android:orderInCategory="100"
+                android:title="delete"
+                android:icon="@drawable/del"/>
+            <item
+                android:id="@+id/update"
+                android:orderInCategory="100"
+                android:title="update"
+                android:icon="@drawable/up"/>
+        </menu>
+    </item>
+
+     
 
 </menu>
