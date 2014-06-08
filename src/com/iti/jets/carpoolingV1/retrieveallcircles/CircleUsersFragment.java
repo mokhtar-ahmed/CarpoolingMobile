@@ -139,12 +139,13 @@ public class CircleUsersFragment extends Fragment {
 							public void onTaskDone(String result) {
 								// TODO Auto-generated method stub
 								
-								adapter.notifyDataSetChanged();
-								UIManagerHandler.goToAllCirclesList(CircleUsersFragment.this.getActivity());
-//								Bundle args2 = new Bundle();
-//								args2.putInt("circle_Id",circle_Id);
-//					 			  
-//								UIManagerHandler.goToCircleUsersFragment(result,CircleUsersFragment.this.getActivity(), args2, circleRecName);
+//								adapter.notifyDataSetChanged();
+//								list.invalidateViews();
+//								UIManagerHandler.goToAllCirclesList(CircleUsersFragment.this.getActivity());
+								Bundle args2 = new Bundle();
+								args2.putInt("circle_Id",circle_Id);
+					 			args2.putString("result", result);  
+								UIManagerHandler.goToCircleUsersFragment(CircleUsersFragment.this.getActivity(),args2,circleRecName);
 							}
 						});
 						
@@ -321,8 +322,12 @@ public class CircleUsersFragment extends Fragment {
 			break;
 
 		case R.id.del:
-			adapter.setCheckBoxVisible();
-			list.invalidateViews();
+			if(adapter != null)
+			{
+				adapter.setCheckBoxVisible();
+				list.invalidateViews();
+			}
+			
 			break;
 		default:
 			break;

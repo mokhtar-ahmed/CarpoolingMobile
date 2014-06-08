@@ -6,6 +6,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.iti.jets.carpoolingV1.R;
+import com.iti.jets.carpoolingV1.common.ShowDialog;
+import com.iti.jets.carpoolingV1.editprofileactivity.EditProfileFragement;
+import com.iti.jets.carpoolingV1.firstrun.FirstRunActivity;
 import com.iti.jets.carpoolingV1.httphandler.LoginServiceHandler;
 
 import com.iti.jets.carpoolingV1.jsonhandler.JsonParser;
@@ -15,7 +19,12 @@ import com.iti.jets.carpoolingV1.pojos.User;
 import com.iti.jets.carpoolingV1.uimanager.UIManagerHandler;
 
 import android.app.Activity;
+import android.app.Dialog;
+import android.app.FragmentManager;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+import android.preference.PreferenceManager;
 import android.widget.Toast;
 
 
@@ -79,7 +88,7 @@ public class LoginController {
 					
 					JSONObject resultJson = new JSONObject(result);
 					
-					if(((String)resultJson.get("FaultsMsg")).equals("success")== true){
+					if(((String)resultJson.get("FaultsMsg")).equals("success") == true){
 						
 						User us = JsonParser.parseToUser(resultJson.getJSONObject("ResponseValue"));
 						System.out.println(us.getName());
@@ -99,10 +108,30 @@ public class LoginController {
 						EntityFactory.setCirclesInstance(cirs);
 						saveShared();
 
-						UIManagerHandler.goToHome(activity);
+						 SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
+					     boolean firstRunFlag =sharedPreferences.getBoolean("firstRunFlag", true);
+					     if(firstRunFlag)
+					     {
+					    	
+					    	 Editor editor = sharedPreferences.edit();
+							 editor.putBoolean("firstRunFlag", false);
+							 editor.commit();
+							 
+							 Intent intent = new Intent(activity.getApplicationContext(),FirstRunActivity.class);
+							 activity.startActivity(intent);
+							 
+							 
+					     }
+					     else
+					     {
+					    	 UIManagerHandler.goToHome(activity);
+					     }
+					    		
+						
 					}
 					else{
-						Toast.makeText(activity,(String)resultJson.get("FaultsMsg"), Toast.LENGTH_LONG).show();
+//						Toast.makeText(activity,(String)resultJson.get("FaultsMsg"), Toast.LENGTH_LONG).show();
+						new ShowDialog().showDialog("Error","Connection error,please connect to the internet", activity); 
 					}
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
@@ -118,5 +147,7 @@ public class LoginController {
 		}
 			System.out.println(result);
 	}
+	
+	
 
 }

@@ -152,7 +152,7 @@ public static void goToAddCircle(Activity ac){
 			 ac.getActionBar().setTitle(title);
 //			 fragmentManager.popBackStack();
 			 
-			fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
+			fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).addToBackStack("AllCirclesListFragment").commit();
 		}
 	}
 
@@ -184,7 +184,7 @@ public static void goToCircleUsersFragment(String result, Activity ac, Bundle ar
 //		fragmentManager.popBackStack();
 		 ac.getActionBar().setTitle(circleName);
 		fragmentManager.beginTransaction()
-				.replace(R.id.frame_container, fragment).addToBackStack("AllCirclesListFragment").commit();
+				.replace(R.id.frame_container, fragment).disallowAddToBackStack().commit();
 		
 		
 		
@@ -202,7 +202,7 @@ public static void goToCircleUsersFragment(Activity ac, Bundle args, String circ
 //		fragmentManager.popBackStack();
 		 ac.getActionBar().setTitle(circleName);
 		fragmentManager.beginTransaction()
-				.replace(R.id.frame_container, fragment).addToBackStack("AllCirclesListFragment").commit();
+				.replace(R.id.frame_container, fragment).disallowAddToBackStack().commit();
 		
 		
 		

@@ -2,7 +2,6 @@ package com.iti.jets.carpoolingV1.sharedlayout;
 
 
 import java.util.ArrayList;
-
 import com.iti.jets.carpoolingV1.R;
 import com.iti.jets.carpoolingV1.SearchHome.SearchHome;
 import com.iti.jets.carpoolingV1.eventshome.EventsHome;
@@ -199,7 +198,7 @@ public class MainActivity extends Activity {
 		if (fragment != null) {
 			FragmentManager fragmentManager = getFragmentManager();
 			fragmentManager.beginTransaction()
-					.replace(R.id.frame_container, fragment).addToBackStack("home").commit();
+					.replace(R.id.frame_container, fragment).commit();
 
 			// update selected item and title, then close the drawer
 			mDrawerList.setItemChecked(position, true);

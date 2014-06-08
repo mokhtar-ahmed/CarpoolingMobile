@@ -20,7 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
 public class FirstRunFragment extends Fragment {
 
     View rootView;	
@@ -48,7 +48,8 @@ public class FirstRunFragment extends Fragment {
 				android.app.Fragment fragment = new EditProfileFragement(); 
 				FragmentManager fragmentManager = getActivity().getFragmentManager();
 				fragmentManager.beginTransaction()
-						.add(R.id.framee, fragment).addToBackStack("EditProfileFragment").commit();
+						.replace(R.id.framee, fragment).addToBackStack("Home").commit();
+				
 				
 				
 			}
@@ -58,7 +59,11 @@ public class FirstRunFragment extends Fragment {
  			@Override
  			public void onClick(View arg0) {
  				// TODO Auto-generated method stub
- 				UIManagerHandler.goToAllCirclesList(FirstRunFragment.this.getActivity());
+ 				android.app.Fragment fragment = new AllCirclesListFragment(); 
+				FragmentManager fragmentManager = getActivity().getFragmentManager();
+				fragmentManager.beginTransaction()
+						.replace(R.id.framee, fragment).addToBackStack("Home").commit();
+// 				UIManagerHandler.goToAllCirclesList(FirstRunFragment.this.getActivity());
 // 				android.app.Fragment fragment  = new AllCirclesListFragment(); 
 //				FragmentManager fragmentManager = getActivity().getFragmentManager();
 //				fragmentManager.beginTransaction()
@@ -75,7 +80,7 @@ public class FirstRunFragment extends Fragment {
   				android.app.Fragment fragment = new EditProfileFragement(); 
 				FragmentManager fragmentManager = getActivity().getFragmentManager();
 				fragmentManager.beginTransaction()
-						.add(R.id.framee, fragment).addToBackStack("EditProfileFragment").commit();
+						.replace(R.id.framee, fragment).addToBackStack("EditProfileFragment").commit();
   				
   				
   			}
@@ -88,7 +93,7 @@ public class FirstRunFragment extends Fragment {
    				android.app.Fragment fragment = new AllCirclesListFragment(); 
 				FragmentManager fragmentManager = getActivity().getFragmentManager();
 				fragmentManager.beginTransaction()
-						.add(R.id.framee, fragment).addToBackStack("My Circles").commit();
+						.replace(R.id.framee, fragment).addToBackStack("My Circles").commit();
    				
    			}
    		}); 
@@ -100,7 +105,7 @@ public class FirstRunFragment extends Fragment {
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		// TODO Auto-generated method stub
-		inflater.inflate(R.menu.circles_home, menu);
+		inflater.inflate(R.menu.circles_home2, menu);
 		super.onCreateOptionsMenu(menu, inflater);
 		
     
