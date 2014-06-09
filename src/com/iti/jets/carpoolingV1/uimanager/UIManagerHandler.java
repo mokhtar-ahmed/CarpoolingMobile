@@ -3,11 +3,15 @@ package com.iti.jets.carpoolingV1.uimanager;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.FragmentManager.OnBackStackChangedListener;
 import android.content.Context;
 import android.content.Intent;
+import android.location.GpsStatus.Listener;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.iti.jets.carpoolingV1.R;
+import com.iti.jets.carpoolingV1.addcircleactivity.AddCircleActivity;
 import com.iti.jets.carpoolingV1.addcircleactivity.AddCircleFragment;
 import com.iti.jets.carpoolingV1.addevent.AddEventActivity;
 import com.iti.jets.carpoolingV1.eventDetails.AcceptedEventDetailsActivity;
@@ -17,6 +21,7 @@ import com.iti.jets.carpoolingV1.eventRequests.RequestsHome;
 import com.iti.jets.carpoolingV1.eventshome.EventsHome;
 import com.iti.jets.carpoolingV1.loginactivity.LoginActivity;
 import com.iti.jets.carpoolingV1.notificationHome.NoNotificationHome;
+import com.iti.jets.carpoolingV1.pojos.EntityFactory;
 
 import com.iti.jets.carpoolingV1.registrationactivity.RegisterActivity;
 
@@ -43,13 +48,18 @@ public class UIManagerHandler {
 	}
 	public static void goToAddEvent(Activity ac){
 		
-		Fragment fragment = new AddEventActivity();
-		if (fragment != null) {
-			
-			FragmentManager fragmentManager = ac.getFragmentManager();
-
-			fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).addToBackStack("addEvent").commit();
-		}
+		
+		Intent intent = new Intent(ac.getApplicationContext(),AddCircleActivity.class);
+		intent.putExtra("userId", EntityFactory.getUserInstance().getId());
+		ac.startActivity(intent);
+		
+//		Fragment fragment = new AddEventActivity();
+//		if (fragment != null) {
+//			
+//			FragmentManager fragmentManager = ac.getFragmentManager();
+//
+//			fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).addToBackStack("addEvent").commit();
+//		}
 	}
 
 	public static void goToNoNotificationHome(Activity ac){
@@ -148,21 +158,29 @@ public static void goToAddCircle(Activity ac){
 		if (fragment != null) {
 			
 			FragmentManager fragmentManager = ac.getFragmentManager();
+			
 			CharSequence title = "New Circle";
 			 ac.getActionBar().setTitle(title);
 //			 fragmentManager.popBackStack();
 			 
-			fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).addToBackStack("AllCirclesListFragment").commit();
+			fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).addToBackStack("KILL").commit();
 		}
 	}
 
-public static void goToAllCirclesList(Activity ac){
+public static void goToAllCirclesList(final Activity ac){
 	
 	Fragment fragment = new AllCirclesListFragment();
 	
 	if (fragment != null) {
 		
 		FragmentManager fragmentManager = ac.getFragmentManager();
+		fragmentManager.addOnBackStackChangedListener(new OnBackStackChangedListener() {    
+            public void onBackStackChanged() {
+               
+               Toast.makeText(ac.getApplicationContext(),"LLLLLLLLLLLLLL",Toast.LENGTH_LONG).show();
+                
+            }
+        });
 		CharSequence title = "My Circles";
 		 ac.getActionBar().setTitle(title);
 //		 fragmentManager.popBackStack();

@@ -4,6 +4,8 @@ package com.iti.jets.carpoolingV1.sharedlayout;
 import java.util.ArrayList;
 import com.iti.jets.carpoolingV1.R;
 import com.iti.jets.carpoolingV1.SearchHome.SearchHome;
+import com.iti.jets.carpoolingV1.editprofileactivity.EditDateActivity;
+import com.iti.jets.carpoolingV1.editprofileactivity.EditProfileFragement;
 import com.iti.jets.carpoolingV1.eventshome.EventsHome;
 import com.iti.jets.carpoolingV1.feedshome.FeedsHome;
 import com.iti.jets.carpoolingV1.homeactivity.HomeFragment;
@@ -186,7 +188,7 @@ public class MainActivity extends Activity {
 			fragment =  new AllCirclesListFragment();
 			break;
 		case 4:
-			fragment = new HomeFragment();
+			fragment = new EditProfileFragement();
 			break;
 		case 5:
 			fragment = new SearchHome();
@@ -232,6 +234,11 @@ public class MainActivity extends Activity {
 		// Sync the toggle state after onRestoreInstanceState has occurred.
 		mDrawerToggle.syncState();
 	}
+	 @Override
+	  public void onBackPressed() {
+	    moveTaskToBack(true);
+	    getFragmentManager().popBackStack();
+	  }
 
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {

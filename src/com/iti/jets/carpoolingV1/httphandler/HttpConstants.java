@@ -6,9 +6,10 @@ public final class HttpConstants {
 
 	//Webservices URI addresses 
 
-//  public static final String SERVER_URL="http://192.168.200.1:9191/CarpoolingBackendFinal/service/";
-  public static final String SERVER_URL="http://10.145.68.128:9191/CarpoolingBackendFinal/service/";
-
+//    public static final String SERVER_URL="http://192.168.200.1:9191/CarpoolingBackendFinal/service/";
+    //public static final String SERVER_URL="http://10.145.67.14:9191/CarpoolingBackendFinal/service/";
+    public static final String SERVER_URL="http://192.168.1.2:8090/CarpoolingBackendFinal/service/";
+	
 
 	public static final String LOGIN_URL="user/newLogin";
 	public static final String GET_CIRCLE_USERS_URL="newCircle/retrieveCirclesUsers";
@@ -53,6 +54,7 @@ public final class HttpConstants {
 	public static final int timeoutConnection = 5000;
 	public static final String UPDATE_CIRCLE_URL = "updateCircle/update";
 
+	
 	
 
 }
