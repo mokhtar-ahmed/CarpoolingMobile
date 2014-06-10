@@ -8,6 +8,7 @@ import org.json.JSONObject;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import com.iti.jets.carpoolingV1.addcircleactivity.AddCircleFragment;
 import com.iti.jets.carpoolingV1.common.ImageHandler;
 import com.iti.jets.carpoolingV1.common.ImageLoadingUtils;
 import com.iti.jets.carpoolingV1.common.User;
+import com.iti.jets.carpoolingV1.firstrun.SyncContactsFragment2;
 import com.iti.jets.carpoolingV1.httphandler.AddCircleServiceHandler;
 import com.iti.jets.carpoolingV1.httphandler.AddUserToCircleServiceHandler;
 import com.iti.jets.carpoolingV1.httphandler.HttpConstants;
@@ -36,6 +38,8 @@ public class AddUserToCircleController {
 		
 	private AddUserToCircleServiceHandler addUserToCircleHanlerObject;
 	private String uri = HttpConstants.SERVER_URL + HttpConstants.ADD_USERTO_CIRCLE_SERVICE_URL;
+
+	private SyncContactsFragment2 addUserToCircActObj2;
 	
 	public AddUserToCircleController() {
 		// TODO Auto-generated constructor stub
@@ -45,6 +49,11 @@ public class AddUserToCircleController {
 	public AddUserToCircleController(SyncContactsFragment syncContactsActivity)
 	{
 		addUserToCircActObj = syncContactsActivity;
+		
+	}
+	public AddUserToCircleController(SyncContactsFragment2 syncContactsActivity2)
+	{
+		addUserToCircActObj2 = syncContactsActivity2;
 		
 	}
 	
@@ -118,6 +127,8 @@ public class AddUserToCircleController {
 			    fragment.setArguments(args);
 			    MainActivity activ = new MainActivity();
 				FragmentManager fragmentManager = activ.getFragmentManager();
+				addUserToCircActObj.getActivity().setRequestedOrientation(
+			            ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 				fragmentManager.beginTransaction()
 						.replace(R.id.frame_container, fragment).commit();
 

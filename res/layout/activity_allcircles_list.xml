@@ -1,14 +1,21 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#FFFFFF"
-        tools:context=".CustomListViewAndroidExample" >
-     
-        <ListView
-            android:id="@+id/list"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content" 
-            android:layout_weight="1"/>
-     
- </RelativeLayout> 
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_color"
+    android:weightSum="1"
+   
+    tools:context=".CustomListViewAndroidExample" >
+
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+         android:layout_weight="1"
+        android:choiceMode="singleChoice"
+        android:divider="@drawable/divider"
+        android:dividerHeight="4dp"
+        android:listSelector="@drawable/list_selector" />
+
+</LinearLayout>

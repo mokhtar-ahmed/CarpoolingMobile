@@ -3,9 +3,9 @@
     android:id="@+id/LinearLayout3"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="@color/background_color" 
     android:orientation="vertical"
-    tools:context=".AddCircleFragment" >
+    tools:context=".AddCircleFragment2" >
 
     <ScrollView
         android:id="@+id/ScrollView1"
@@ -16,9 +16,9 @@
             android:id="@+id/LinearLayout1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#FFFFFF"
+            android:background="@color/background_color" 
             android:orientation="vertical"
-            tools:context=".AddCircleFragment" >
+            tools:context=".AddCircleFragment2" >
 
             <ImageView
                 android:id="@+id/circleImgView"
@@ -34,9 +34,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:layout_marginTop="50dp"
-                android:background="#FFDFDD"
+                android:background="#ffe092"
                 android:orientation="horizontal"
-                tools:context=".AddCircleFragment" >
+                tools:context=".AddCircleFragment2" >
 
                 <TextView
                     android:id="@+id/circleNameTxtlabel"
@@ -45,7 +45,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="10dp"
                     android:text="Circle name"
-                    android:textColor="#FF7F50"
+                    android:textColor="@color/background_color"
                     android:textSize="35px"
                     android:textStyle="bold" />
 
@@ -67,9 +67,9 @@
                 android:layout_height="35dp"
                 android:layout_marginLeft="80dp"
                 android:layout_marginTop="50dp"
-                android:background="@drawable/rounded_corners"
+                android:background="@drawable/custom_btn"
                 android:text="Add"
-                android:textColor="#FFFFFF" />
+                android:textColor="@color/background_color" />
         </LinearLayout>
     </ScrollView>
 

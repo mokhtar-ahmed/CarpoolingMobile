@@ -8,6 +8,7 @@ import org.json.*;
 import com.iti.jets.carpoolingV1.R;
 import com.iti.jets.carpoolingV1.common.ContactObj;
 import com.iti.jets.carpoolingV1.common.User;
+import com.iti.jets.carpoolingV1.firstrun.SyncContactsFragment2;
 import com.iti.jets.carpoolingV1.httphandler.*;
 import com.iti.jets.carpoolingV1.jsonhandler.*;
 import android.net.Uri;
@@ -33,6 +34,7 @@ public class SyncContactsController {
 	private String url = HttpConstants.SERVER_URL+ HttpConstants.SYNC_CONTACTS_URL;
 	private ArrayAdapter<String> arrayadapter;
 	ContentResolver contentResolver;
+	private SyncContactsFragment2 syncContactsActivity2;
 	
 
 	public SyncContactsController()
@@ -71,8 +73,39 @@ public class SyncContactsController {
 
 	}
 	
-	
-	
+	public SyncContactsController(ContentResolver contentResolver2,
+			SyncContactsFragment2 syncContactsFragment2) {
+		
+		// TODO Auto-generated constructor stub
+		this.contentResolver = contentResolver2;
+		JSONArray contactListJSArray = new JSONArray();
+		//Fetching Contact List From User's Phone
+		contactListNumber = this.fetchContacts();
+		//Converting ArrayList To JSONarray
+		jsonConverterObject = new JsonConverter();
+//		contactListJSArray = jsonConverterObject.arrayListToJSONArray(contactListNumber); 
+		for (int i=0;i<contactListNumber.size();i++)
+		{
+			ContactObj contactObj = contactListNumber.get(i);
+			JSONObject tempJsObj = new JSONObject();
+			try {
+				tempJsObj.put("contactName", contactObj.getName());
+				tempJsObj.put("contactPhone", contactObj.getPhoneNo());
+			
+				
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			contactListJSArray.put(tempJsObj);
+		}
+		Log.d("URLLLLLLLLLLLLLLL",url);
+		syncContactsHanlerObject = new SyncContactsServiceHandler();
+		syncContactsActivity2 = syncContactsFragment2;
+		syncContactsHanlerObject.connectToWebService(contactListJSArray,syncContactsActivity2,url);
+		
+	}
 	public ArrayList<ContactObj> fetchContacts() {
         String phoneNumber = null;
          

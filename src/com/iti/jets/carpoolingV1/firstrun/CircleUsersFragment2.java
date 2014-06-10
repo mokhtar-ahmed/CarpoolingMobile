@@ -1,4 +1,4 @@
-package com.iti.jets.carpoolingV1.retrieveallcircles;
+package com.iti.jets.carpoolingV1.firstrun;
 
 import java.util.ArrayList;
 
@@ -16,7 +16,11 @@ import com.iti.jets.carpoolingV1.deletecircle.DeleteCircleController;
 import com.iti.jets.carpoolingV1.httphandler.HttpConstants;
 import com.iti.jets.carpoolingV1.httphandler.RetrieveCirclesAsyncTask;
 import com.iti.jets.carpoolingV1.pojos.EntityFactory;
+import com.iti.jets.carpoolingV1.retrieveallcircles.AddUserToCircletestAsyncTask;
 import com.iti.jets.carpoolingV1.retrieveallcircles.AllCirclesListFragment.FragmentCallback;
+import com.iti.jets.carpoolingV1.retrieveallcircles.CircleUsersFragment;
+import com.iti.jets.carpoolingV1.retrieveallcircles.CirclesUsersArrayAdapter;
+import com.iti.jets.carpoolingV1.retrieveallcircles.DeleteUserFromCircleController;
 import com.iti.jets.carpoolingV1.synccontactsactivity.SyncContactsFragment;
 import com.iti.jets.carpoolingV1.synccontactsactivity.SyncContactsCustomArrayAdapter;
 import com.iti.jets.carpoolingV1.uimanager.UIManagerHandler;
@@ -45,7 +49,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class CircleUsersFragment extends Fragment {
+public class CircleUsersFragment2 extends Fragment {
 
 	private TextView circleName;
 	private ImageView addFriendImgView;
@@ -58,12 +62,12 @@ public class CircleUsersFragment extends Fragment {
 	private ArrayList<User> circleUsersList;
 	private ArrayList<String> circleUsersNames;
 	public ProgressDialog dialog;
-	CirclesUsersArrayAdapter adapter;
+	CirclesUsersArrayAdapter2 adapter;
 	String circleRecName;
 	ListView list;
 	String result2;
 	Button removeUsersBtn;
-	public CircleUsersFragment() {
+	public CircleUsersFragment2() {
 		// TODO Auto-generated constructor stub
 		
 	}
@@ -71,7 +75,7 @@ public class CircleUsersFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
  
-		Toast.makeText(getActivity().getApplicationContext(),"YES",Toast.LENGTH_LONG).show();
+//		Toast.makeText(getActivity().getApplicationContext(),"YES",Toast.LENGTH_LONG).show();
          rootView = inflater.inflate(R.layout.circle_users_list,container, false);
          removeUsersBtn = (Button)rootView.findViewById(R.id.removeUsersBtn);
          list = ( ListView )rootView.findViewById(R.id.list );
@@ -135,7 +139,7 @@ public class CircleUsersFragment extends Fragment {
 						
 						}
 						DeleteUserFromCircleController deleteCircleController = new DeleteUserFromCircleController();
-						deleteCircleController.setArguments(usersToRemoveJsArr,circle_Id,new FragmentCallback() {
+						deleteCircleController.setArguments(usersToRemoveJsArr,circle_Id,new FragmentCallback2() {
 							
 							@Override
 							public void onTaskDone(String result) {
@@ -147,7 +151,20 @@ public class CircleUsersFragment extends Fragment {
 								Bundle args2 = new Bundle();
 								args2.putInt("circle_Id",circle_Id);
 					 			args2.putString("result", result);  
-								UIManagerHandler.goToCircleUsersFragment(CircleUsersFragment.this.getActivity(),args2,circleRecName);
+					 			Fragment fragment = new CircleUsersFragment2();
+					 			
+					 			if (fragment != null) {
+					 				CircleUsersFragment2.this.getActivity().setRequestedOrientation(
+					 			            ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+					 				FragmentManager fragmentManager = CircleUsersFragment2.this.getActivity().getFragmentManager();
+					 				fragment.setArguments(args2); 
+//					 				fragmentManager.popBackStack();
+					 				CircleUsersFragment2.this.getActivity().getActionBar().setTitle(circleRecName);
+					 				fragmentManager.beginTransaction()
+					 						.replace(R.id.framee, fragment).commit();
+
+					 				
+					 			}
 							}
 						});
 						
@@ -195,7 +212,7 @@ public class CircleUsersFragment extends Fragment {
 	 					
 	 				}
 	 				
-					 AddUserToCircletestAsyncTask testAsyncTask = new  AddUserToCircletestAsyncTask(CircleUsersFragment.this,new FragmentCallback() {
+					 AddUserToCircletestAsyncTask testAsyncTask = new  AddUserToCircletestAsyncTask(CircleUsersFragment2.this,new FragmentCallback2() {
 									@Override
 									public void onTaskDone(String result) {
 										System.out.println("ET@AKED" + result);
@@ -227,7 +244,7 @@ public class CircleUsersFragment extends Fragment {
 						 	             // List defined in XML ( See Below )
 						 	             
 						 	            /**************** Create Custom Adapter *********/
-						 	           CirclesUsersArrayAdapter adapter = new  CirclesUsersArrayAdapter(CircleUsersFragment.this,usersList,res);
+						 	           CirclesUsersArrayAdapter2 adapter = new  CirclesUsersArrayAdapter2(CircleUsersFragment2.this,usersList,res);
 						 	           list.setAdapter( adapter );
 										
 									}
@@ -236,7 +253,7 @@ public class CircleUsersFragment extends Fragment {
 					 String URL= HttpConstants.SERVER_URL+HttpConstants.ADD_USERTO_CIRCLE_SERVICE_URL; 
 			     	 testAsyncTask.execute(URL); 
 			     	 
-			         dialog = ProgressDialog.show(CircleUsersFragment.this.getActivity(), "", "Loading...Please wait...", true);
+			         dialog = ProgressDialog.show(CircleUsersFragment2.this.getActivity(), "", "Loading...Please wait...", true);
 			 		 dialog.show();
 	 				
 				} catch (JSONException e) {
@@ -287,14 +304,14 @@ public class CircleUsersFragment extends Fragment {
 	        ListView list = ( ListView )rootView.findViewById(R.id.list );  
 	             
 	            /**************** Create Custom Adapter *********/
-	        adapter = new  CirclesUsersArrayAdapter(CircleUsersFragment.this,circleUsersList,res);
+	        adapter = new  CirclesUsersArrayAdapter2(CircleUsersFragment2.this,circleUsersList,res);
 	        list.setAdapter( adapter );
 	
         }
  	
         return rootView;
 	}
-	public interface FragmentCallback {
+	public interface FragmentCallback2 {
 	        //public void onTaskDone(String result);
 
 			public void onTaskDone(String result);
@@ -311,7 +328,7 @@ public class CircleUsersFragment extends Fragment {
 		// TODO Auto-generated method stub
 		switch (item.getItemId()) {
 		case R.id.add:
-			Fragment fragment = new SyncContactsFragment(); 
+			Fragment fragment = new SyncContactsFragment2(); 
 			Bundle args = new Bundle();
 		    args.putInt("circle_Id",this.circle_Id);
 		    args.putInt("userId", this.user_Id);
@@ -323,18 +340,15 @@ public class CircleUsersFragment extends Fragment {
 		            ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 			FragmentManager fragmentManager = getFragmentManager();
 			fragmentManager.beginTransaction()
-					.replace(R.id.frame_container, fragment).addToBackStack("CircleUsersFragment").commit();
+					.replace(R.id.framee, fragment).addToBackStack("CircleUsersFragment").commit();
 			break;
 
 		case R.id.del:
 			
 			removeUsersBtn.setVisibility(View.VISIBLE);
-				if(adapter!=null)
-				{
-					adapter.setCheckBoxVisible();
-					list.invalidateViews();
-				}
-				
+			
+				adapter.setCheckBoxVisible();
+				list.invalidateViews();
 			
 			break;
 		default:

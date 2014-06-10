@@ -16,6 +16,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.iti.jets.carpoolingV1.common.User;
+import com.iti.jets.carpoolingV1.firstrun.CircleUsersFragment2;
+import com.iti.jets.carpoolingV1.firstrun.CircleUsersFragment2.FragmentCallback2;
 import com.iti.jets.carpoolingV1.retrieveallcircles.CircleUsersFragment.FragmentCallback;
 
 import android.os.AsyncTask;
@@ -29,9 +31,13 @@ public class AddUserToCircletestAsyncTask extends AsyncTask<String, Void, String
 	 private String returnServiceOutput;
 	 JSONObject tempObj = null;
      JSONArray usersListJSArray;
+     boolean flag2 = false;
      CircleUsersFragment circleUsersFragment;
+	private FragmentCallback2 mFragmentCallback2;
+	private CircleUsersFragment2 circleUsersFragment2;
 	    public AddUserToCircletestAsyncTask(CircleUsersFragment circleUsersFragment, FragmentCallback fragmentCallback, int circleId, ArrayList<User> circleActualUsersList) {
-	        mFragmentCallback = fragmentCallback;
+	    	flag2 = false;
+	    	mFragmentCallback = fragmentCallback;
 	        this.circleId = circleId;
 	        usersList = circleActualUsersList;
 	        usersListJSArray = new JSONArray();
@@ -58,6 +64,40 @@ public class AddUserToCircletestAsyncTask extends AsyncTask<String, Void, String
 					e.printStackTrace();
 				}
 	    }
+
+	public AddUserToCircletestAsyncTask(
+				CircleUsersFragment2 circleUsersFragment2,
+				FragmentCallback2 fragmentCallback2, int circle_Id,
+				ArrayList<User> circleActualUsersList) {
+			// TODO Auto-generated constructor stub
+		flag2 = true;
+		mFragmentCallback2 = fragmentCallback2;
+        this.circleId = circleId;
+        usersList = circleActualUsersList;
+        usersListJSArray = new JSONArray();
+        User tempUser;
+        this.circleUsersFragment2 = circleUsersFragment2;
+        for(int i=0;i<usersList.size();i++)
+			try {
+				{
+					tempUser =  new User();
+					try {
+						tempUser = usersList.get(i);
+						tempObj = new JSONObject();
+						tempObj.put("userId",tempUser.getUserId());
+						
+						 usersListJSArray.put(tempObj);
+					} catch (JSONException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+				}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 
 	@Override
 	protected String doInBackground(String... arg0) {
@@ -93,7 +133,16 @@ public class AddUserToCircletestAsyncTask extends AsyncTask<String, Void, String
 		// TODO Auto-generated method stub
 		super.onPostExecute(result);
 		  Log.d(result,"%%%%%%%%%%%%%%%returnService%%%%%%%%%%%%%%%%%%%");
-		  circleUsersFragment.dialog.dismiss();
-		 mFragmentCallback.onTaskDone(result);
+		  if(flag2)
+		  {
+			  circleUsersFragment2.dialog.dismiss();
+				 mFragmentCallback2.onTaskDone(result);
+		  }
+		  else
+		  {
+			  circleUsersFragment.dialog.dismiss();
+				 mFragmentCallback.onTaskDone(result);
+		  }
+		  
 	}
 }

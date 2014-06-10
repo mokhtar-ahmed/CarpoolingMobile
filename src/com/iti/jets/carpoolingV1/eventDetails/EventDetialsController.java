@@ -57,17 +57,17 @@ public class EventDetialsController {
 				}
 			
 				view.eventNameTxt.setText("");
-				view.eventNameTxt.setText("Event Name :\t"+ eventObj.getString("eventName"));
+				view.eventNameTxt.setText(""+ eventObj.getString("eventName"));
 				
 				String from  = loc.getString("address");
 				view.selectedFromLoc = from ;
-				view.fromTxt.setText("From :\t"+ from );
+				view.fromTxt.setText(""+ from );
 				
 				int no = eventObj.getInt("noOfSlots");
 				
 				view.selectedNoOfSlots = no;
-				view.no_of_slots.setText("slots : \n \t"+ no);
-				
+				view.no_of_slots.setText(""+ no);
+				view.getActivity().getActionBar().setTitle(eventObj.getString("eventName"));
 				String dateStr = eventObj.getString("eventDate");
 				
 				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

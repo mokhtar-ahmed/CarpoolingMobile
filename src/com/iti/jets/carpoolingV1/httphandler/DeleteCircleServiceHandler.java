@@ -19,15 +19,19 @@ import com.iti.jets.carpoolingV1.retrieveallcircles.AllCirclesListFragment.Fragm
 import android.os.AsyncTask;
 import android.util.Log;
 import com.iti.jets.carpoolingV1.common.Circle2;
+import com.iti.jets.carpoolingV1.firstrun.AllCirclesListFragment2.FragmentCallback2;
 
 public class DeleteCircleServiceHandler {
 
    String returnServiceOutput;	
    String Url = null;	
    Circle2 circleObj;
+   boolean flag2 = false;
    FragmentCallback fragmentCallback;
+private FragmentCallback2 fragmentCallback2;
 	public void connectToWebService(Circle2 circleObj2,FragmentCallback fragmentCallback2, String uri) {
 		// TODO Auto-generated method stub
+		flag2 = false;
 		this.circleObj = circleObj2;
 		this.fragmentCallback = fragmentCallback2;
 		Url = uri;
@@ -35,7 +39,16 @@ public class DeleteCircleServiceHandler {
 		task.execute(Url);
 		
 	}
-	
+	public void connectToWebService(Circle2 circleObj2,FragmentCallback2 fragmentCallback2, String uri) {
+		// TODO Auto-generated method stub
+		flag2 = true;
+		this.circleObj = circleObj2;
+		this.fragmentCallback2 = fragmentCallback2;
+		Url = uri;
+		WebserviceAsyncTask task = new WebserviceAsyncTask();
+		task.execute(Url);
+		
+	}
 	private class WebserviceAsyncTask extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... urls) {
@@ -72,8 +85,15 @@ public class DeleteCircleServiceHandler {
               
           super.onPostExecute(result);
   		  Log.d(result,"%%%%%%%%%%%%%%%returnService%%%%%%%%%%%%%%%%%%%");
-  
-  		  fragmentCallback.onTaskDone(result);
+          if(flag2)
+          {
+        	  fragmentCallback2.onTaskDone(result);
+          }
+          else
+          {
+        	  fragmentCallback.onTaskDone(result);
+          }
+  		  
  	
         }
       }

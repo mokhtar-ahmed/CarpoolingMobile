@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.app.Fragment;
+import android.content.pm.ActivityInfo;
 public class FirstRunFragment extends Fragment {
 
     View rootView;	
@@ -32,8 +33,8 @@ public class FirstRunFragment extends Fragment {
  
          rootView = inflater.inflate(R.layout.first_run_fragment,container, false);
          
-         ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#17CED1"));     
-	     getActivity().getActionBar().setBackgroundDrawable(colorDrawable);
+         CharSequence title = "Home";    
+	     getActivity().getActionBar().setTitle(title);
 	   
          profileImg = (ImageView) rootView.findViewById(R.id.profileImg);
          circleImg = (ImageView) rootView.findViewById(R.id.circleImg);
@@ -45,6 +46,8 @@ public class FirstRunFragment extends Fragment {
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
+				getActivity().setRequestedOrientation(
+			            ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 				android.app.Fragment fragment = new EditProfileFragement(); 
 				FragmentManager fragmentManager = getActivity().getFragmentManager();
 				fragmentManager.beginTransaction()
@@ -59,7 +62,9 @@ public class FirstRunFragment extends Fragment {
  			@Override
  			public void onClick(View arg0) {
  				// TODO Auto-generated method stub
- 				android.app.Fragment fragment = new AllCirclesListFragment(); 
+ 				getActivity().setRequestedOrientation(
+			            ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+ 				android.app.Fragment fragment = new AllCirclesListFragment2(); 
 				FragmentManager fragmentManager = getActivity().getFragmentManager();
 				fragmentManager.beginTransaction()
 						.replace(R.id.framee, fragment).addToBackStack("Home").commit();
@@ -77,6 +82,8 @@ public class FirstRunFragment extends Fragment {
   			@Override
   			public void onClick(View arg0) {
   				// TODO Auto-generated method stub
+  				getActivity().setRequestedOrientation(
+			            ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
   				android.app.Fragment fragment = new EditProfileFragement(); 
 				FragmentManager fragmentManager = getActivity().getFragmentManager();
 				fragmentManager.beginTransaction()
@@ -90,7 +97,9 @@ public class FirstRunFragment extends Fragment {
    			@Override
    			public void onClick(View arg0) {
    				// TODO Auto-generated method stub
-   				android.app.Fragment fragment = new AllCirclesListFragment(); 
+   				getActivity().setRequestedOrientation(
+			            ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+   				android.app.Fragment fragment = new AllCirclesListFragment2(); 
 				FragmentManager fragmentManager = getActivity().getFragmentManager();
 				fragmentManager.beginTransaction()
 						.replace(R.id.framee, fragment).addToBackStack("My Circles").commit();

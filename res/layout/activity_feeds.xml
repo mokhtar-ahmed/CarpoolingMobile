@@ -1,13 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-     android:background="#3498db" >
-    
 	<LinearLayout 
-	  
+	  xmlns:android="http://schemas.android.com/apk/res/android"
 	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
+	    android:layout_height="match_parent"
 	    android:paddingBottom="@dimen/activity_vertical_margin"
 	    android:paddingLeft="@dimen/activity_horizontal_margin"
 	    android:paddingRight="@dimen/activity_horizontal_margin"
@@ -15,111 +10,53 @@
 	    android:orientation="vertical"
 	    android:background="@color/background_color"
 	    android:weightSum="100">
-		
-	<LinearLayout 
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    android:orientation="horizontal"
-	    android:weightSum="100">
-
-	        <ImageView
-	            android:id="@+id/imageView1"
-	            android:layout_marginTop="10dp"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"       
-	            android:src="@drawable/event_ico" />
-	       
-	       <TextView
-	           android:id="@+id/textView1"
-	           android:layout_width="wrap_content"
-	           android:layout_height="wrap_content"
-	           android:text="Top Events"
-	           android:textColor="#ffffff"
-	           android:layout_marginTop="16dp"
-	           android:layout_marginLeft="10dp"
-	           android:textAppearance="?android:attr/textAppearanceLarge" />
- 	
- 		</LinearLayout>
 	    
-	 <LinearLayout 
-	    android:layout_width="match_parent"
-	    android:layout_height="0dp"
-	    android:paddingBottom="@dimen/activity_vertical_margin"
-	    android:paddingLeft="@dimen/activity_horizontal_margin"
-	    android:paddingRight="@dimen/activity_horizontal_margin"
-	    android:paddingTop="@dimen/activity_vertical_margin"
-	    android:orientation="vertical"
-	    android:background="#64b0e3"
-	    android:layout_weight="50">
+
+	         <TextView
+	             android:id="@+id/textView1"
+	             android:layout_weight="10"
+	             android:layout_width="wrap_content"
+	             android:layout_height="0dp"
+	             android:text="Top Events"
+	             android:drawableLeft="@drawable/small_event_ico"
+	             android:textAppearance="?android:attr/textAppearanceLarge"
+	             android:textColor="#ffffff" />
 
 		<ListView 
-		    android:paddingTop="5dp"
-		    android:paddingBottom="5dp"
 		    android:id="@+id/TopEvents"
-		        android:layout_width="match_parent"
-		        android:layout_height="match_parent"
-		        android:layout_gravity="start"
-		        android:choiceMode="singleChoice"
-		        android:divider="@drawable/divider"
-		        android:dividerHeight="4dp"
-		        android:listSelector="@color/background_color"/>
+		    android:layout_width="match_parent"
+		    android:layout_height="0dp"
+		    android:layout_weight="40"
+		    android:layout_gravity="start"
+		    android:choiceMode="singleChoice"
+		    android:divider="@drawable/divider"
+		    android:dividerHeight="4dp"
+		     android:background="#64b0e3"
+		    android:listSelector="@color/background_color"/>
 		
-		    
-	</LinearLayout>	
-	<LinearLayout 
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    android:orientation="horizontal"
-	    android:weightSum="100">
 
-	        <ImageView
-	            android:id="@+id/imageView1"
-	            android:layout_marginTop="10dp"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"       
-	            android:src="@drawable/unread" />
-	       
-	       <TextView
-	           android:id="@+id/textView1"
-	           android:layout_width="wrap_content"
-	           android:layout_height="wrap_content"
-	           android:text="Top Notification"
-	           android:textColor="#ffffff"
-	           android:layout_marginTop="16dp"
-	           android:layout_marginLeft="10dp"
-	           android:textAppearance="?android:attr/textAppearanceLarge" />
- 	
- 		</LinearLayout>
-	 
-	<LinearLayout 
-	    android:layout_width="match_parent"
-	    android:layout_height="0dp"
-	    android:paddingBottom="@dimen/activity_vertical_margin"
-	    android:paddingLeft="@dimen/activity_horizontal_margin"
-	    android:paddingRight="@dimen/activity_horizontal_margin"
-	    android:paddingTop="@dimen/activity_vertical_margin"
-	    android:orientation="vertical"
-	    android:background="#64b0e3"
-	    android:layout_weight="50">
+		    <TextView
+		        android:layout_width="wrap_content"
+		        android:layout_height="0dp"
+		        android:layout_weight="10"
+		        android:layout_marginTop="5dp"
+		        android:drawableLeft="@drawable/small_noti"
+		        android:text="Top Notification"
+		        android:textAppearance="?android:attr/textAppearanceLarge"
+		        android:textColor="#ffffff" />
 
 		<ListView 
 		    android:paddingTop="5dp"
 		    android:paddingBottom="5dp"
+		    android:layout_weight="40"
 		    android:id="@+id/TopNotification"
 		    android:layout_width="match_parent"
-		        android:layout_height="match_parent"
-		        android:layout_gravity="start"
-		        android:choiceMode="singleChoice"
-		        android:divider="@drawable/divider"
-		        android:dividerHeight="4dp"
-		        android:listSelector="@color/background_color"/>
-		
-
+		    android:layout_height="0dp"
+		    android:layout_gravity="start"
+		    android:choiceMode="singleChoice"
+		    android:divider="@drawable/divider"
+		    android:dividerHeight="4dp"
+		    android:background="#64b0e3"
+		    android:listSelector="@color/background_color"/>
 	
-	</LinearLayout>	
-	
-	 		
-		
 </LinearLayout>
-
-</ScrollView>

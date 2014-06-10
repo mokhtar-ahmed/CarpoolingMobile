@@ -101,7 +101,7 @@ public class RegisterFragment extends Fragment{
 		 dateEditText .setInputType(InputType.TYPE_NULL);
 		 SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getActivity());
 		 Editor editor = sharedPreferences.edit();
-		 editor.putBoolean("firstRunFlag", true);
+		 editor.putBoolean("circlesEmptyFlag", true);
 		 editor.commit();
 		 phoneEditText.setOnFocusChangeListener(new OnFocusChangeListener() {
 			public void onFocusChange(View v, boolean hasFocus) {
@@ -162,7 +162,7 @@ public class RegisterFragment extends Fragment{
 				else if(imgBitmap == null)
 				{
 					imgBitmap = BitmapFactory.decodeResource(
-							RegisterFragment.this.getResources(), R.drawable.photo);
+							RegisterFragment.this.getResources(), R.drawable.ic_action_user);
 					imageChoosedFlag = false;
 //					showDialog("You didn't choose an image");
 				}

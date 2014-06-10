@@ -1,4 +1,4 @@
-package com.iti.jets.carpoolingV1.retrieveallcircles;
+package com.iti.jets.carpoolingV1.firstrun;
 
 import java.util.ArrayList;
 
@@ -27,10 +27,10 @@ import com.iti.jets.carpoolingV1.firstrun.AllCirclesListFragment2;
 
 //********* Adapter class extends with BaseAdapter and implements with OnClickListener ************/
 
-public class CirclesCustomArrayAdapter extends BaseAdapter  implements OnClickListener{
+public class CirclesCustomArrayAdapter2 extends BaseAdapter  implements OnClickListener{
           
          /*********** Declare Used Variables *********/
-         private AllCirclesListFragment activity;
+       
          private AllCirclesListFragment2 activity2;
          private ArrayList data;
          private static LayoutInflater inflater=null;
@@ -41,27 +41,15 @@ public class CirclesCustomArrayAdapter extends BaseAdapter  implements OnClickLi
          public Resources res;
          Circle2 CircleValues=null;
          int i=0;
-         public CirclesCustomArrayAdapter()
+         public CirclesCustomArrayAdapter2()
          {
         	 
          }
           
          /*************  CustomAdapter Constructor *****************/
-         public CirclesCustomArrayAdapter(AllCirclesListFragment a, ArrayList d,Resources resLocal) {
-              
-                /********** Take passed values **********/
-        	     flag2 = false;
-                 activity = a;
-                 data=d;
-                 res = resLocal;
-              
-                 /***********  Layout inflator to call external xml layout () ***********/
-                  inflater = ( LayoutInflater )activity.getActivity().
-                                              getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-              
-         }
+   
          
-         public CirclesCustomArrayAdapter(AllCirclesListFragment2 a, ArrayList d,Resources resLocal) {
+         public CirclesCustomArrayAdapter2(AllCirclesListFragment2 a, ArrayList d,Resources resLocal) {
              
              /********** Take passed values **********/
         	 flag2 = true;
@@ -233,11 +221,6 @@ public class CirclesCustomArrayAdapter extends BaseAdapter  implements OnClickLi
                 			 AllCirclesListFragment2 AllCirclesActObj = activity2;
                     		 AllCirclesActObj.oncheckCircle(CircleValues);
                 		 }
-                		 else
-                		 {
-                			 AllCirclesListFragment AllCirclesActObj = activity;
-                    		 AllCirclesActObj.oncheckCircle(CircleValues);
-                		 }
                 		 
                 		
                 	   }
@@ -275,14 +258,7 @@ public class CirclesCustomArrayAdapter extends BaseAdapter  implements OnClickLi
 
                      AllCirclesActObj.onItemClick(mPosition);
                 }
-                else	
-                {
-                	AllCirclesListFragment AllCirclesActObj = activity;
-
-                    /****  Call  onItemClick Method inside CustomListViewAndroidExample Class ( See Below )****/
-
-                     AllCirclesActObj.onItemClick(mPosition);
-                }
+          
             	  
 
             }               

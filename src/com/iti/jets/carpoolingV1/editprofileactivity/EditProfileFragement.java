@@ -27,12 +27,14 @@ import android.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.provider.Contacts.Intents.UI;
 import android.support.v4.app.DialogFragment;
 import android.util.Base64;
@@ -86,8 +88,8 @@ public class EditProfileFragement extends Fragment {
 	 
 	         rootView = inflater.inflate(R.layout.activity_edit_profile,container, false);
 //            setHasOptionsMenu(false);
-	        ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#17CED1"));     
-	        getActivity().getActionBar().setBackgroundDrawable(colorDrawable);
+//	        ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#17CED1"));     
+//	        getActivity().getActionBar().setBackgroundDrawable(colorDrawable);
 	        CharSequence mTitle = "My Profile";
 	        getActivity().getActionBar().setTitle(mTitle); 
 	         userId = EntityFactory.getUserInstance().getId();
@@ -106,7 +108,18 @@ public class EditProfileFragement extends Fragment {
 				@Override
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
-					UIManagerHandler.goToHome(EditProfileFragement.this.getActivity());
+					
+					SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+				     boolean circlesEmptyFlag =sharedPreferences.getBoolean("circlesEmptyFlag", false);
+				     if(circlesEmptyFlag)
+				     {
+				    	getFragmentManager().popBackStack();
+				     }
+				     else
+				     {
+				    	 UIManagerHandler.goToHome(EditProfileFragement.this.getActivity());
+				     }
+					
 				}
 			});
 	 		doneBtn.setOnClickListener(new View.OnClickListener() {
@@ -302,6 +315,12 @@ public void getResultFromWebService(String result) {
 	 
 }	
 
+//@Override
+//public void onStop() {
+//	// TODO Auto-generated method stub
+//	super.onStop();
+//	UIManagerHandler.goToHome(getActivity());
+//}
 
 	
 }

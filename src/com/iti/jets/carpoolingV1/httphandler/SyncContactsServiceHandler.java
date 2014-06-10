@@ -15,6 +15,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.iti.jets.carpoolingV1.common.User;
+import com.iti.jets.carpoolingV1.firstrun.SyncContactsFragment2;
 import com.iti.jets.carpoolingV1.synccontactsactivity.SyncContactsFragment;
 import com.iti.jets.carpoolingV1.synccontactsactivity.SyncContactsController;
 
@@ -33,6 +34,8 @@ public class SyncContactsServiceHandler {
 	private JSONArray jsArray;
 	private String returnService;
 	private SyncContactsFragment syncContactsActivity;
+	private SyncContactsFragment2 syncContactsActivity22;
+	boolean flag2 = false;
 	public SyncContactsServiceHandler()
 	{
 		
@@ -40,8 +43,24 @@ public class SyncContactsServiceHandler {
 			
 	}
 	
+	public void connectToWebService(JSONArray contactListJSArray,
+			SyncContactsFragment2 syncContactsActivity2, String url) {
+		// TODO Auto-generated method stub
+		webserviceURI = url;
+		flag2 = true;
+		this.jsArray = contactListJSArray;
+		SyncContactsWebserviceAsyncTask task = new SyncContactsWebserviceAsyncTask();
+		task.execute(webserviceURI);
+		this.syncContactsActivity22  = syncContactsActivity2;
+		syncContactsActivity22.dialog = ProgressDialog.show(syncContactsActivity22.getActivity(), "", "Loading...Please wait...", true);
+		syncContactsActivity22.dialog.show();
+		
+		
+	}
+	
 	public void connectToWebService(JSONArray array,SyncContactsFragment syncContactsActivity, String url)
 	{
+		flag2 = false;
 		webserviceURI = url;
 		this.jsArray = array;
 		SyncContactsWebserviceAsyncTask task = new SyncContactsWebserviceAsyncTask();
@@ -50,6 +69,7 @@ public class SyncContactsServiceHandler {
 		syncContactsActivity.dialog = ProgressDialog.show(syncContactsActivity.getActivity(), "", "Loading...Please wait...", true);
 		syncContactsActivity.dialog.show();
 		this.syncContactsActivity  = syncContactsActivity;
+		
 		
 	}
 	
@@ -82,15 +102,29 @@ public class SyncContactsServiceHandler {
         @Override
         protected void onPostExecute(String result) {
               
-        	syncContactsActivity.dialog.dismiss();
-        	SyncContactsController controller = new SyncContactsController();
-//        	Toast.makeText(syncContactsActivity.getActivity().getApplicationContext(), "FROM SERVICE HANDLER", Toast.LENGTH_LONG).show();
-//        	Toast.makeText(syncContactsActivity.getActivity().getApplicationContext(), result, Toast.LENGTH_LONG).show();
-        	syncContactsActivity.getResultFromService(result);
+        	if(flag2)
+        	{
+            	syncContactsActivity22.dialog.dismiss();
+            	SyncContactsController controller = new SyncContactsController();
+//            	Toast.makeText(syncContactsActivity.getActivity().getApplicationContext(), "FROM SERVICE HANDLER", Toast.LENGTH_LONG).show();
+//            	Toast.makeText(syncContactsActivity.getActivity().getApplicationContext(), result, Toast.LENGTH_LONG).show();
+            	syncContactsActivity22.getResultFromService(result);
+        	}
+        	else
+        	{
+            	syncContactsActivity.dialog.dismiss();
+            	SyncContactsController controller = new SyncContactsController();
+//            	Toast.makeText(syncContactsActivity.getActivity().getApplicationContext(), "FROM SERVICE HANDLER", Toast.LENGTH_LONG).show();
+//            	Toast.makeText(syncContactsActivity.getActivity().getApplicationContext(), result, Toast.LENGTH_LONG).show();
+            	syncContactsActivity.getResultFromService(result);
+        	}
+
         	
         	
         	
         }
-      }	
+      }
+
+	
 	
 }

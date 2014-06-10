@@ -1,4 +1,4 @@
-package com.iti.jets.carpoolingV1.synccontactsactivity;
+package com.iti.jets.carpoolingV1.firstrun;
 
 
 import java.util.ArrayList;
@@ -14,6 +14,8 @@ import com.iti.jets.carpoolingV1.common.Circle2;
 import com.iti.jets.carpoolingV1.common.User;
 import com.iti.jets.carpoolingV1.retrieveallcircles.CircleUsersFragment;
 import com.iti.jets.carpoolingV1.retrieveallcircles.CirclesUsersArrayAdapter;
+import com.iti.jets.carpoolingV1.synccontactsactivity.AddUserToCircleController;
+import com.iti.jets.carpoolingV1.synccontactsactivity.SyncContactsController;
 
 import android.os.Bundle;
 import android.os.Parcel;
@@ -39,11 +41,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class SyncContactsFragment extends Fragment {
+public class SyncContactsFragment2 extends Fragment {
 
 	ListView list;
 	CheckBox checkBox;
-    SyncContactsCustomArrayAdapter adapter;
+    SyncContactsCustomArrayAdapter2 adapter;
     Button addFriendToCircleBtn ;
     private ArrayList<Integer> selectedUsersIds = new ArrayList<Integer>();
     private  ArrayList<User> registeredFriendsList = new ArrayList<User>();
@@ -64,8 +66,8 @@ public class SyncContactsFragment extends Fragment {
     	getActivity().getActionBar().setTitle(title);
 		
          rootView = inflater.inflate(R.layout.sync_contacts_view,container, false);
-         circleId = SyncContactsFragment.this.getArguments().getInt("circle_Id");
-	         userId =  SyncContactsFragment.this.getArguments().getInt("user_Id");
+         circleId = SyncContactsFragment2.this.getArguments().getInt("circle_Id");
+	         userId =  SyncContactsFragment2.this.getArguments().getInt("user_Id");
 	         
 	         System.out.println("RRRRRRRRr"+circleId);
 	         System.out.println("RRRRRRRRr"+ userId);
@@ -129,7 +131,7 @@ public class SyncContactsFragment extends Fragment {
 //					     		testAsyncTask.execute( URL); 
  				
  				//userId = tempUser.getUserId();
- 				Fragment fragment = new CircleUsersFragment();
+ 				Fragment fragment = new CircleUsersFragment2();
  				Bundle args = new Bundle();
  			    args.putBoolean("flag", true);
  			    args.putString("selectedUsersJSArr", selectedUsersJSArr.toString());
@@ -140,7 +142,7 @@ public class SyncContactsFragment extends Fragment {
  				getActivity().setRequestedOrientation(
  			            ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
  				fragmentManager.beginTransaction()
- 						.replace(R.id.frame_container, fragment).commit();
+ 						.replace(R.id.framee, fragment).commit();
  			    
  				
  				
@@ -206,7 +208,7 @@ public class SyncContactsFragment extends Fragment {
             list = ( ListView )rootView.findViewById( R.id.list );  // List defined in XML ( See Below )
              
             /**************** Create Custom Adapter *********/
-            adapter=new SyncContactsCustomArrayAdapter(this,registeredFriendsList,res );
+            adapter=new SyncContactsCustomArrayAdapter2(this,registeredFriendsList,res );
             list.setAdapter( adapter );
             
             

@@ -61,9 +61,11 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container,
 	searchType = (Spinner) rootView.findViewById(R.id.searchType);
 	searchTxt = (EditText) rootView.findViewById(R.id.searchTxt);
 	
-	ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1, new String[]{"Driver","Location"});
+	ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1, new String[]{"By Driver","By Location"});
 	
 	searchType.setAdapter(adapter1);
+	
+	getActivity().getActionBar().setTitle("Search");
 	
 	searchBtn.setOnClickListener(new View.OnClickListener() {
 		
@@ -90,12 +92,13 @@ private void search(){
 		prog = new ProgressDialog(getActivity());
 		prog.setMessage("load the events");
 		prog.show();
-		if(searchType.getSelectedItem() == "Driver"){
+		if(searchType.getSelectedItem() == "By Driver"){
 			
 	
 			JSONObject jsonObject = new JSONObject();
 			try {
 				jsonObject.put("userName", txt);
+				jsonObject.put("userId", EntityFactory.getUserInstance().getId());
 				cont.searchByDriver(jsonObject.toString());
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
@@ -103,13 +106,14 @@ private void search(){
 			}
 		
 			
-		}else if (searchType.getSelectedItem() == "Location"){
+		}else if (searchType.getSelectedItem() == "By Location"){
 			
 			JSONObject jsonObject = new JSONObject();
 			
 			try {
 				
 				jsonObject.put("locationId", EntityFactory.SearchLocationId(txt));
+				jsonObject.put("userId", EntityFactory.getUserInstance().getId());
 				System.out.println("the location id of "+txt+" is "+ jsonObject.toString());
 				cont.searchByLocation(jsonObject.toString());
 			} catch (JSONException e) {
@@ -152,6 +156,8 @@ public boolean onOptionsItemSelected(MenuItem item) {
 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 	// TODO Auto-generated method stub
 	
+	if( values != null || values.size() < position)
+		UIManagerHandler.goToEventDetails(getActivity(), values.get(position).getId(), values.get(position).getUserStatue());
 	
 	
 }

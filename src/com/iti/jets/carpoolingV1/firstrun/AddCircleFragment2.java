@@ -1,4 +1,4 @@
-package com.iti.jets.carpoolingV1.addcircleactivity;
+package com.iti.jets.carpoolingV1.firstrun;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -11,6 +11,8 @@ import org.json.JSONObject;
 import com.iti.jets.carpoolingV1.R;
 import com.iti.jets.carpoolingV1.R.layout;
 import com.iti.jets.carpoolingV1.R.menu;
+import com.iti.jets.carpoolingV1.addcircleactivity.AddCircleController;
+import com.iti.jets.carpoolingV1.addcircleactivity.CustomGridViewAdapter;
 import com.iti.jets.carpoolingV1.common.CircleItemObj;
 import com.iti.jets.carpoolingV1.common.ImageCompressionHandler;
 import com.iti.jets.carpoolingV1.common.ImageItem;
@@ -38,6 +40,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -62,7 +65,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class AddCircleFragment extends Fragment {
+public class AddCircleFragment2 extends Fragment {
 
 	private Button addCircleBtn;
 	private EditText circleNameTxt;
@@ -114,78 +117,78 @@ public class AddCircleFragment extends Fragment {
 				{
 					userIcon1.recycle();
 					userIcon1 = BitmapFactory.decodeResource(
-							AddCircleFragment.this.getResources(), R.drawable.p1);
+							AddCircleFragment2.this.getResources(), R.drawable.p1);
 				}
 				else
 				{
 					userIcon1 = BitmapFactory.decodeResource(
-							AddCircleFragment.this.getResources(), R.drawable.p1);
+							AddCircleFragment2.this.getResources(), R.drawable.p1);
 				}
 				if(userIcon2 != null)
 				{
 					userIcon2.recycle();
 					userIcon2 = BitmapFactory.decodeResource(
-							AddCircleFragment.this.getResources(), R.drawable.p6);
+							AddCircleFragment2.this.getResources(), R.drawable.p6);
 				}
 				else
 				{
 					userIcon2 = BitmapFactory.decodeResource(
-							AddCircleFragment.this.getResources(), R.drawable.p6);
+							AddCircleFragment2.this.getResources(), R.drawable.p6);
 				}
 				if(userIcon3 != null)
 				{
 					userIcon3.recycle();
 					userIcon3 = BitmapFactory.decodeResource(
-							AddCircleFragment.this.getResources(), R.drawable.p12);
+							AddCircleFragment2.this.getResources(), R.drawable.p12);
 				}
 				else
 				{
 					userIcon3 = BitmapFactory.decodeResource(
-							AddCircleFragment.this.getResources(), R.drawable.p12);
+							AddCircleFragment2.this.getResources(), R.drawable.p12);
 				}
 				if(userIcon4 != null)
 				{
 					userIcon4.recycle();
 					userIcon4 = BitmapFactory.decodeResource(
-							AddCircleFragment.this.getResources(), R.drawable.p4);
+							AddCircleFragment2.this.getResources(), R.drawable.p4);
 				}
 				else
 				{
 					userIcon4 = BitmapFactory.decodeResource(
-							AddCircleFragment.this.getResources(), R.drawable.p4);
+							AddCircleFragment2.this.getResources(), R.drawable.p4);
 				}
 				if(userIcon5 != null)
 				{
 					userIcon5.recycle();
 					userIcon5 = BitmapFactory.decodeResource(
-							AddCircleFragment.this.getResources(), R.drawable.pp7);
+							AddCircleFragment2.this.getResources(), R.drawable.pp7);
 				}
 				else
 				{
 					userIcon5 = BitmapFactory.decodeResource(
-							AddCircleFragment.this.getResources(), R.drawable.pp7);
+							AddCircleFragment2.this.getResources(), R.drawable.pp7);
 				}
 				if(userIcon6 != null)
 				{
 					userIcon6.recycle();
 					userIcon6 = BitmapFactory.decodeResource(
-							AddCircleFragment.this.getResources(), R.drawable.pp8);
+							AddCircleFragment2.this.getResources(), R.drawable.pp8);
 				}
 				else
 				{
 					userIcon6 = BitmapFactory.decodeResource(
-							AddCircleFragment.this.getResources(), R.drawable.pp8);
+							AddCircleFragment2.this.getResources(), R.drawable.pp8);
 				}
 				if(userIcon7 != null)
 				{
 					userIcon7.recycle();
 					userIcon7 = BitmapFactory.decodeResource(
-							AddCircleFragment.this.getResources(), R.drawable.pp9);
+							AddCircleFragment2.this.getResources(), R.drawable.pp9);
 				}
 				else
 				{
 					userIcon7 = BitmapFactory.decodeResource(
-							AddCircleFragment.this.getResources(), R.drawable.pp9);
+							AddCircleFragment2.this.getResources(), R.drawable.pp9);
 				}
 //				if(userIcon8 != null)
 //				{
@@ -208,11 +211,11 @@ public class AddCircleFragment extends Fragment {
 				gridArray.add(new ImageItem(userIcon7,R.drawable.pp9));
 				gridArray.add(new ImageItem(userIcon8,R.drawable.pp10));
 				gridView = (GridView)circleImgView.findViewById(R.id.gridview1);
-				customGridAdapter = new CustomGridViewAdapter(AddCircleFragment.this.getActivity(),
+				customGridAdapter = new CustomGridViewAdapter(AddCircleFragment2.this.getActivity(),
 						R.layout.circle_image, gridArray);
 				gridView.setAdapter(customGridAdapter);
 				// Create custom dialog object
-                final Dialog dialog = new Dialog(AddCircleFragment.this.getActivity());
+                final Dialog dialog = new Dialog(AddCircleFragment2.this.getActivity());
                 
                 // Include dialog.xml file
                 dialog.setContentView(circleImgView);
@@ -271,23 +274,36 @@ public class AddCircleFragment extends Fragment {
 						ShowDialog showDialogInstance = new ShowDialog();
 						showDialogInstance.showDialog("Error",
 								"Circle Already Exists",
-								AddCircleFragment.this.getActivity());
+								AddCircleFragment2.this.getActivity());
 					} else {
 //						newCircobj= new CircleItemObj();
 //						newCircobj.setName(circleName);
 //						newCircobj.setBitmap(currentBimap);
 						
 						controller.setArguments(circleName,item.getCircleRes(),
-								filePath, new FragmentCallback() {
+								filePath, new FragmentCallback2() {
 									//
 									
 									@Override
 									public void onTaskDone(String result) {
 										// TODO Auto-generated method stub
 
-										UIManagerHandler
-												.goToAllCirclesList(AddCircleFragment.this
-														.getActivity());
+										Fragment fragment = new AllCirclesListFragment2();
+										
+										if (fragment != null) {
+											AddCircleFragment2.this.getActivity().setRequestedOrientation(
+										            ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+											FragmentManager fragmentManager = AddCircleFragment2.this.getActivity().getFragmentManager();
+											CharSequence title = "My Circles";
+											AddCircleFragment2.this.getActivity().getActionBar().setTitle(title);
+//											 fragmentManager.popBackStack();
+											 
+											fragmentManager.beginTransaction()
+													.replace(R.id.framee, fragment).addToBackStack("addCirc").commit();
+											
+											
+											
+										}
 
 									}
 								});
@@ -301,7 +317,7 @@ public class AddCircleFragment extends Fragment {
 		return rootView;
 	}
 
-	public interface FragmentCallback {
+	public interface FragmentCallback2 {
 		// public void onTaskDone(String result);
 
 		public void onTaskDone(String result);
@@ -323,9 +339,19 @@ public class AddCircleFragment extends Fragment {
 	public void onStop() {
 		// TODO Auto-generated method stub
 		super.onStop();
-		UIManagerHandler
-		.goToAllCirclesList(AddCircleFragment.this
-				.getActivity());
+		Fragment fragment = new AllCirclesListFragment2();
+		
+		if (fragment != null) {
+			AddCircleFragment2.this.getActivity().setRequestedOrientation(
+		            ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+			FragmentManager fragmentManager = AddCircleFragment2.this.getActivity().getFragmentManager();
+			CharSequence title = "My Circles";
+			AddCircleFragment2.this.getActivity().getActionBar().setTitle(title);
+//			 fragmentManager.popBackStack();
+			 
+			fragmentManager.beginTransaction()
+					.replace(R.id.framee, fragment).addToBackStack("addCirc").commit();
+		}
 	}
 
 }

@@ -10,6 +10,7 @@ import com.iti.jets.carpoolingV1.editprofileactivity.EditProfileActivity;
 import com.iti.jets.carpoolingV1.registrationactivity.RegisterActivity;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -34,6 +35,7 @@ public class LoginActivity extends Activity{
 
 	String name = "myPref";
 
+	ProgressDialog prog;
 	LoginController controller;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -70,14 +72,20 @@ public class LoginActivity extends Activity{
 				else if(passwordTxt.getText().length() < 5){
 					passwordTxt.setError("At least 5 char");
 				}else{
+					
+						prog = new ProgressDialog(LoginActivity.this);
+						prog.setMessage("Logining.....");
+						prog.show();
+						
 						controller.login(usernameTxt.getText().toString(),
 								passwordTxt.getText().toString());
 				}
 				
 				//sUIManagerHandler.goToHome(LoginActivity.this);
 				
+				
 			}
-		});
+			});
 		 
 		 registerBtn.setOnClickListener(new View.OnClickListener() {
 				

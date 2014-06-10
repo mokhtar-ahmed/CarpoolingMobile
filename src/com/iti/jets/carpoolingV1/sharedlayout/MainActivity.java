@@ -204,7 +204,7 @@ public class MainActivity extends Activity {
 		if (fragment != null) {
 			FragmentManager fragmentManager = getFragmentManager();
 			fragmentManager.beginTransaction()
-					.replace(R.id.frame_container, fragment).commit();
+					.replace(R.id.frame_container, fragment).addToBackStack("Home").commit();
 
 			// update selected item and title, then close the drawer
 			mDrawerList.setItemChecked(position, true);
@@ -228,17 +228,13 @@ public class MainActivity extends Activity {
 	 * onPostCreate() and onConfigurationChanged()...
 	 */
 
+	
 	@Override
 	protected void onPostCreate(Bundle savedInstanceState) {
 		super.onPostCreate(savedInstanceState);
 		// Sync the toggle state after onRestoreInstanceState has occurred.
 		mDrawerToggle.syncState();
 	}
-	 @Override
-	  public void onBackPressed() {
-	    moveTaskToBack(true);
-	    getFragmentManager().popBackStack();
-	  }
 
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
@@ -247,4 +243,14 @@ public class MainActivity extends Activity {
 		mDrawerToggle.onConfigurationChanged(newConfig);
 	}
 
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		super.onBackPressed();
+//		getFragmentManager().popBackStackImmediate();
+		
+	    // Default action on back pressed
+	   
+		
+	}
 }

@@ -1,4 +1,4 @@
-package com.iti.jets.carpoolingV1.retrieveallcircles;
+package com.iti.jets.carpoolingV1.firstrun;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -17,7 +17,11 @@ import com.iti.jets.carpoolingV1.httphandler.HttpConstants;
 import com.iti.jets.carpoolingV1.pojos.EntityFactory;
 import com.iti.jets.carpoolingV1.registrationactivity.RegisterFragment;
 import com.iti.jets.carpoolingV1.renamecircle.RenameCircleServiceHandler;
+import com.iti.jets.carpoolingV1.retrieveallcircles.CirclesCustomArrayAdapter;
 import com.iti.jets.carpoolingV1.retrieveallcircles.CirclesCustomArrayAdapter.ViewHolder;
+import com.iti.jets.carpoolingV1.retrieveallcircles.CircleUsersFragment;
+import com.iti.jets.carpoolingV1.retrieveallcircles.RetrieveAllCirclesListController;
+import com.iti.jets.carpoolingV1.retrieveallcircles.RetrieveCircleUsersController;
 import com.iti.jets.carpoolingV1.synccontactsactivity.SyncContactsCustomArrayAdapter;
 import com.iti.jets.carpoolingV1.synccontactsactivity.SyncContactsFragment;
 import com.iti.jets.carpoolingV1.uimanager.UIManagerHandler;
@@ -35,6 +39,7 @@ import android.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
@@ -58,7 +63,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class AllCirclesListFragment extends Fragment implements OnNavigationListener{
+public class AllCirclesListFragment2 extends Fragment implements OnNavigationListener{
 
 	ArrayList<Circle2> userCirclesList = new ArrayList<Circle2>();
 	ArrayList<Circle> userCirclesList2 = new ArrayList<Circle>();
@@ -66,7 +71,7 @@ public class AllCirclesListFragment extends Fragment implements OnNavigationList
 	public ProgressDialog dialog2;
 	String CircleName ;
     Circle2 circleValues;
-	public CirclesCustomArrayAdapter adapter;
+	public CirclesCustomArrayAdapter2 adapter;
 	ImageView addCircle,delCircle;
 	View rootView;
 	boolean delFlag;
@@ -93,7 +98,7 @@ public class AllCirclesListFragment extends Fragment implements OnNavigationList
 		
 	}
 
-	public interface FragmentCallback {
+	public interface FragmentCallback2 {
 	    //public void onTaskDone(String result);
 
 		public void onTaskDone(String result);
@@ -133,7 +138,7 @@ public class AllCirclesListFragment extends Fragment implements OnNavigationList
 		Resources res =getResources();
         list = ( ListView )   rootView.findViewById( R.id.list );   
         /**************** Create Custom Adapter *********/
-        adapter=new CirclesCustomArrayAdapter(this,userCirclesList,res);
+        adapter=new CirclesCustomArrayAdapter2(this,userCirclesList,res);
         EntityFactory.setCirclesInstance(userCirclesList2);
         list.setAdapter(adapter);
 	}
@@ -147,9 +152,9 @@ public class AllCirclesListFragment extends Fragment implements OnNavigationList
 		CircleName = circleClickedValues.getCircleName();
 		
 		RetrieveCircleUsersController ruController = new RetrieveCircleUsersController();
-		dialog2 = ProgressDialog.show(AllCirclesListFragment.this.getActivity(), "", "Loading...Please wait...", true);
+		dialog2 = ProgressDialog.show(AllCirclesListFragment2.this.getActivity(), "", "Loading...Please wait...", true);
 		dialog2.show();
-		ruController.setArguments(AllCirclesListFragment.this,circle_Id,new FragmentCallback(){
+		ruController.setArguments(AllCirclesListFragment2.this,circle_Id,new FragmentCallback2(){
 			@Override
 			public void onTaskDone(String result) {
 				
@@ -160,8 +165,18 @@ public class AllCirclesListFragment extends Fragment implements OnNavigationList
 				args.putInt("user_Id",userId);
 				args.putString("result",result);
 				args.putBoolean("flag", false);
-				UIManagerHandler.goToCircleUsersFragment(AllCirclesListFragment.this.getActivity(),args,CircleName);
-
+				Fragment fragment = new CircleUsersFragment2();
+				
+				if (fragment != null) {
+				AllCirclesListFragment2.this.getActivity().setRequestedOrientation(
+				            ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+					FragmentManager fragmentManager = AllCirclesListFragment2.this.getActivity().getFragmentManager();
+					fragment.setArguments(args); 
+//					fragmentManager.popBackStack();
+					AllCirclesListFragment2.this.getActivity().getActionBar().setTitle( CircleName);
+					fragmentManager.beginTransaction()
+							.replace(R.id.framee, fragment).commit();
+				}
 			}
          });
 
@@ -181,7 +196,22 @@ public class AllCirclesListFragment extends Fragment implements OnNavigationList
 		
 		switch (item.getItemId()) {
 		case R.id.add:
-			UIManagerHandler.goToAddCircle(AllCirclesListFragment.this.getActivity());
+			Fragment fragment = new AddCircleFragment2();
+			
+			if (fragment != null) {
+				AllCirclesListFragment2.this.getActivity().setRequestedOrientation(
+			            ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+				FragmentManager fragmentManager = AllCirclesListFragment2.this.getActivity().getFragmentManager();
+				CharSequence title = "New Circle";
+				AllCirclesListFragment2.this.getActivity().getActionBar().setTitle(title);
+//				 fragmentManager.popBackStack();
+				 
+				fragmentManager.beginTransaction()
+						.replace(R.id.framee, fragment).addToBackStack("addCirc").commit();
+				
+				
+				
+			}
 			break;
 
 		case R.id.del:
@@ -251,13 +281,22 @@ public class AllCirclesListFragment extends Fragment implements OnNavigationList
 							// if this button is clicked, close
 							// current activity
 							DeleteCircleController deleteCircleController = new DeleteCircleController();
-							deleteCircleController.setArguments(circleValues2,new FragmentCallback(){
+							deleteCircleController.setArguments(circleValues2,new FragmentCallback2(){
 							@Override
 							public void onTaskDone(String result) {
 								// TODO Auto-generated method stub
 								
-								UIManagerHandler.goToAllCirclesList(AllCirclesListFragment.this.getActivity());
-								
+								Fragment fragment = new AllCirclesListFragment2();
+								if (fragment != null) {
+									AllCirclesListFragment2.this.getActivity().setRequestedOrientation(
+								            ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+									FragmentManager fragmentManager = AllCirclesListFragment2.this.getActivity().getFragmentManager();
+									CharSequence title = "My Circles";
+									AllCirclesListFragment2.this.getActivity().getActionBar().setTitle(title);
+//									 fragmentManager.popBackStack();
+									fragmentManager.beginTransaction()
+											.replace(R.id.framee, fragment).addToBackStack("home4d").commit();
+								}
 							}
 				         });
 						}
@@ -304,7 +343,7 @@ public class AllCirclesListFragment extends Fragment implements OnNavigationList
 				    	if(!newCircleName.equals(""))
 				    	{
 				    		RenameCircleServiceHandler serviceHandler = new RenameCircleServiceHandler();
-					    	serviceHandler.connectToWebService(newCircleName,circleValues2,AllCirclesListFragment.this);
+					    	serviceHandler.connectToWebService(newCircleName,circleValues2,AllCirclesListFragment2.this);
 				    	}
 				    }
 				  })

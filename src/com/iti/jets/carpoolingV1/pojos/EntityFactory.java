@@ -6,7 +6,9 @@ public class EntityFactory {
 
 	private static ArrayList<Location> locations = null;
 	private static ArrayList<Circle> circles = null;
+	private static ArrayList<Event> events = null;
 	private static ArrayList<CustomUser> usersCustom = null;
+	private static ArrayList<Notification> notifications = null;
 	private static User user = null;
 	private static String pushNotificationId ="";
 	
@@ -26,6 +28,15 @@ public class EntityFactory {
 		return user;
 	}
 
+	public static void setEvents(ArrayList<Event> events) {
+		EntityFactory.events = events;
+	}
+
+	public static  ArrayList<Event> getEventInstance(){
+		return events;
+	}
+
+	
 	public static ArrayList<Circle> getCirclesInstance(){
 		return circles;
 	}
@@ -36,7 +47,14 @@ public class EntityFactory {
 	public static void setUserInstance(User us){
 		user = us;
 	}
-
+	public static void setNotificationsInstance(ArrayList<Notification> notifs) {
+		
+		notifications = notifs;
+		
+	}
+	public static ArrayList<Notification> getNotificationsInstance(){
+		return notifications;
+	}
 	public static void setCirclesInstance(ArrayList<Circle> cir){
 		circles = cir;	
 	}
@@ -91,5 +109,7 @@ public class EntityFactory {
 		
 		return -1;
 	}
+
+	
 	
 }

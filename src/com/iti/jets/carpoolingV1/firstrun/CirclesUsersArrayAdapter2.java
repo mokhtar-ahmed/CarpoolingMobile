@@ -1,4 +1,4 @@
-package com.iti.jets.carpoolingV1.retrieveallcircles;
+package com.iti.jets.carpoolingV1.firstrun;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,12 +48,12 @@ import com.iti.jets.carpoolingV1.synccontactsactivity.SyncContactsController;
 
 //********* Adapter class extends with BaseAdapter and implements with OnClickListener ************/
 
-public class CirclesUsersArrayAdapter extends BaseAdapter  implements OnClickListener{
+public class CirclesUsersArrayAdapter2 extends BaseAdapter  implements OnClickListener{
           
          /*********** Declare Used Variables *********/
 		 private ArrayList<ContactObj> contactListTemp = new ArrayList<ContactObj>();
 		 ContentResolver contentResolver;
-         private CircleUsersFragment activity;
+         private CircleUsersFragment2 activity;
          private ArrayList data;
          private static LayoutInflater inflater=null;
          public Resources res;
@@ -63,7 +63,7 @@ public class CirclesUsersArrayAdapter extends BaseAdapter  implements OnClickLis
           
          /*************  CustomAdapter Constructor 
          * @param circleId *****************/
-         public CirclesUsersArrayAdapter(CircleUsersFragment activity2, ArrayList d,Resources resLocal) {
+         public CirclesUsersArrayAdapter2(CircleUsersFragment2 activity2, ArrayList d,Resources resLocal) {
               
                 /********** Take passed values **********/
                  activity = activity2;
@@ -77,11 +77,7 @@ public class CirclesUsersArrayAdapter extends BaseAdapter  implements OnClickLis
               
          }
       
-         public CirclesUsersArrayAdapter(
-				CircleUsersFragment2 circleUsersFragment2,
-				ArrayList<User> circleUsersList, Resources res2) {
-			// TODO Auto-generated constructor stub
-		}
+       
 
 		/******** What is the size of Passed Arraylist Size ************/
          public int getCount() {
@@ -198,7 +194,7 @@ public class CirclesUsersArrayAdapter extends BaseAdapter  implements OnClickLis
                    		   {
                    			     UserValues = (User)data.get(position);
                    			     UserValues.setIsSelected(true);
-                        		 CircleUsersFragment fragment = activity;
+                        		 CircleUsersFragment2 fragment = activity;
                         		 fragment.oncheckCircle(UserValues);
                    		   }
                    		 

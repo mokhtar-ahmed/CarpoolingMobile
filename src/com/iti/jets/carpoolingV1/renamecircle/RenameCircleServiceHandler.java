@@ -18,6 +18,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.iti.jets.carpoolingV1.common.Circle2;
+import com.iti.jets.carpoolingV1.firstrun.AllCirclesListFragment2;
 import com.iti.jets.carpoolingV1.httphandler.HttpConstants;
 import com.iti.jets.carpoolingV1.pojos.EntityFactory;
 import com.iti.jets.carpoolingV1.retrieveallcircles.AllCirclesListFragment;
@@ -30,13 +31,29 @@ public class RenameCircleServiceHandler {
 	String url;
 	String returnServiceOutput,newCircleName;
 	Circle2 circleValues;
+	boolean flag2 = false;
+	private AllCirclesListFragment2 allCirclesListFragment2;
+	
 	public void connectToWebService(String newCircleName,
 			Circle2 circleValues, AllCirclesListFragment allCirclesListFragment) {
 		// TODO Auto-generated method stub
 		url = HttpConstants.SERVER_URL + HttpConstants.UPDATE_CIRCLE_URL ;
 		this.circleValues = circleValues;
 		this.newCircleName = newCircleName;
+		flag2 = false;
 		this.allCirclesListFragment = allCirclesListFragment;
+		WebserviceAsyncTask task = new WebserviceAsyncTask();
+		task.execute(url);
+		
+	}
+	public void connectToWebService(String newCircleName,
+			Circle2 circleValues, AllCirclesListFragment2 allCirclesListFragment) {
+		// TODO Auto-generated method stub
+		url = HttpConstants.SERVER_URL + HttpConstants.UPDATE_CIRCLE_URL ;
+		this.circleValues = circleValues;
+		flag2 = true;
+		this.newCircleName = newCircleName;
+		this.allCirclesListFragment2 = allCirclesListFragment;
 		WebserviceAsyncTask task = new WebserviceAsyncTask();
 		task.execute(url);
 		
@@ -78,8 +95,17 @@ public class RenameCircleServiceHandler {
               
           super.onPostExecute(result);
   		  Log.d(result,"%%%%%%%%%%%%%%%returnService%%%%%%%%%%%%%%%%%%%");
-  		 RetrieveAllCirclesListController controller = new RetrieveAllCirclesListController(EntityFactory.getUserInstance().getId(),allCirclesListFragment);
-  		allCirclesListFragment.adapter.notifyDataSetChanged();
+  		  if(flag2)
+  		  {
+  			 RetrieveAllCirclesListController controller = new RetrieveAllCirclesListController(EntityFactory.getUserInstance().getId(),allCirclesListFragment2);
+  			allCirclesListFragment2.adapter.notifyDataSetChanged();
+  		  }
+  		  else
+  		  {
+  			 RetrieveAllCirclesListController controller = new RetrieveAllCirclesListController(EntityFactory.getUserInstance().getId(),allCirclesListFragment);
+  	  		allCirclesListFragment.adapter.notifyDataSetChanged();
+  		  }
+  		
   		 //UIManagerHandler.goToAllCirclesList(allCirclesListFragment.getActivity());
   		 
  	

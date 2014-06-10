@@ -4,6 +4,7 @@
     android:id="@+id/TableLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_color"
     >
  <TableRow
     android:id="@+id/tableRow1"
@@ -20,6 +21,7 @@
                   android:layout_gravity="left|top" 
                   android:scaleType="fitXY"
                   android:src="@drawable/photo"
+                 
                   android:id="@+id/circleImage" />
               
               <TextView
@@ -31,13 +33,12 @@
                     android:textStyle="bold"
                     android:layout_marginLeft="10dip"
                     android:layout_marginTop="2dip"
-                    android:textColor="#000000"
+                    android:textColor="#FFFFFF"
                     android:layout_span="1"
                     android:text="CIRCLENAME"
                     />
                
-              </LinearLayout>
-          	             
+              </LinearLayout>            
                 <CheckBox
         		android:id="@+id/chkbox"
         		android:layout_marginTop="10dip"

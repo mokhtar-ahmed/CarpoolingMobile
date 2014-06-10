@@ -1,30 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
+  <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  	    android:layout_width="match_parent"
+  	    
+    	android:layout_height="fill_parent"
+     	android:background="@color/background_color"
+	    android:orientation="vertical" >
 
-
-    <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/LinearLayout1"
+	
+    <ListView
+        android:id="@+id/list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#FFFFFF"
-        android:orientation="vertical"
-        tools:context=".SyncContactsFragment" >
-
-        <ListView
-            android:id="@+id/list"
-            android:layout_width="fill_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
-
+        android:layout_height="300dip"
+        android:layout_gravity="start"
+        android:choiceMode="singleChoice"
+        android:divider="@drawable/divider"
+        android:dividerHeight="4dp"
+        
+        android:listSelector="@drawable/list_selector" />
+    
         <Button
-            android:id="@+id/addFriendBtn"
-            android:layout_width="200dip"
-            android:layout_height="40dip"
-            android:layout_marginTop="350dip"
-            android:layout_marginLeft="60dip"
-            android:background="@drawable/rounded_corners"
-            android:textColor="#FFFFFF"
-            android:text="Add" />
-    </RelativeLayout>
-
+        android:id="@+id/addFriendBtn"
+        android:layout_width="200dip"
+        android:layout_height="40dip"
+        android:layout_marginLeft="60dip"
+        android:layout_marginTop="50dip"
+        android:background="@drawable/custom_btn"
+        android:text="Add"
+        android:textColor="@color/background_color" />
+    
+    </LinearLayout>

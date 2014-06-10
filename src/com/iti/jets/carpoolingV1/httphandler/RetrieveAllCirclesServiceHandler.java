@@ -21,6 +21,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.iti.jets.carpoolingV1.firstrun.AllCirclesListFragment2;
 import com.iti.jets.carpoolingV1.retrieveallcircles.AllCirclesListFragment;
 import com.iti.jets.carpoolingV1.synccontactsactivity.SyncContactsController;
 
@@ -32,6 +33,8 @@ public class RetrieveAllCirclesServiceHandler {
 	private int userId;
 	private JSONArray userCirclesJs ;
 	private AllCirclesListFragment circlesListRefrence;
+	private AllCirclesListFragment2 circlesListRefrence2;
+	boolean flag2 = true;
 	
 	public RetrieveAllCirclesServiceHandler ()
 	{
@@ -42,7 +45,7 @@ public class RetrieveAllCirclesServiceHandler {
 	
 	public void connectToWebService(int userId,AllCirclesListFragment circlesListRefrence, String url)
 	{
-		
+		flag2=false;
 		this.userId = userId;
 		this.circlesListRefrence = circlesListRefrence;
 		webserviceURI = url;
@@ -61,7 +64,28 @@ public class RetrieveAllCirclesServiceHandler {
 		circlesListRefrence.dialog.show();
 		
 	}
-	
+	public void connectToWebService(int userId,AllCirclesListFragment2 circlesListRefrence, String url)
+	{
+		
+		flag2=true;
+		this.userId = userId;
+		this.circlesListRefrence2 = circlesListRefrence;
+		webserviceURI = url;
+		circleJs = new JSONObject();
+		Log.d("URL",webserviceURI);
+		jsObj = new JSONObject();
+		try {
+			jsObj.put("userId", userId);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		WebserviceAsyncTask task = new WebserviceAsyncTask();
+		task.execute(webserviceURI);
+		circlesListRefrence2.dialog = ProgressDialog.show(circlesListRefrence2.getActivity(), "", "Loading...Please wait...", true);
+		circlesListRefrence2.dialog.show();
+		
+	}
 	private class WebserviceAsyncTask extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... urls) {
@@ -93,8 +117,17 @@ public class RetrieveAllCirclesServiceHandler {
         protected void onPostExecute(String result) {
               
         	System.out.println("%%%%%%%%%%%%%RESULT"+"  "+result+"%%%%%%%%%%%%%");
-        	circlesListRefrence.dialog.dismiss();
-		    circlesListRefrence.getUserCircles(result);
+        	if(flag2)
+        	{
+        		circlesListRefrence2.dialog.dismiss();
+    		    circlesListRefrence2.getUserCircles(result);
+        	}
+        	else
+        	{
+        		circlesListRefrence.dialog.dismiss();
+    		    circlesListRefrence.getUserCircles(result);
+        	}
+        	
 			
         	
         	

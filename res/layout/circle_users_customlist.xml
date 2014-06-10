@@ -3,6 +3,7 @@
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/TableLayout1"
+    android:background="@color/background_color"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
@@ -13,8 +14,7 @@
     android:layout_width="60dip"
     android:layout_height="match_parent" >
 
-            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                  xmlns:tools="http://schemas.android.com/tools"
+            <LinearLayout 
                   android:layout_width="110dp"
                   android:layout_height="match_parent"
                   android:paddingLeft="10dp"
@@ -29,7 +29,7 @@
                   android:src="@drawable/photo"
                   android:id="@+id/userImage" />
               </LinearLayout>
-              <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              <TableLayout 
           android:layout_width="fill_parent"
           android:layout_height="wrap_content"
           android:paddingTop="0dip" android:layout_gravity="top"
@@ -38,12 +38,12 @@
                <TextView
                     android:id="@+id/nameTxt"
                     android:layout_height="wrap_content"
-                    android:layout_width="105sp"
+                    android:layout_width="130sp"
                     android:layout_weight="1" android:layout_gravity="left|center_vertical"
                     android:textSize="16sp"
                     android:layout_marginLeft="10dip"
                     android:layout_marginTop="4dip"
-                    android:textColor="#000000"
+                    android:textColor="#FFFFFF"
                     android:layout_span="1"
                     android:text="NAMETEXT"
                     />
@@ -53,11 +53,11 @@
                     
                     android:id="@+id/phoneTxt"
                     android:layout_height="wrap_content"
-                    android:layout_width="105sp"
+                    android:layout_width="130sp"
                     android:layout_weight="1"
                     android:layout_gravity="left|center_vertical"
                     android:textSize="16sp"
-                    android:textColor="#000000"
+                    android:textColor="#FFFFFF"
                     android:layout_marginLeft="10dip"
                     android:layout_marginTop="4dip"
                     android:text="PHONETEXT"
@@ -69,7 +69,7 @@
                   android:id="@+id/chkbox"
                   android:layout_width="40dip"
                   android:layout_height="40dip"
-                  android:layout_marginLeft="30dip"
+                  
                   android:layout_marginTop="10dip"
                   android:visibility="invisible" />
 

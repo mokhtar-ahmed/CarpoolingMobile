@@ -7,83 +7,89 @@
     <uses-sdk
         android:minSdkVersion="14"
         android:targetSdkVersion="16" />
-    
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-
- 
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-    <permission android:name="com.iti.jets.carpoolingV1.pushdemo.permission.C2D_MESSAGE"
+
+    <permission
+        android:name="com.iti.jets.carpoolingV1.pushdemo.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
+
     <uses-permission android:name="com.iti.jets.carpoolingV1.pushdemo.permission.C2D_MESSAGE" />
-    
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/new_small_logo"
         android:label="@string/app_name"
         android:theme="@style/MyTheme" >
-    
         <receiver
             android:name="com.iti.jets.carpoolingV1.pushdemo.GcmBroadcastReceiver"
             android:permission="com.google.android.c2dm.permission.SEND" >
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+
                 <category android:name="com.iti.jets.carpoolingV1.pushdemo" />
             </intent-filter>
         </receiver>
-        
+
         <service android:name="com.iti.jets.carpoolingV1.pushdemo.GcmIntentService" />
-        
-  
+
         <activity
             android:name="com.iti.jets.carpoolingV1.splashscreen.SplashScreen"
-            android:label="5odny M3k" 
-              android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+            android:label="5odny M3k"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-                
-      
-        
         <activity
+            android:screenOrientation="portrait"
             android:name="com.iti.jets.carpoolingV1.sharedlayout.MainActivity"
             android:label="5odny M3k" />
-            
-        <activity 
+        <activity
+             android:screenOrientation="portrait"
             android:name="com.iti.jets.carpoolingV1.addevent.AddEventActivity"
             android:label="Login" >
         </activity>
-        
-        <activity 
+        <activity
+             android:screenOrientation="portrait"
             android:name="com.iti.jets.carpoolingV1.loginactivity.LoginActivity"
             android:label="Login" >
         </activity>
-    
-        <activity 
+        <activity
+             android:screenOrientation="portrait"
             android:name="com.iti.jets.carpoolingV1.homeactivity.HomeActivity"
             android:label="Home" >
         </activity>
-
-        <activity 
+        <activity
+            android:screenOrientation="portrait"
             android:name="com.iti.jets.carpoolingV1.registrationactivity.RegisterActivity"
             android:label="Register" >
         </activity>
-        
-        <activity 
+        <activity
+            android:screenOrientation="portrait"
             android:name="com.iti.jets.carpoolingV1.firstrun.FirstRunActivity"
             android:label="Home" >
         </activity>
-          <meta-data android:name="com.google.android.gms.version"
-      android:value="@integer/google_play_services_version" />
-     
-          
+
+        <meta-data
+            android:screenOrientation="portrait"
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <activity
+            android:screenOrientation="portrait"
+            android:name="com.iti.jets.carpoolingV1.AddCircleActivity"
+            android:label="@string/title_activity_add_circle" >
+        </activity>
     </application>
 
 </manifest>

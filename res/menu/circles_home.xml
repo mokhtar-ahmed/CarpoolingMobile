@@ -2,7 +2,7 @@
 
     <item
         android:id="@+id/options"
-        android:icon="@drawable/opt3"
+        android:icon="@drawable/gear_yellow"
         android:showAsAction="always">
         <menu>
             <item

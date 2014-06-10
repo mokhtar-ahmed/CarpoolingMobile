@@ -17,6 +17,7 @@ import org.json.JSONObject;
 import android.os.AsyncTask;
 import android.util.Log;
 import com.iti.jets.carpoolingV1.common.User;
+import com.iti.jets.carpoolingV1.firstrun.CircleUsersFragment2.FragmentCallback2;
 import com.iti.jets.carpoolingV1.retrieveallcircles.CircleUsersFragment.FragmentCallback;
 
 public class DeleteUserFromCircleServiceHandler {
@@ -25,16 +26,32 @@ public class DeleteUserFromCircleServiceHandler {
 	String Url = null;	
 	JSONArray userToDelJsArr = new JSONArray();
 	int circleId;
+	boolean flag2 = false;
 	FragmentCallback fragmentCallback;
+	private FragmentCallback2 fragmentCallback2;
 	public void connectToWebService(int circleId, JSONArray userToDelJsArr,
 			FragmentCallback fragmentCallback, String uri) {
 		// TODO Auto-generated method stub
 		this.userToDelJsArr = userToDelJsArr;
 		this.fragmentCallback = fragmentCallback;
 		Url = uri;
+		flag2 = false;
 		this.circleId = circleId;
 		WebserviceAsyncTask task = new WebserviceAsyncTask();
 		task.execute(Url);
+	}
+	
+	public void connectToWebService(int circleId2, JSONArray userToDelJsArr2,
+			FragmentCallback2 fragmentCallback2, String uri) {
+		// TODO Auto-generated method stub
+		flag2 = true;
+		this.userToDelJsArr = userToDelJsArr;
+		this.fragmentCallback2 = fragmentCallback2;
+		Url = uri;
+		this.circleId = circleId;
+		WebserviceAsyncTask task = new WebserviceAsyncTask();
+		task.execute(Url);
+		
 	}
 	
 	private class WebserviceAsyncTask extends AsyncTask<String, Void, String> {
@@ -74,10 +91,19 @@ public class DeleteUserFromCircleServiceHandler {
               
           super.onPostExecute(result);
   		  Log.d(result,"%%%%%%%%%%%%%%%returnService%%%%%%%%%%%%%%%%%%%");
-  
-  		  fragmentCallback.onTaskDone(result);
+  		  if(flag2)
+  		  {
+  			fragmentCallback2.onTaskDone(result);
+  		  }
+  		  else
+  		  {
+  			fragmentCallback.onTaskDone(result);
+  		  }
+  		  
  	
         }
       }
+
+
 
 }
