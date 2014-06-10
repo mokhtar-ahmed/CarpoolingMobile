@@ -10,6 +10,7 @@ public final class HttpConstants {
     //public static final String SERVER_URL="http://10.145.67.14:9191/CarpoolingBackendFinal/service/";
     public static final String SERVER_URL="http://10.145.69.238:8090/CarpoolingBackendFinal/service/";
 
+
 	public static final String LOGIN_URL="user/newLogin";
 	public static final String GET_CIRCLE_USERS_URL="newCircle/retrieveCirclesUsers";
 	public static final String JOIN_EVENT ="user/joinvent";

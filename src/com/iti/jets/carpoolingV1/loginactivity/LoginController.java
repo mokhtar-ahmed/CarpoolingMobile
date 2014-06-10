@@ -110,6 +110,7 @@ public class LoginController {
 						}
 						
 						EntityFactory.setCirclesInstance(cirs);
+
 						ArrayList<Event> evs = new ArrayList<Event>();
 						JSONArray eventsJson = resultJson.getJSONArray("events");
 						
