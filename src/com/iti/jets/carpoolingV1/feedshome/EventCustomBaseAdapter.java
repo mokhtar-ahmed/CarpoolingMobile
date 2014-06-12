@@ -53,6 +53,15 @@ public class EventCustomBaseAdapter extends BaseAdapter {
  
         holder.txtDesc.setText(rowItem.getName());
         holder.txtTitle.setText(rowItem.getDate().toString());
+ 
+        if(rowItem.getUserStatue().equals("Create")){
+        	holder.imageView.setImageResource(R.drawable.event_ico);
+        }else {
+        	
+        	//holder.container.setBackgroundColor(context.getResources().getColor(R.color.readed_container));
+        	holder.imageView.setImageResource(R.drawable.events_ico);
+        }
+        
         return convertView;
     }
  

@@ -11,7 +11,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.iti.jets.carpoolingV1.R;
-import com.iti.jets.carpoolingV1.R.array;
 import com.iti.jets.carpoolingV1.pojos.EntityFactory;
 
 import android.app.AlertDialog;
@@ -116,20 +115,28 @@ public class AddEventActivity extends Fragment{
        dateBtn = (Button) rootView.findViewById(R.id.eventDateTxt);
        
        cont = new AddEventController(this);
-  
+       
       ArrayList<Location> l =  EntityFactory.getLocationsInstance();
-      for(int i=0; i< l.size(); i++ ){
+      if(l == null ){
     	  
-    	  locs.add(l.get(i).getAddress());
+    	 l = new ArrayList<Location>();  
     	  
-      }
-      
+      }else { 
+	     
+	      for(int i=0; i< l.size(); i++ )
+	    	  locs.add(l.get(i).getAddress());
+	  }
      
       ArrayList<Circle> l1 =  EntityFactory.getCirclesInstance();
-      for(int i=0; i< l1.size(); i++ ){
+      if(l1 == null ){
     	  
-    	  cirs.add(l1.get(i).getCircleName());
-    	  
+     	 l1 = new ArrayList<Circle>();  
+     	  
+       }else { 
+ 	     
+	      for(int i=0; i< l1.size(); i++ )
+	    	  cirs.add(l1.get(i).getCircleName());
+	    	  
       }
  
      
@@ -411,6 +418,21 @@ public class AddEventActivity extends Fragment{
   		}
   	});
       
+      
+      getView().setFocusableInTouchMode(true);
+
+      getView().setOnKeyListener( new View.OnKeyListener()
+      {
+          @Override
+          public boolean onKey( View v, int keyCode, KeyEvent event )
+          {
+              if( keyCode == KeyEvent.KEYCODE_BACK )
+              {
+                  return true;
+              }
+              return false;
+          }
+      } );
 
       setHasOptionsMenu(true);
 

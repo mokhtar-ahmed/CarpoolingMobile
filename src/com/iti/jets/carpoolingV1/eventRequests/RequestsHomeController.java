@@ -6,6 +6,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.AlertDialog;
 import android.widget.Toast;
 
 import com.iti.jets.carpoolingV1.httphandler.AcceptEvent;
@@ -14,6 +15,7 @@ import com.iti.jets.carpoolingV1.httphandler.RetriveUserEventsHandler;
 import com.iti.jets.carpoolingV1.jsonhandler.JsonParser;
 import com.iti.jets.carpoolingV1.pojos.Circle;
 import com.iti.jets.carpoolingV1.pojos.Event;
+import com.iti.jets.carpoolingV1.uimanager.UIManagerHandler;
 
 public class RequestsHomeController {
 
@@ -50,14 +52,66 @@ public class RequestsHomeController {
 
 	public void onRejectPostExecute(String result) {
 		// TODO Auto-generated method stub
-		Toast.makeText(view.getActivity().getApplicationContext(), result, Toast.LENGTH_LONG).show();
 		
+		JSONObject Obj;
+		try {
+			
+			Obj = new JSONObject(result);
+			
+			if(result.equalsIgnoreCase("No Connection") == false){
+			
+				if ( Obj.getBoolean("HasError") == true ){
+					
+					AlertDialog alertDialog = new AlertDialog.Builder(
+		                    view.getActivity()).create();
+					alertDialog.setMessage(Obj.getString("FaultsMsg"));
+				}else {
+			
+					JSONObject eventObj	= Obj.getJSONObject("ResponseValue");
+					AlertDialog alertDialog = new AlertDialog.Builder(view.getActivity()).create();
+					alertDialog.setMessage(eventObj.toString());
+					alertDialog.show();
+					
+				}
+					UIManagerHandler.goToConnectionFailed(view.getActivity());
+				}
+			
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	
 	}
 
 	public void onAcceptPostExecute(String result) {
-		// TODO Auto-generated method stub
-		Toast.makeText(view.getActivity().getApplicationContext(), result, Toast.LENGTH_LONG).show();	
-	}
+		JSONObject Obj;
+		try {
+			
+			Obj = new JSONObject(result);
+			
+			if(result.equalsIgnoreCase("No Connection") == false){
+			
+				if ( Obj.getBoolean("HasError") == true ){
+					
+					AlertDialog alertDialog = new AlertDialog.Builder(
+		                    view.getActivity()).create();
+					alertDialog.setMessage(Obj.getString("FaultsMsg"));
+				}else {
+			
+					JSONObject eventObj	= Obj.getJSONObject("ResponseValue");
+					AlertDialog alertDialog = new AlertDialog.Builder(
+		                    view.getActivity()).create();
+					alertDialog.setMessage(eventObj.toString());
+					
+				}
+					UIManagerHandler.goToConnectionFailed(view.getActivity());
+				}
+			
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	}
 
 
 }

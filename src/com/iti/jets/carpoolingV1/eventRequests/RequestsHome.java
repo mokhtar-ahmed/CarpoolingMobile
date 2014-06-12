@@ -108,7 +108,7 @@ public void onItemClick(AdapterView<?> parent, View view, int position, long id)
 @Override
 public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 	// TODO Auto-generated method stub
-	 inflater.inflate(R.menu.home, menu);
+	/// inflater.inflate(R.menu.home, menu);
 	super.onCreateOptionsMenu(menu, inflater);
 }
 

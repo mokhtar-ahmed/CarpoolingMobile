@@ -28,7 +28,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class FeedsHome extends Fragment implements OnItemClickListener {
+public class FeedsHome extends Fragment  {
 
 	View rootView;
 	ListView eventsList;
@@ -47,6 +47,7 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container,
     
 	eventsList = (ListView) rootView.findViewById(R.id.TopEvents);
 	notificationsList = (ListView) rootView.findViewById(R.id.TopNotification);
+	
 	setHasOptionsMenu(true);
 	
 	cont = new FeedsHomeController(this);
@@ -96,37 +97,12 @@ public void fillNotificationtListViewData(){
 	});
 }
 
-@Override
-public boolean onOptionsItemSelected(MenuItem item) {
-	// TODO Auto-generated method stub
-	switch (item.getItemId()) {
-	case R.id.addEvent:
-		UIManagerHandler.goToAddEvent(getActivity());
-	return true;	
-	
 
-	default:
-		return super.onOptionsItemSelected(item);
-	}
-	
-}
-@Override
-public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-	// TODO Auto-generated method stub
-	
-	switch(view.getId()){
-	
-	case R.id.TopEvents:break;
-	case R.id.TopNotification:break;
-	}
-	
-
-}
 
 @Override
 public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 	// TODO Auto-generated method stub
-//	 inflater.inflate(R.menu.home, menu);
+	 //inflater.inflate(R.menu.home, menu);
 	super.onCreateOptionsMenu(menu, inflater);
 }
 

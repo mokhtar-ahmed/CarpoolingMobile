@@ -11,4 +11,5 @@
     <color name="background_color">#3598db</color>
     <color name="btn_pressed_color">#ee5527</color>
     <color name="btn_color">#ffd364</color>
+    <color name="btn_color1">#ffffff</color>
 </resources>

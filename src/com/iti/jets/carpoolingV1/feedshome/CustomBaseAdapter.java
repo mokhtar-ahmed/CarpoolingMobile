@@ -38,7 +38,7 @@ public class CustomBaseAdapter extends BaseAdapter {
         LayoutInflater mInflater = (LayoutInflater)
             context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         if (convertView == null) {
-            convertView = mInflater.inflate(R.layout.activity_friends, null);
+            convertView = mInflater.inflate(R.layout.notification_cell, null);
             holder = new ViewHolder();
             holder.txtDesc = (TextView) convertView.findViewById(R.id.label1);
             holder.txtTitle = (TextView) convertView.findViewById(R.id.label2);
@@ -51,11 +51,16 @@ public class CustomBaseAdapter extends BaseAdapter {
  
         Notification rowItem = (Notification) getItem(position);
  
-        holder.txtDesc.setText(rowItem.getEvent().getName());
+        holder.txtDesc.setText(rowItem.getMessage());
         holder.txtTitle.setText(rowItem.getNotificationDate().toString());
-        
+        if(rowItem.getEventType().equals("unread")){
+        	holder.imageView.setImageResource(R.drawable.unread);
+        }else if(rowItem.getEventType().equals("read")){
+        	
+        	//holder.container.setBackgroundColor(context.getResources().getColor(R.color.readed_container));
+        	holder.imageView.setImageResource(R.drawable.read);
+        }
     
- 
         return convertView;
     }
  

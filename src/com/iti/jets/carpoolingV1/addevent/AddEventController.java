@@ -8,6 +8,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.ProgressDialog;
@@ -17,10 +18,12 @@ import android.provider.CalendarContract.Events;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.gms.internal.al;
 import com.iti.jets.carpoolingV1.R;
 import com.iti.jets.carpoolingV1.httphandler.AddEvent;
 import com.iti.jets.carpoolingV1.httphandler.RetrieveCircleUsersHandler;
 import com.iti.jets.carpoolingV1.pojos.User;
+import com.iti.jets.carpoolingV1.registrationactivity.RegisterFragment;
 import com.iti.jets.carpoolingV1.retrieveallcircles.RetrieveCircleUsersController;
 import com.iti.jets.carpoolingV1.uimanager.UIManagerHandler;
 
@@ -51,7 +54,13 @@ public class AddEventController {
 				obj = new JSONObject(result);
 				
 				if ( obj.getBoolean("HasError") == true ){
-					Toast.makeText(addEventActivity.getActivity().getApplicationContext(), obj.getString("FaultsMsg"), Toast.LENGTH_LONG).show();	
+			
+					AlertDialog alertDialog = new AlertDialog.Builder(
+		                    addEventActivity.getActivity()).create();
+					alertDialog.setMessage(obj.getString("FaultsMsg"));
+					alertDialog.show();
+					//Toast.makeText(addEventActivity.getActivity().getApplicationContext(), obj.getString("FaultsMsg"), Toast.LENGTH_LONG).show();	
+					
 				}else{
 				
 					addEventActivity.callSetEventAtCalendar();
@@ -64,8 +73,8 @@ public class AddEventController {
 			
 			
 		}else{
-			Toast.makeText(addEventActivity.getActivity().getApplicationContext(), "No connection", Toast.LENGTH_LONG).show();
-			
+		//	Toast.makeText(addEventActivity.getActivity().getApplicationContext(), "No connection", Toast.LENGTH_LONG).show();
+			UIManagerHandler.goToNoNotificationHome(addEventActivity.getActivity());
 		}
 	}
 

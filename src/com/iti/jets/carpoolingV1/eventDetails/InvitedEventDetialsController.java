@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import android.app.AlertDialog;
 import android.widget.Toast;
 
 import com.iti.jets.carpoolingV1.httphandler.JoinEvent;
@@ -33,6 +35,16 @@ public class InvitedEventDetialsController {
 			try {
 				
 				JSONObject Obj = new JSONObject(result);
+				if ( Obj.getBoolean("HasError") == true ){
+								
+								AlertDialog alertDialog = new AlertDialog.Builder(
+					                    view.getActivity()).create();
+								alertDialog.setMessage(Obj.getString("FaultsMsg"));
+								alertDialog.show();
+								UIManagerHandler.goToNoEvent(view.getActivity());
+			  }else {
+						
+					
 				JSONObject eventObj	= Obj.getJSONObject("ResponseValue");
 				
 				
@@ -55,7 +67,7 @@ public class InvitedEventDetialsController {
 				view.no_of_slots.setText(""+ eventObj.getInt("noOfSlots"));
 				view.dp.setText(""+eventObj.getString("eventDate"));	
 				
-		
+			  }
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -63,8 +75,8 @@ public class InvitedEventDetialsController {
 			
 		}else{
 			
-			Toast.makeText(view.getActivity().getApplicationContext(), "Connect to internet", Toast.LENGTH_LONG).show();
-			
+	//		Toast.makeText(view.getActivity().getApplicationContext(), "Connect to internet", Toast.LENGTH_LONG).show();
+			UIManagerHandler.goToConnectionFailed(view.getActivity());	
 		}
 		
 	}
@@ -82,8 +94,32 @@ public class InvitedEventDetialsController {
 	public void onJoinPostExecute(String result) {
 		// TODO Auto-generated method stub
 		view.prog.dismiss();
-		Toast.makeText(view.getActivity().getApplicationContext(), result, Toast.LENGTH_LONG).show();
-		UIManagerHandler.getoEventHome(view.getActivity());
+try {
+			
+			if(result.equals("No Connection") == false){
+				JSONObject ob = new JSONObject(result);
+				
+				if(ob.getBoolean("HasError") == true){
+					AlertDialog alertDialog = new AlertDialog.Builder(view.getActivity()).create();
+					alertDialog.setMessage(ob.getString("FaultsMsg"));
+					alertDialog.show();
+					UIManagerHandler.goToNoEvent(view.getActivity());
+				}else{
+					
+					UIManagerHandler.getoEventHome(view.getActivity());
+
+					//Toast.makeText(view.getActivity().getApplicationContext(),ob.getString("ResponseValue"), Toast.LENGTH_LONG).show();
+				}
+			}		
+			else 
+				UIManagerHandler.goToConnectionFailed(view.getActivity());
+			
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+//		Toast.makeText(view.getActivity().getApplicationContext(), result, Toast.LENGTH_LONG).show();
 		
 	}
 	

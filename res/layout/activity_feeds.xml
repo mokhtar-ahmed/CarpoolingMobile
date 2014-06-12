@@ -15,6 +15,7 @@
 	         <TextView
 	             android:id="@+id/textView1"
 	             android:layout_weight="10"
+	             android:paddingTop="10dp"
 	             android:layout_width="wrap_content"
 	             android:layout_height="0dp"
 	             android:text="Top Events"
@@ -23,6 +24,9 @@
 	             android:textColor="#ffffff" />
 
 		<ListView 
+		    android:paddingTop="10dp"
+		    android:paddingBottom="10dp"
+		    android:background="@drawable/rect_shape"
 		    android:id="@+id/TopEvents"
 		    android:layout_width="match_parent"
 		    android:layout_height="0dp"
@@ -31,7 +35,6 @@
 		    android:choiceMode="singleChoice"
 		    android:divider="@drawable/divider"
 		    android:dividerHeight="4dp"
-		     android:background="#64b0e3"
 		    android:listSelector="@color/background_color"/>
 		
 
@@ -42,12 +45,13 @@
 		        android:layout_marginTop="5dp"
 		        android:drawableLeft="@drawable/small_noti"
 		        android:text="Top Notification"
+		        android:paddingTop="10dp"
 		        android:textAppearance="?android:attr/textAppearanceLarge"
 		        android:textColor="#ffffff" />
 
 		<ListView 
-		    android:paddingTop="5dp"
-		    android:paddingBottom="5dp"
+		    android:paddingTop="10dp"
+		    android:paddingBottom="10dp"
 		    android:layout_weight="40"
 		    android:id="@+id/TopNotification"
 		    android:layout_width="match_parent"
@@ -56,7 +60,7 @@
 		    android:choiceMode="singleChoice"
 		    android:divider="@drawable/divider"
 		    android:dividerHeight="4dp"
-		    android:background="#64b0e3"
+		    android:background="@drawable/rect_shape"
 		    android:listSelector="@color/background_color"/>
 	
 </LinearLayout>

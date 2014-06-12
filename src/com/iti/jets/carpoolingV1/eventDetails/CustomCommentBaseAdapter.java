@@ -36,7 +36,7 @@ public class CustomCommentBaseAdapter extends BaseAdapter {
         LayoutInflater mInflater = (LayoutInflater)
             context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         if (convertView == null) {
-            convertView = mInflater.inflate(R.layout.activity_friends, null);
+            convertView = mInflater.inflate(R.layout.notification_cell, null);
             holder = new ViewHolder();
             holder.txtDesc = (TextView) convertView.findViewById(R.id.label1);
             holder.txtTitle = (TextView) convertView.findViewById(R.id.label2);
@@ -52,7 +52,7 @@ public class CustomCommentBaseAdapter extends BaseAdapter {
  
         holder.txtDesc.setText(rowItem.getUsername());
         holder.txtTitle.setText(rowItem.getText()+"\n"+ rowItem.getDate().toString());
-       holder.imageView.setImageResource(R.drawable.ic_action_user);
+        holder.imageView.setImageResource(R.drawable.ic_user);
  
         return convertView;
     }

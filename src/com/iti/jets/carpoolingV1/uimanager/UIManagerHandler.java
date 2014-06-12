@@ -19,6 +19,7 @@ import com.iti.jets.carpoolingV1.eventDetails.EventDetailsActivity;
 import com.iti.jets.carpoolingV1.eventDetails.InvitedEventDetailsActivity;
 import com.iti.jets.carpoolingV1.eventRequests.RequestsHome;
 import com.iti.jets.carpoolingV1.eventshome.EventsHome;
+import com.iti.jets.carpoolingV1.eventshome.NoEventsHome;
 import com.iti.jets.carpoolingV1.loginactivity.LoginActivity;
 import com.iti.jets.carpoolingV1.notificationHome.NoNotificationHome;
 
@@ -26,6 +27,7 @@ import com.iti.jets.carpoolingV1.registrationactivity.RegisterActivity;
 
 import com.iti.jets.carpoolingV1.retrieveallcircles.AllCirclesListFragment;
 import com.iti.jets.carpoolingV1.retrieveallcircles.CircleUsersFragment;
+import com.iti.jets.carpoolingV1.sharedlayout.ConnectionFailedView;
 import com.iti.jets.carpoolingV1.sharedlayout.MainActivity;
 
 
@@ -53,7 +55,27 @@ public class UIManagerHandler {
 
 			FragmentManager fragmentManager = ac.getFragmentManager();
 
-			fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).addToBackStack("addEvent").commit();
+			fragmentManager.beginTransaction().replace(R.id.frame_container, fragment,"addEvent").addToBackStack("addEvent").commit();
+		}
+	}
+	public static void goToConnectionFailed(Activity ac){
+
+		Fragment fragment = new ConnectionFailedView();
+		if (fragment != null) {
+
+			FragmentManager fragmentManager = ac.getFragmentManager();
+
+			fragmentManager.beginTransaction().replace(R.id.frame_container, fragment,"connectionfails").addToBackStack("connectionfails").commit();
+		}
+	}
+	public static void goToNoEvent(Activity ac){
+
+		Fragment fragment = new NoEventsHome();
+		if (fragment != null) {
+
+			FragmentManager fragmentManager = ac.getFragmentManager();
+
+			fragmentManager.beginTransaction().replace(R.id.frame_container, fragment,"noEvent").addToBackStack("noEvent").commit();
 		}
 	}
 
@@ -62,11 +84,10 @@ public class UIManagerHandler {
 		Fragment fragment = new NoNotificationHome();
 		if (fragment != null) {
 
-			ac.setRequestedOrientation(
-		            ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+		
 			FragmentManager fragmentManager = ac.getFragmentManager();
 
-			fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).addToBackStack("addEvent").commit();
+			fragmentManager.beginTransaction().replace(R.id.frame_container, fragment,"noNotification").addToBackStack("noNotification").commit();
 		}
 	}
 	public static void getoEventHome(Activity ac){
@@ -111,7 +132,7 @@ public class UIManagerHandler {
 				ac.setRequestedOrientation(
 			            ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 				FragmentManager fragmentManager = ac.getFragmentManager();
-				fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).addToBackStack("eventDetails").commit();
+				fragmentManager.beginTransaction().replace(R.id.frame_container, fragment,"eventDetails").addToBackStack("eventDetails").commit();
 
 			}
 		}
@@ -125,7 +146,7 @@ public class UIManagerHandler {
 			if (fragment != null) {
 
 				FragmentManager fragmentManager = ac.getFragmentManager();
-				fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).addToBackStack("eventDetails").commit();
+				fragmentManager.beginTransaction().replace(R.id.frame_container, fragment,"eventDetails").addToBackStack("eventDetails").commit();
 
 			}
 
@@ -140,7 +161,7 @@ public class UIManagerHandler {
 			if (fragment != null) {
 
 				FragmentManager fragmentManager = ac.getFragmentManager();
-				fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).addToBackStack("eventDetails").commit();
+				fragmentManager.beginTransaction().replace(R.id.frame_container, fragment,"eventDetails").addToBackStack("eventDetails").commit();
 
 			}
 
@@ -172,7 +193,7 @@ public static void goToAddCircle(Activity ac){
 //			 fragmentManager.popBackStack();
 			 
 			fragmentManager.beginTransaction()
-					.replace(R.id.frame_container, fragment).addToBackStack("addCirc").commit();
+					.replace(R.id.frame_container, fragment,"addCirc").addToBackStack("addCirc").commit();
 			
 			
 			
@@ -191,7 +212,7 @@ public static void goToAllCirclesList(Activity ac){
 		 ac.getActionBar().setTitle(title);
 //		 fragmentManager.popBackStack();
 		fragmentManager.beginTransaction()
-				.replace(R.id.frame_container, fragment).addToBackStack("home2d").commit();
+				.replace(R.id.frame_container, fragment,"home2d").addToBackStack("home2d").commit();
 		
 		
 		
@@ -210,7 +231,7 @@ public static void goToCircleUsersFragment(Activity ac, Bundle args, String circ
 //		fragmentManager.popBackStack();
 		 ac.getActionBar().setTitle(circleName);
 		fragmentManager.beginTransaction()
-				.replace(R.id.frame_container, fragment).commit();
+				.replace(R.id.frame_container, fragment,"oCircleUsers1").addToBackStack("oCircleUsers1").commit();
 
 		
 	}
@@ -229,7 +250,7 @@ public static void goToCircleUsersFragment(String result, Activity ac, Bundle ar
 //		fragmentManager.popBackStack();
 		 ac.getActionBar().setTitle(circleName);
 		fragmentManager.beginTransaction()
-				.replace(R.id.frame_container, fragment).commit();
+				.replace(R.id.frame_container, fragment,"CircleUsers").addToBackStack("CircleUsers").commit();
 		
 		
 		

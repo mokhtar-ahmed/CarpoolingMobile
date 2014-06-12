@@ -7,7 +7,7 @@ public final class HttpConstants {
 	//Webservices URI addresses 
   //  public static final String SERVER_URL="http://192.168.200.1:9191/CarpoolingBackendFinal/service/";
 
-    public static final String SERVER_URL="http://192.168.1.8:8090/CarpoolingBackendFinal/service/";
+    public static final String SERVER_URL="http://10.145.70.141:9191/CarpoolingBackendFinal/service/";
 	public static final String LOGIN_URL="user/newLogin";
 	public static final String GET_CIRCLE_USERS_URL="newCircle/retrieveCirclesUsers";
 	public static final String JOIN_EVENT ="user/joinvent";
@@ -34,7 +34,7 @@ public final class HttpConstants {
 	public static final String RETRIEVE_CIRCLE_USRES_URL="retrieveCircleUsers/retrieve";
 	public static final String DELETE_CIRCLE_URL="deleteCircle/delete";
 	public static final String DELETE_USER_FROM_CIRCLE_URL="deleteUserFromCircle/deleteUser";
-	public static final String GET_ALL_NOTIFICATION_SERVICE_URL = "ViewUserNotifications/getUserNotification";
+	public static final String GET_ALL_NOTIFICATION_SERVICE_URL = "user/retrieveAllUserNotifications";
 	public static final String GETFRIENDS_SERVICE_URL="getFriends";
 	public static final String ADDFRIEND_SERVICE_URL="addFriend";
 	public static final String REMOVEFRIEND_SERVICE_URL="removeFriend";

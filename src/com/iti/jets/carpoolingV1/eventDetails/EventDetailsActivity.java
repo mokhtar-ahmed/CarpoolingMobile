@@ -157,11 +157,15 @@ public class EventDetailsActivity extends Fragment {
          controller = new EventDetialsController(this);
          
          ArrayList<Location> l =  EntityFactory.getLocationsInstance();
-         for(int i=0; i< l.size(); i++ ){
-       	  
-       	  locs.add(l.get(i).getAddress());
-       	  
+         
+         if(l == null){
+        	 l = new ArrayList<Location>();
          }
+         else {
+         for(int i=0; i< l.size(); i++ )  
+       	  	locs.add(l.get(i).getAddress());
+         }
+        
     
          
          

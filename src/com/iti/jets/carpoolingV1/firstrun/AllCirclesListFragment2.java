@@ -122,6 +122,7 @@ public class AllCirclesListFragment2 extends Fragment implements OnNavigationLis
 			tempCircle.setCircleName(jsObj.getString("circleName"));
 			tempCircle.setCircleId(jsObj.getInt("circleId"));
 			tempCircle.setCircleImage(jsObj.getString("circleImage"));
+		
 			tempCircle.setResId(jsObj.getInt("resId"));
 			tempCircle2.setCircleName(jsObj.getString("circleName"));
 			tempCircle2.setId(jsObj.getInt("circleId"));

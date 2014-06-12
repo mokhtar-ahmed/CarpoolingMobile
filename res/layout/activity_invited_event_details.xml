@@ -17,8 +17,7 @@
 	    android:paddingRight="@dimen/activity_horizontal_margin"
 	    android:paddingTop="@dimen/activity_vertical_margin"
 	    android:orientation="vertical"
-	  
-	    android:weightSum="100"
+	  	android:weightSum="100"
 	   >
 
        
@@ -61,8 +60,8 @@
 	           android:textColor="#f9bf3b"
 	           android:textAppearance="?android:attr/textAppearanceMedium" />
 		<EditText
-		    android:paddingTop="5dp"
-		    android:paddingBottom="5dp"
+		    android:paddingTop="10dp"
+		    android:paddingBottom="10dp"
 		    android:id="@+id/eventNameTxt"
 		    android:layout_width="match_parent"
 		    android:layout_height="wrap_content"
@@ -70,7 +69,9 @@
 		    android:maxLength="50"
 		    android:textColorHint="#ffffff"
 		    android:hint="Enter event name"
+		    
 		    android:textColor="#ffffff"
+		    android:paddingLeft="10dp"
 		    android:layout_marginTop="5dp"
 		    android:background="@drawable/rect_shape"
 		    android:ems="10" >
@@ -92,6 +93,7 @@
 		    android:layout_width="match_parent"
 		    android:textColor="#ffffff"
 		    android:layout_height="wrap_content"
+		     android:paddingLeft="10dp"
 		    android:background="@drawable/rect_shape"
 		    />	
 			
@@ -110,6 +112,7 @@
 		   	 android:gravity="left|center_vertical"
 		   	android:textAlignment="textStart"
 		    android:layout_width="match_parent"
+		     android:paddingLeft="10dp"
 		    android:layout_height="wrap_content"
 		    android:background="@drawable/rect_shape"
 		    />		
@@ -164,6 +167,7 @@
                 android:background="@drawable/rect_shape"
                 android:gravity="left|center_vertical"
                 android:text="From"
+                 android:paddingLeft="10dp"
                 android:textColor="#ffffff"
                 android:textAlignment="textStart" />
 
@@ -179,6 +183,7 @@
                 android:id="@+id/ToSpinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                 android:paddingLeft="10dp"
                 android:background="@drawable/rect_shape"
                 android:gravity="left|center_vertical"
                 android:textColor="#ffffff"

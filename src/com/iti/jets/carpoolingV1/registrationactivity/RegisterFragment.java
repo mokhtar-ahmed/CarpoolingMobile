@@ -194,7 +194,11 @@ public class RegisterFragment extends Fragment{
 							genderData = femaleRadioBtn.getText().toString();
 						}
 						newUser.setGender(genderData);
-						newUser.setPushNotificationId(EntityFactory.getNotificationIdInstance().trim());
+						String notif = EntityFactory.getNotificationIdInstance().trim();
+						if(notif == null)
+							notif="";
+						
+						newUser.setPushNotificationId(notif);
 
 						
 					  RegisterationController controller = new RegisterationController(newUser,RegisterFragment.this,imgBitmap,filePath);

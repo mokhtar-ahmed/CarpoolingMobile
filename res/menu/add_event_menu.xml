@@ -4,7 +4,7 @@
         android:id="@+id/add_event_icon"
         android:orderInCategory="100"
         android:showAsAction="ifRoom"
-        android:icon="@drawable/ic_action_share"
+        android:icon="@drawable/ic_action_new"
         android:title="add"/>
 
 </menu>

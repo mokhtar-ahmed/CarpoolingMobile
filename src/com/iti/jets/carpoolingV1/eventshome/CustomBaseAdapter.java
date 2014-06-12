@@ -50,6 +50,7 @@ public class CustomBaseAdapter extends BaseAdapter {
  
         holder.txtDesc.setText(rowItem.getName());
         holder.txtTitle.setText(rowItem.getDate().toString());
+        
         if(rowItem.getUserStatue().equals("Create")){
         	holder.imageView.setImageResource(R.drawable.event_ico);
         }else {

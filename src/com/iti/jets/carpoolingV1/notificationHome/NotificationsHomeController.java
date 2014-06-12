@@ -64,7 +64,8 @@ public class NotificationsHomeController {
 				
 			
 		}else 
-			Toast.makeText(view.getActivity().getApplicationContext(), result, Toast.LENGTH_LONG).show();
+			UIManagerHandler.goToConnectionFailed(view.getActivity());
+
 	
 		
 	}

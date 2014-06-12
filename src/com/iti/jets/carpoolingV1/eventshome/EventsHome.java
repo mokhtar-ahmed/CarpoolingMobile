@@ -95,10 +95,11 @@ public void onItemClick(AdapterView<?> parent, View view, int position, long id)
 	// TODO Auto-generated method stub
 	
 	
-	Toast.makeText(getActivity().getApplicationContext(), values.get(position).getName(), Toast.LENGTH_LONG).show();
+	//Toast.makeText(getActivity().getApplicationContext(), values.get(position).getName(), Toast.LENGTH_LONG).show();
 	
 	int eventId = values.get(position).getId();
 	String state = values.get(position).getUserStatue();
+	
 	UIManagerHandler.goToEventDetails(getActivity(), eventId , state);
 }
 

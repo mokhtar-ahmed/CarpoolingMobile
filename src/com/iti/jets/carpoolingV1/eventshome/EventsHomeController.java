@@ -13,6 +13,7 @@ import com.iti.jets.carpoolingV1.httphandler.RetriveUserEventsHandler;
 import com.iti.jets.carpoolingV1.jsonhandler.JsonParser;
 import com.iti.jets.carpoolingV1.pojos.Circle;
 import com.iti.jets.carpoolingV1.pojos.Event;
+import com.iti.jets.carpoolingV1.uimanager.UIManagerHandler;
 
 public class EventsHomeController {
 
@@ -55,19 +56,26 @@ public class EventsHomeController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			Collections.sort(events);
-		    view.values = events;
-			view.fillListViewData();
+			if(events.isEmpty()){
+				
+				UIManagerHandler.goToNoEvent(view.getActivity());
+				
+			}else {
+				
+				Collections.sort(events);
+			    view.values = events;
+				view.fillListViewData();
+		 }
 			
 		}else{
-			Toast.makeText(view.getActivity().getApplicationContext(), "Connect to internet", Toast.LENGTH_LONG).show();
-			
+			UIManagerHandler.goToConnectionFailed(view.getActivity());
+		
 		} 
 		
 		
 
 		
-		
+	
 	}
 	public void retriveAllEvents(String input) {
 	

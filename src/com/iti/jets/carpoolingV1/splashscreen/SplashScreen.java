@@ -182,7 +182,7 @@ public class SplashScreen extends Activity {
         @Override
         protected void onPostExecute(String msg) {
         //    mDisplay.append(msg + "\n");
-        	Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
+        	//Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
         }
         
         private void storeRegistrationId(Context context, String regId) {

@@ -6,6 +6,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.AlertDialog;
 import android.widget.Toast;
 
 import com.google.android.gms.internal.in;
@@ -18,6 +19,7 @@ import com.iti.jets.carpoolingV1.jsonhandler.JsonParser;
 import com.iti.jets.carpoolingV1.pojos.Circle;
 import com.iti.jets.carpoolingV1.pojos.Event;
 import com.iti.jets.carpoolingV1.pojos.Notification;
+import com.iti.jets.carpoolingV1.uimanager.UIManagerHandler;
 
 public class SearchHomeController {
 
@@ -46,27 +48,36 @@ public class SearchHomeController {
 				
 				
 				JSONObject js = new JSONObject(result);
-				
-				
-				eventsJson =  js.getJSONArray("ResponseValue");
 
-				for(int i =0 ; i<eventsJson.length(); i++){
-					Event ev = JsonParser.parseToEventList(eventsJson.getJSONObject(i));
-					System.out.println(ev.getId());
+				if ( js.getBoolean("HasError") == true ){
 					
-					if(ev != null)
-						events.add(ev);
+					AlertDialog alertDialog = new AlertDialog.Builder(
+		                    view.getActivity()).create();
+					alertDialog.setMessage(js.getString("FaultsMsg"));
+				}else {
+			
+				
+					eventsJson =  js.getJSONArray("ResponseValue");
+
+					for(int i =0 ; i<eventsJson.length(); i++){
+						Event ev = JsonParser.parseToEventList(eventsJson.getJSONObject(i));
+						System.out.println(ev.getId());
+						
+						if(ev != null)
+							events.add(ev);
+					}
+					view.values = events;
+					view.fillListViewData();
 				}
 				
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		    view.values = events;
-			view.fillListViewData();
-			
+		    
 		}else{
-			Toast.makeText(view.getActivity().getApplicationContext(), "Connect to internet", Toast.LENGTH_LONG).show();
+			UIManagerHandler.goToConnectionFailed(view.getActivity());
+
 			
 		} 
 
