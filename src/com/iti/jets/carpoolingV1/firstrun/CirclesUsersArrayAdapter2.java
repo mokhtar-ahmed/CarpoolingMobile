@@ -195,7 +195,7 @@ public class CirclesUsersArrayAdapter2 extends BaseAdapter  implements OnClickLi
                    			     UserValues = (User)data.get(position);
                    			     UserValues.setIsSelected(true);
                         		 CircleUsersFragment2 fragment = activity;
-                        		 fragment.oncheckCircle(UserValues);
+//                        		 fragment.oncheckCircle(UserValues);
                    		   }
                    		 
                    		

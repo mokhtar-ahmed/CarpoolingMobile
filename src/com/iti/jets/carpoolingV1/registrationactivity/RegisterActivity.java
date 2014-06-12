@@ -36,7 +36,7 @@ public class RegisterActivity extends FragmentActivity {
 
 	// Add the fragment to the 'fragment_container' FrameLayout
 	    getSupportFragmentManager().beginTransaction()
-	            .add(R.id.framee2, registerFragment).commit();
+	            .replace(R.id.framee2, registerFragment).commit();
 	}
 
 

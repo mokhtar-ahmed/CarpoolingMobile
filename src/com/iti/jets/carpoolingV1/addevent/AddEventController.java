@@ -1,6 +1,8 @@
 package com.iti.jets.carpoolingV1.addevent;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -9,6 +11,9 @@ import org.json.JSONObject;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.provider.CalendarContract;
+import android.provider.CalendarContract.Events;
 import android.view.View;
 import android.widget.Toast;
 
@@ -35,9 +40,11 @@ public class AddEventController {
 		System.out.println(result);
 		
 		
+		addEventActivity.prog.dismiss();
 		
 		if(result.equals("No Connection") == false){
 		
+			
 			JSONObject obj;
 			try {
 				
@@ -47,7 +54,7 @@ public class AddEventController {
 					Toast.makeText(addEventActivity.getActivity().getApplicationContext(), obj.getString("FaultsMsg"), Toast.LENGTH_LONG).show();	
 				}else{
 				
-					addEventActivity.prog.dismiss();
+					addEventActivity.callSetEventAtCalendar();
 					UIManagerHandler.getoEventHome(addEventActivity.getActivity());
 				}
 			} catch (JSONException e) {
@@ -61,6 +68,7 @@ public class AddEventController {
 			
 		}
 	}
+
 
 	public void addEventHandler(String parm) {
 		new AddEvent(this).execute(new String []{parm});

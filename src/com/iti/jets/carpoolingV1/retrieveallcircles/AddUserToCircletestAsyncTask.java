@@ -72,7 +72,7 @@ public class AddUserToCircletestAsyncTask extends AsyncTask<String, Void, String
 			// TODO Auto-generated constructor stub
 		flag2 = true;
 		mFragmentCallback2 = fragmentCallback2;
-        this.circleId = circleId;
+        this.circleId = circle_Id;
         usersList = circleActualUsersList;
         usersListJSArray = new JSONArray();
         User tempUser;

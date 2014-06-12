@@ -244,7 +244,7 @@ public class CircleUsersFragment2 extends Fragment {
 						 	             // List defined in XML ( See Below )
 						 	             
 						 	            /**************** Create Custom Adapter *********/
-						 	           CirclesUsersArrayAdapter2 adapter = new  CirclesUsersArrayAdapter2(CircleUsersFragment2.this,usersList,res);
+						 	           adapter = new  CirclesUsersArrayAdapter2(CircleUsersFragment2.this,usersList,res);
 						 	           list.setAdapter( adapter );
 										
 									}
@@ -267,11 +267,6 @@ public class CircleUsersFragment2 extends Fragment {
         {
         	 
         	this.circle_Id = getArguments().getInt("circle_Id");
-//     		this.user_Id = getArguments().getInt("user_Id");
-//     		System.out.print("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM"+circle_Id);
-//     		Toast.makeText(getActivity().getApplicationContext(),"OOOO"+circle_Id, Toast.LENGTH_SHORT).show();
-//     		this.selectedCircleName = getArguments().getString("selectedCirclsName");
-//     		System.out.print("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM"+selectedCircleName);
         	String result = getArguments().getString("result");
         	
         	JSONArray resultsJsarr;
@@ -356,99 +351,6 @@ public class CircleUsersFragment2 extends Fragment {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	
-
-	
-	public void oncheckCircle(final User userValues) {
-//		System.out.println("///////////////////////////////////////////"+userValues.getName());
-//		System.out.println("///////////////////////////////////////////"+userValues.getUserId());
-//
-//		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-//				getActivity());
-// 
-//			// set title
-//			alertDialogBuilder.setTitle("Confirm");
-// 
-//			// set dialog message
-//			alertDialogBuilder
-//				.setMessage("Are you sure you want to remove " +userValues.getName()+ " from this circle?")
-//				.setCancelable(false)
-//				.setPositiveButton("Delete",new DialogInterface.OnClickListener() {
-//					public void onClick(DialogInterface dialog,int id) {
-//						
-//						DeleteUserFromCircleController deleteCircleController = new DeleteUserFromCircleController();
-//						deleteCircleController.setArguments(userValues,circle_Id,new FragmentCallback(){
-//						@Override
-//						public void onTaskDone(String result2) {
-//							AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-//									getActivity());
-//					 
-//								// set title
-//								//alertDialogBuilder.setTitle("Alert");
-//					 
-//								// set dialog message
-//							    CircleUsersFragment.this.result2 = result2;
-//								alertDialogBuilder
-//									.setMessage("User Successfully Removed")
-//									.setCancelable(false)
-//									.setPositiveButton("OK",new DialogInterface.OnClickListener() {
-//										public void onClick(DialogInterface dialog,int id) {
-//											// if this button is clicked, just close
-//											// the dialog box and do nothing
-//										
-//											dialog.cancel();
-//											
-//										}
-//									});
-//					 
-//									// create alert dialog
-//									AlertDialog alertDialog = alertDialogBuilder.create();
-//					 
-//									// show it
-//									alertDialog.show();
-////									Bundle args = new Bundle();
-////									args.putInt("circle_Id",circle_Id);
-////									args.putInt("user_Id",EntityFactory.getUserInstance().getId());
-////									args.putString("result",result2);
-////									args.putBoolean("flag", false);
-////									UIManagerHandler.goToCircleUsersFragment(CircleUsersFragment.this.getActivity(),args);
-//							// TODO Auto-generated method stub
-////							RetrieveCircleUsersController ruController = new RetrieveCircleUsersController();
-////							
-////							ruController.setArguments2(circle_Id,new FragmentCallback(){
-////								@Override
-////								public void onTaskDone(String result) {
-////									Fragment fragment = new CircleUsersFragment();
-////									Bundle args = new Bundle();
-////									args.putInt("circle_Id",circle_Id);
-////									args.putString("result",result);
-////									args.putBoolean("flag", false);
-////									fragment.setArguments(args);
-////									FragmentManager fragmentManager = getFragmentManager();
-////									fragmentManager.beginTransaction()
-////										.replace(R.id.frame_container, fragment).commit();  	
-////								}
-////					         }); 
-//						}
-//			         });
-//					}
-//				  })
-//				.setNegativeButton("Cancel",new DialogInterface.OnClickListener() {
-//					public void onClick(DialogInterface dialog,int id) {
-//						// if this button is clicked, just close
-//						// the dialog box and do nothing
-//						dialog.cancel();
-//					}
-//				});
-// 
-//				// create alert dialog
-//				AlertDialog alertDialog = alertDialogBuilder.create();
-// 
-//				// show it
-//				alertDialog.show();
-
-	}
-	
 	
 	@Override
 	public void onStop() {

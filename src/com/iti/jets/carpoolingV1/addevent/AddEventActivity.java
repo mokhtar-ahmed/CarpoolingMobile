@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,8 +23,11 @@ import android.app.ProgressDialog;
 import android.app.Fragment;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 
 import android.os.Bundle;
+import android.provider.CalendarContract;
+import android.provider.CalendarContract.Events;
 import android.text.style.BulletSpan;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -430,6 +434,41 @@ public class AddEventActivity extends Fragment{
 		}
 		
 	}
+	
+
+	public void callSetEventAtCalendar(){
+		setEventAtCalendar(eventNameTxt.getText().toString() , locs.get(selectedFrom), d);
+	}
+	private void setEventAtCalendar(String eventName , String location , Date date){
+		
+		Intent intent = new Intent(Intent.ACTION_INSERT);
+		intent.setType("vnd.android.cursor.item/event");
+		
+		intent.putExtra(Events.TITLE, eventName);
+		intent.putExtra(Events.EVENT_LOCATION, location);
+		intent.putExtra(Events.DESCRIPTION, "5odny ma3ak event");
+
+		// Setting dates
+		GregorianCalendar calDate = new GregorianCalendar(date.getYear(),date.getMonth()-1, 
+										date.getDay(),date.getHours(),date.getMinutes());
+	
+		intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME,calDate.getTimeInMillis());
+		intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME,calDate.getTimeInMillis());
+
+		// make it a full day event
+		intent.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY, false);
+
+		// make it a recurring Event
+		intent.putExtra(Events.RRULE, "FREQ=WEEKLY;COUNT=11;WKST=SU;BYDAY=TU,TH");
+
+		// Making it private and shown as busy
+		intent.putExtra(Events.ACCESS_LEVEL, Events.ACCESS_PRIVATE);
+		intent.putExtra(Events.AVAILABILITY, Events.AVAILABILITY_BUSY);
+		
+		
+		getActivity().startActivity(intent); 
+	}
+
 	private void saveEventHandler(){
 		
 		Builder b = new AlertDialog.Builder(getActivity());

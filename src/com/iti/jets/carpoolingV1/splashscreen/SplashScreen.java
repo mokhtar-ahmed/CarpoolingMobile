@@ -22,6 +22,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.Window;
@@ -54,7 +55,7 @@ public class SplashScreen extends Activity {
 	        
 		 setContentView(R.layout.activity_splash);
 		 
-		 
+		
 	     context = getApplicationContext();
 
 	        
