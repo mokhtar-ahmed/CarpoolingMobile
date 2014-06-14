@@ -8,12 +8,13 @@ import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 
 import com.iti.jets.carpoolingV1.R;
 import com.iti.jets.carpoolingV1.addcircleactivity.AddCircleFragment;
 import com.iti.jets.carpoolingV1.addevent.AddEventActivity;
-import com.iti.jets.carpoolingV1.common.Circle2;
+
 import com.iti.jets.carpoolingV1.eventDetails.AcceptedEventDetailsActivity;
 import com.iti.jets.carpoolingV1.eventDetails.EventDetailsActivity;
 import com.iti.jets.carpoolingV1.eventDetails.InvitedEventDetailsActivity;
@@ -27,7 +28,11 @@ import com.iti.jets.carpoolingV1.registrationactivity.RegisterActivity;
 
 import com.iti.jets.carpoolingV1.retrieveallcircles.AllCirclesListFragment;
 import com.iti.jets.carpoolingV1.retrieveallcircles.CircleUsersFragment;
+
+import com.iti.jets.carpoolingV1.retrieveallcircles.NoUsersHome;
+
 import com.iti.jets.carpoolingV1.sharedlayout.ConnectionFailedView;
+
 import com.iti.jets.carpoolingV1.sharedlayout.MainActivity;
 
 
@@ -41,8 +46,11 @@ public class UIManagerHandler {
 
 		context.startActivity(new Intent(context , LoginActivity.class));
 	}
-	public static void goToRegister(Context context){
-		context.startActivity(new Intent(context , RegisterActivity.class));
+	public static void goToRegister(Context context, boolean flag){
+		
+		Intent intent = new Intent(context.getApplicationContext(),RegisterActivity.class);
+		intent.putExtra("flag",flag);
+		context.startActivity(intent);
 	}
 
 	public static void goToRetrieveAllCircles(Context context){
@@ -87,7 +95,42 @@ public class UIManagerHandler {
 		
 			FragmentManager fragmentManager = ac.getFragmentManager();
 
+
+			fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).addToBackStack("addEvent").commit();
+		}
+	}
+	
+	public static void goToNoUsersHome(Activity ac, int circle_Id, String circleName){
+
+		Fragment fragment = new NoUsersHome();
+		if (fragment != null) {
+
+			ac.setRequestedOrientation(
+		            ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+			FragmentManager fragmentManager = ac.getFragmentManager();
+			Bundle bundle = new Bundle();
+			bundle.putString("CircleName", circleName);
+			bundle.putInt("circle_Id",circle_Id);
+			fragment.setArguments(bundle);
+			fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).addToBackStack("addEvent").commit();
+		}
+	}
+	public static void goToNoUsersHome2(Activity ac, int circle_Id,
+			String circleName) {
+		// TODO Auto-generated method stub
+		Fragment fragment = new NoUsersHome2();
+		if (fragment != null) {
+
+			ac.setRequestedOrientation(
+		            ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+			FragmentManager fragmentManager = ac.getFragmentManager();
+			Bundle bundle = new Bundle();
+			bundle.putString("CircleName", circleName);
+			bundle.putInt("circle_Id",circle_Id);
+			fragment.setArguments(bundle);
+
 			fragmentManager.beginTransaction().replace(R.id.frame_container, fragment,"noNotification").addToBackStack("noNotification").commit();
+
 		}
 	}
 	public static void getoEventHome(Activity ac){
@@ -231,7 +274,9 @@ public static void goToCircleUsersFragment(Activity ac, Bundle args, String circ
 //		fragmentManager.popBackStack();
 		 ac.getActionBar().setTitle(circleName);
 		fragmentManager.beginTransaction()
+
 				.replace(R.id.frame_container, fragment,"oCircleUsers1").addToBackStack("oCircleUsers1").commit();
+
 
 		
 	}
@@ -254,6 +299,19 @@ public static void goToCircleUsersFragment(String result, Activity ac, Bundle ar
 		
 		
 		
+		
 	}
 }
+public static void goToRegister(LoginActivity loginActivity, Bundle bundle,
+		boolean flag, Bitmap userBitmap) {
+	// TODO Auto-generated method stub
+
+	Intent intent = new Intent(loginActivity.getApplicationContext(),RegisterActivity.class);
+	intent.putExtra("flag", flag);
+	intent.putExtra("userBitmap", userBitmap);
+	intent.putExtras(bundle);
+	loginActivity.startActivity(intent);
+	
+}
+
 }

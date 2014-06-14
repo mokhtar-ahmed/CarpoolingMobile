@@ -334,7 +334,13 @@ public class AddCircleFragment2 extends Fragment {
 		}
 
 	}
-	
+	  @Override
+	    public void onResume() {
+	    	// TODO Auto-generated method stub
+	    	getActivity().invalidateOptionsMenu();
+	    	super.onResume();
+	    	
+	    }
 	@Override
 	public void onStop() {
 		// TODO Auto-generated method stub

@@ -38,7 +38,9 @@ public class FirstRunActivity extends Activity {
 		
 		
 		super.onBackPressed();
+		
 		getFragmentManager().popBackStack();
+		invalidateOptionsMenu();
 //		if(inFlag)
 //		{
 //			Intent intent = new Intent(getApplicationContext(),FirstRunActivity.class);

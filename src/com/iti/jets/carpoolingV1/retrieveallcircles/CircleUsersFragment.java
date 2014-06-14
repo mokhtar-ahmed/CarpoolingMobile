@@ -71,7 +71,7 @@ public class CircleUsersFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
  
-		Toast.makeText(getActivity().getApplicationContext(),"YES",Toast.LENGTH_LONG).show();
+//		Toast.makeText(getActivity().getApplicationContext(),"YES",Toast.LENGTH_LONG).show();
          rootView = inflater.inflate(R.layout.circle_users_list,container, false);
          removeUsersBtn = (Button)rootView.findViewById(R.id.removeUsersBtn);
          list = ( ListView )rootView.findViewById(R.id.list );
@@ -301,8 +301,7 @@ public class CircleUsersFragment extends Fragment {
 	    }
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-		
-
+	
 		inflater.inflate(R.menu.circles_users, menu);	
 		super.onCreateOptionsMenu(menu, inflater);
 	}
@@ -435,7 +434,13 @@ public class CircleUsersFragment extends Fragment {
 
 	}
 	
-	
+	  @Override
+	    public void onResume() {
+	    	// TODO Auto-generated method stub
+	    	getActivity().invalidateOptionsMenu();
+	    	super.onResume();
+	    	
+	    }
 	@Override
 	public void onStop() {
 		// TODO Auto-generated method stub

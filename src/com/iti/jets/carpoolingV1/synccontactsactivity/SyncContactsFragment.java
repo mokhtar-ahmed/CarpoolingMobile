@@ -107,6 +107,18 @@ public class SyncContactsFragment extends Fragment {
  						
  					}
  				}
+// 				ArrayList<String> displayList = new ArrayList<String>();
+// 				if(existingUsers.isEmpty())
+// 				{
+// 					for(int j=0;j<existingUsers.size();j++)
+// 	 				{
+// 						if((existingUsers.get(j)).equalsIgnoreCase(selectedUsers.get(j).getName()))
+// 						{
+// 							displayList.add(existingUsers.get(j));
+// 						}
+// 	 				}
+// 				}
+// 				
 // 				addUsersAsyncTask testAsyncTask = new  addUsersAsyncTask(new FragmentCallback() {
 // 					
 // 					                 public void onTaskDone() {
@@ -223,6 +235,13 @@ public class SyncContactsFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
     	// TODO Auto-generated method stub
     	super.onCreateOptionsMenu(menu, inflater);
+    	
+    }
+    @Override
+    public void onResume() {
+    	// TODO Auto-generated method stub
+    	getActivity().invalidateOptionsMenu();
+    	super.onResume();
     	
     }
 	public void onItemClick(int mPosition) {

@@ -1,16 +1,29 @@
 package com.iti.jets.carpoolingV1.registrationactivity;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.regex.Pattern;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
+import com.facebook.*;
+import com.facebook.model.*;
+import com.facebook.Request;
+import com.facebook.Response;
+import com.facebook.Session;
+import com.facebook.SessionState;
+import com.facebook.model.GraphUser;
+import com.facebook.widget.LoginButton;
 import com.iti.jets.carpoolingV1.R;
 
+import com.iti.jets.carpoolingV1.addcircleactivity.AddCircleActivity;
 import com.iti.jets.carpoolingV1.addcircleactivity.AddCircleFragment;
 import com.iti.jets.carpoolingV1.common.DatePickerFragment;
 import com.iti.jets.carpoolingV1.common.ImageCompressionHandler;
@@ -20,7 +33,9 @@ import com.iti.jets.carpoolingV1.pojos.User;
 import com.iti.jets.carpoolingV1.editprofileactivity.EditProfileActivity;
 import com.iti.jets.carpoolingV1.editprofileactivity.EditProfileController;
 import com.iti.jets.carpoolingV1.editprofileactivity.EditProfileFragement;
-import com.iti.jets.carpoolingV1.loginactivity.LoginActivity;
+import com.iti.jets.carpoolingV1.jsonhandler.JsonConstants;
+
+import com.iti.jets.carpoolingV1.splashscreen.SplashScreen;
 import com.iti.jets.carpoolingV1.uimanager.UIManagerHandler;
 
 
@@ -32,6 +47,10 @@ import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
+import android.content.pm.Signature;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -43,6 +62,7 @@ import android.text.InputType;
 import android.text.SpannableStringBuilder;
 import android.text.style.ForegroundColorSpan;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -55,15 +75,18 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
-
+import android.support.v4.content.LocalBroadcastManager;
 
 public class RegisterFragment extends Fragment{
 
+	boolean sessionFlag = false;
 	boolean flag = true;
 	boolean imageChoosedFlag = false;
 	Uri selectedImageUri;
 	Button registerBtn,loginBtn,calenderBtn;
+	LoginButton registerFacebookBtn;
 	EditText nameEditText,passwordEditText,phoneEditText,dateEditText,emailEditText;
 	String genderData;
 	ImageView userImgView ;
@@ -88,7 +111,12 @@ public class RegisterFragment extends Fragment{
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 	     rootView = inflater.inflate(R.layout.activity_registeration,container, false);
+	     RegisterActivity regact = new RegisterActivity();
+	     boolean flag = regact.getFlag();
+	    
+	     
 	     userImgView = (ImageView) rootView.findViewById(R.id.userImage);
+	    
 		 registerBtn = (Button) rootView.findViewById(R.id.registerBtn);
 		 nameEditText = (EditText)  rootView.findViewById(R.id.nameTxt);
 		 passwordEditText = (EditText)  rootView.findViewById(R.id.passwordTxt);
@@ -99,6 +127,26 @@ public class RegisterFragment extends Fragment{
 		 maleRadioBtn = (RadioButton) rootView.findViewById(R.id.maleRadioBtn);
 		 femaleRadioBtn = (RadioButton) rootView.findViewById(R.id.femaleRadioBtn);
 		 dateEditText .setInputType(InputType.TYPE_NULL);
+		 if(flag)
+	     {
+	    	nameEditText.setText(regact.getUserName());
+	    	emailEditText.setText(regact.getEmail());
+	    	if(regact.getGender().equalsIgnoreCase("female"))
+	    	{
+	    	    femaleRadioBtn.setChecked(true);
+	    	}
+	    	else
+	    	{
+	    		maleRadioBtn.setChecked(true);
+	    	}
+	    	Bitmap bitmap = regact.getBitmap();
+	    	if(bitmap == null)
+	    	{
+	    		System.out.print("NULLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL");
+	    	}
+//	    	userImgView.setImageBitmap(regact.getBitmap());
+	    	
+	     }
 		 SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getActivity());
 		 Editor editor = sharedPreferences.edit();
 		 editor.putBoolean("circlesEmptyFlag", true);
@@ -120,6 +168,22 @@ public class RegisterFragment extends Fragment{
 			}
 		});
  
+		 
+		 
+//		 if(testFlag)
+//		 {
+//			 nameEditText.setText(EntityFactory.getUserInstance().getName());
+//			 emailEditText.setText(EntityFactory.getUserInstance().getEmail());
+//			 if(EntityFactory.getUserInstance().getGender().equalsIgnoreCase("female"))
+//			 {
+//				 femaleRadioBtn.setChecked(true);
+//			 }
+//			 else
+//			 {
+//				 maleRadioBtn.setChecked(true);
+//			 }
+//		 }
+		 
 		 registerBtn.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -225,10 +289,14 @@ public class RegisterFragment extends Fragment{
 		return rootView;
 		
 	}
-	
 
 	 public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		    super.onActivityResult(requestCode, resultCode, data);
+
+		 
+//		 super.onActivityResult(requestCode, resultCode, data);
+//	      Session.getActiveSession().onActivityResult(RegisterFragment.this.getActivity(), requestCode, resultCode, data);
+			 
+		
 		    if (resultCode == RegisterFragment.this.getActivity().RESULT_OK) {
 	                
 	        	selectedImageUri = data.getData();
@@ -255,6 +323,7 @@ public class RegisterFragment extends Fragment{
 		   DatePickerFragment newFragment = new DatePickerFragment(RegisterFragment.this);
 		   
 		   newFragment.show(this.getFragmentManager(), "DatePicker");
+		   
 		}	
 		
 		public EditText getDateTxt()
@@ -326,16 +395,13 @@ public class RegisterFragment extends Fragment{
 		else if(Exist.equals("true"))
 		{
 			
-			getActivity().finish();
+//			getActivity().finish();
 			
 			Intent intent = new Intent(RegisterFragment.this.getActivity().getApplicationContext(),LoginActivity.class);
 			
 			startActivity(intent);
 	 
 		}
-		
-	
-	
 	}
 	
 	public void showDialog(String msg)
@@ -364,6 +430,7 @@ public class RegisterFragment extends Fragment{
 		});
 
 
+		
 // Showing Alert Message
 alertDialog.show();
 	}

@@ -7,11 +7,14 @@ public final class HttpConstants {
 	//Webservices URI addresses 
   //  public static final String SERVER_URL="http://192.168.200.1:9191/CarpoolingBackendFinal/service/";
 
-    public static final String SERVER_URL="http://10.145.70.141:9191/CarpoolingBackendFinal/service/";
+
+    public static final String SERVER_URL="http://192.168.1.4:8090/CarpoolingBackendFinal/service/";
+
 	public static final String LOGIN_URL="user/newLogin";
 	public static final String GET_CIRCLE_USERS_URL="newCircle/retrieveCirclesUsers";
 	public static final String JOIN_EVENT ="user/joinvent";
 	public static final String ACCEPT_EVENT ="user/accept";
+	
 	public static final String REJECT_EVENT ="user/reject";
 	public static final String ADDEVENT_SERVICE_URL="event/addEvent";
 	public static final String RETRIEVE_USER_EVENT_SERVICE_URL="event/retrieveAllUserEvents";

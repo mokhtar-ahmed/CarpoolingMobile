@@ -13,6 +13,7 @@ import com.iti.jets.carpoolingV1.R.layout;
 import com.iti.jets.carpoolingV1.R.menu;
 import com.iti.jets.carpoolingV1.common.CircleItemObj;
 import com.iti.jets.carpoolingV1.common.ImageCompressionHandler;
+import com.iti.jets.carpoolingV1.common.ImageCompressionHandler3;
 import com.iti.jets.carpoolingV1.common.ImageItem;
 import com.iti.jets.carpoolingV1.common.ShowDialog;
 import com.iti.jets.carpoolingV1.common.User;
@@ -20,6 +21,7 @@ import com.iti.jets.carpoolingV1.editprofileactivity.EditProfileActivity;
 import com.iti.jets.carpoolingV1.httphandler.HttpConstants;
 import com.iti.jets.carpoolingV1.pojos.Circle;
 import com.iti.jets.carpoolingV1.pojos.EntityFactory;
+import com.iti.jets.carpoolingV1.registrationactivity.RegisterFragment;
 import com.iti.jets.carpoolingV1.retrieveallcircles.AddUserToCircletestAsyncTask;
 import com.iti.jets.carpoolingV1.retrieveallcircles.AllCirclesListFragment;
 import com.iti.jets.carpoolingV1.retrieveallcircles.CircleUsersFragment;
@@ -36,6 +38,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.ClipData.Item;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -69,7 +72,7 @@ public class AddCircleFragment extends Fragment {
 	private ImageView circleImageView;
 	private final int REQUEST_CODE_FROM_GALLERY = 01;
 	Bitmap userIcon1 = null;
-	Bitmap userIcon2,userIcon3,userIcon4,userIcon5,userIcon6,userIcon7,userIcon8;
+	Bitmap userIcon2,userIcon3,userIcon4,userIcon5,userIcon6,userIcon7,userIcon8,userIcon10;
 	private Uri selectedImageUri;
 	private String filePath;
 	private Bitmap imgBitmap;
@@ -78,9 +81,10 @@ public class AddCircleFragment extends Fragment {
 	private int userId = 1;
 	private boolean circleExistflag = false;
 	ArrayList<ImageItem> gridArray = new ArrayList<ImageItem>();
-	Bitmap currentBimap;
+	Bitmap currentBimap = null;
 	View rootView;
 	ImageItem item;
+	private Bitmap compressedBitmap;
 	//public static HashSet<CircleItemObj> circleItemList = new HashSet<CircleItemObj>();
 	public static CircleItemObj newCircobj;
 	
@@ -115,77 +119,105 @@ public class AddCircleFragment extends Fragment {
 					userIcon1.recycle();
 					userIcon1 = BitmapFactory.decodeResource(
 							AddCircleFragment.this.getResources(), R.drawable.p1);
+					new ImageCompressionHandler3(userIcon1,AddCircleFragment.this);
+					userIcon1 = compressedBitmap;
 				}
 				else
 				{
 					userIcon1 = BitmapFactory.decodeResource(
 							AddCircleFragment.this.getResources(), R.drawable.p1);
+					new ImageCompressionHandler3(userIcon1,AddCircleFragment.this);
+					userIcon1 = compressedBitmap;
 				}
 				if(userIcon2 != null)
 				{
 					userIcon2.recycle();
 					userIcon2 = BitmapFactory.decodeResource(
 							AddCircleFragment.this.getResources(), R.drawable.p6);
+					new ImageCompressionHandler3(userIcon2,AddCircleFragment.this);
+					userIcon2 = compressedBitmap;
 				}
 				else
 				{
 					userIcon2 = BitmapFactory.decodeResource(
 							AddCircleFragment.this.getResources(), R.drawable.p6);
+					new ImageCompressionHandler3(userIcon2,AddCircleFragment.this);
+					userIcon2 = compressedBitmap;
 				}
 				if(userIcon3 != null)
 				{
 					userIcon3.recycle();
 					userIcon3 = BitmapFactory.decodeResource(
 							AddCircleFragment.this.getResources(), R.drawable.p12);
+					new ImageCompressionHandler3(userIcon3,AddCircleFragment.this);
+					userIcon3 = compressedBitmap;
 				}
 				else
 				{
 					userIcon3 = BitmapFactory.decodeResource(
 							AddCircleFragment.this.getResources(), R.drawable.p12);
+					new ImageCompressionHandler3(userIcon3,AddCircleFragment.this);
+					userIcon3 = compressedBitmap;
 				}
 				if(userIcon4 != null)
 				{
 					userIcon4.recycle();
 					userIcon4 = BitmapFactory.decodeResource(
 							AddCircleFragment.this.getResources(), R.drawable.p4);
+					new ImageCompressionHandler3(userIcon4,AddCircleFragment.this);
+					userIcon4 = compressedBitmap;
 				}
 				else
 				{
 					userIcon4 = BitmapFactory.decodeResource(
 							AddCircleFragment.this.getResources(), R.drawable.p4);
+					new ImageCompressionHandler3(userIcon4,AddCircleFragment.this);
+					userIcon4 = compressedBitmap;
 				}
 				if(userIcon5 != null)
 				{
 					userIcon5.recycle();
 					userIcon5 = BitmapFactory.decodeResource(
 							AddCircleFragment.this.getResources(), R.drawable.pp7);
+					new ImageCompressionHandler3(userIcon5,AddCircleFragment.this);
+					userIcon5 = compressedBitmap;
 				}
 				else
 				{
 					userIcon5 = BitmapFactory.decodeResource(
 							AddCircleFragment.this.getResources(), R.drawable.pp7);
+					new ImageCompressionHandler3(userIcon5,AddCircleFragment.this);
+					userIcon5 = compressedBitmap;
 				}
 				if(userIcon6 != null)
 				{
 					userIcon6.recycle();
 					userIcon6 = BitmapFactory.decodeResource(
 							AddCircleFragment.this.getResources(), R.drawable.pp8);
+					new ImageCompressionHandler3(userIcon6,AddCircleFragment.this);
+					userIcon6 = compressedBitmap;
 				}
 				else
 				{
 					userIcon6 = BitmapFactory.decodeResource(
 							AddCircleFragment.this.getResources(), R.drawable.pp8);
+					new ImageCompressionHandler3(userIcon6,AddCircleFragment.this);
+					userIcon6 = compressedBitmap;
 				}
 				if(userIcon7 != null)
 				{
 					userIcon7.recycle();
 					userIcon7 = BitmapFactory.decodeResource(
 							AddCircleFragment.this.getResources(), R.drawable.pp9);
+					new ImageCompressionHandler3(userIcon7,AddCircleFragment.this);
+					userIcon7 = compressedBitmap;
 				}
 				else
 				{
 					userIcon7 = BitmapFactory.decodeResource(
 							AddCircleFragment.this.getResources(), R.drawable.pp9);
+					new ImageCompressionHandler3(userIcon7,AddCircleFragment.this);
+					userIcon7 = compressedBitmap;
 				}
 //				if(userIcon8 != null)
 //				{
@@ -276,7 +308,12 @@ public class AddCircleFragment extends Fragment {
 //						newCircobj= new CircleItemObj();
 //						newCircobj.setName(circleName);
 //						newCircobj.setBitmap(currentBimap);
-						
+						if(item == null)
+						{
+							userIcon10 = BitmapFactory.decodeResource(
+									AddCircleFragment.this.getResources(), R.drawable.ic_people);
+							item = new ImageItem(userIcon10,R.drawable.ic_people);
+						}
 						controller.setArguments(circleName,item.getCircleRes(),
 								filePath, new FragmentCallback() {
 									//
@@ -318,7 +355,13 @@ public class AddCircleFragment extends Fragment {
 		}
 
 	}
-	
+	  @Override
+	    public void onResume() {
+	    	// TODO Auto-generated method stub
+	    	getActivity().invalidateOptionsMenu();
+	    	super.onResume();
+	    	
+	    }
 	@Override
 	public void onStop() {
 		// TODO Auto-generated method stub
@@ -326,6 +369,10 @@ public class AddCircleFragment extends Fragment {
 		UIManagerHandler
 		.goToAllCirclesList(AddCircleFragment.this
 				.getActivity());
+	}
+	public void sendBitMapImg(Bitmap bitmapImg, String filePath2) {
+		// TODO Auto-generated method stub
+		this.compressedBitmap = bitmapImg;
 	}
 
 }

@@ -19,6 +19,7 @@ import com.iti.jets.carpoolingV1.registrationactivity.RegisterFragment;
 import com.iti.jets.carpoolingV1.renamecircle.RenameCircleServiceHandler;
 import com.iti.jets.carpoolingV1.retrieveallcircles.CirclesCustomArrayAdapter;
 import com.iti.jets.carpoolingV1.retrieveallcircles.CirclesCustomArrayAdapter.ViewHolder;
+import com.iti.jets.carpoolingV1.retrieveallcircles.AllCirclesListFragment;
 import com.iti.jets.carpoolingV1.retrieveallcircles.CircleUsersFragment;
 import com.iti.jets.carpoolingV1.retrieveallcircles.RetrieveAllCirclesListController;
 import com.iti.jets.carpoolingV1.retrieveallcircles.RetrieveCircleUsersController;
@@ -166,18 +167,34 @@ public class AllCirclesListFragment2 extends Fragment implements OnNavigationLis
 				args.putInt("user_Id",userId);
 				args.putString("result",result);
 				args.putBoolean("flag", false);
-				Fragment fragment = new CircleUsersFragment2();
-				
-				if (fragment != null) {
-				AllCirclesListFragment2.this.getActivity().setRequestedOrientation(
-				            ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-					FragmentManager fragmentManager = AllCirclesListFragment2.this.getActivity().getFragmentManager();
-					fragment.setArguments(args); 
-//					fragmentManager.popBackStack();
-					AllCirclesListFragment2.this.getActivity().getActionBar().setTitle( CircleName);
-					fragmentManager.beginTransaction()
-							.replace(R.id.framee, fragment).commit();
+				JSONArray jsArray;
+				try {
+					jsArray =  new JSONArray(result);
+					if(jsArray.length()==0)
+					{
+						UIManagerHandler.goToNoUsersHome2(AllCirclesListFragment2.this.getActivity(),circle_Id,CircleName);
+					}
+					else
+					{
+						Fragment fragment = new CircleUsersFragment2();
+						
+						if (fragment != null) {
+						AllCirclesListFragment2.this.getActivity().setRequestedOrientation(
+						            ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+							FragmentManager fragmentManager = AllCirclesListFragment2.this.getActivity().getFragmentManager();
+							fragment.setArguments(args); 
+//							fragmentManager.popBackStack();
+							AllCirclesListFragment2.this.getActivity().getActionBar().setTitle( CircleName);
+							fragmentManager.beginTransaction()
+									.replace(R.id.framee, fragment).commit();
+						}
+					}
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
+				
+			
 			}
          });
 
@@ -366,6 +383,13 @@ public class AllCirclesListFragment2 extends Fragment implements OnNavigationLis
 	}
 	
 
+	  @Override
+	    public void onResume() {
+	    	// TODO Auto-generated method stub
+	    	
+	    	super.onResume();
+	    	
+	    }
 	public void refresh() {
 		// TODO Auto-generated method stub
 		adapter.notifyDataSetChanged();

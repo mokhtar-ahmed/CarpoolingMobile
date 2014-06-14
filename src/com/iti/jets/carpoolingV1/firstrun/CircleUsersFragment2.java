@@ -315,7 +315,7 @@ public class CircleUsersFragment2 extends Fragment {
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		
 
-		inflater.inflate(R.menu.circles_users, menu);	
+		inflater.inflate(R.menu.circle_users2, menu);	
 		super.onCreateOptionsMenu(menu, inflater);
 	}
 	@Override
@@ -338,20 +338,26 @@ public class CircleUsersFragment2 extends Fragment {
 					.replace(R.id.framee, fragment).addToBackStack("CircleUsersFragment").commit();
 			break;
 
-		case R.id.del:
-			
-			removeUsersBtn.setVisibility(View.VISIBLE);
-			
-				adapter.setCheckBoxVisible();
-				list.invalidateViews();
-			
-			break;
+//		case R.id.del:
+//			
+//			removeUsersBtn.setVisibility(View.VISIBLE);
+//			
+//				adapter.setCheckBoxVisible();
+//				list.invalidateViews();
+//			
+//			break;
 		default:
 			break;
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	
+	  @Override
+	    public void onResume() {
+	    	// TODO Auto-generated method stub
+	    	getActivity().invalidateOptionsMenu();
+	    	super.onResume();
+	    	
+	    }
 	@Override
 	public void onStop() {
 		// TODO Auto-generated method stub

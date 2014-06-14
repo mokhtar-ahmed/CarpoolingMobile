@@ -160,7 +160,23 @@ public class AllCirclesListFragment extends Fragment implements OnNavigationList
 				args.putInt("user_Id",userId);
 				args.putString("result",result);
 				args.putBoolean("flag", false);
-				UIManagerHandler.goToCircleUsersFragment(AllCirclesListFragment.this.getActivity(),args,CircleName);
+				JSONArray jsArray;
+				try {
+					jsArray =  new JSONArray(result);
+					if(jsArray.length()==0)
+					{
+						UIManagerHandler.goToNoUsersHome(AllCirclesListFragment.this.getActivity(),circle_Id,CircleName);
+					}
+					else
+					{
+						UIManagerHandler.goToCircleUsersFragment(AllCirclesListFragment.this.getActivity(),args,CircleName);
+					}
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				
 
 			}
          });
@@ -325,7 +341,13 @@ public class AllCirclesListFragment extends Fragment implements OnNavigationList
 	
 	}
 	
-
+	  @Override
+	    public void onResume() {
+	    	// TODO Auto-generated method stub
+	    	getActivity().invalidateOptionsMenu();
+	    	super.onResume();
+	    	
+	    }
 	public void refresh() {
 		// TODO Auto-generated method stub
 		adapter.notifyDataSetChanged();

@@ -44,7 +44,27 @@
 
 <LinearLayout android:layout_height="106dp" android:layout_width="match_parent" android:id="@+id/LinearLayout5" android:weightSum="10" android:orientation="horizontal" tools:context=".MainActivity">
 
-<Button android:background="@drawable/custom_btn" android:layout_height="wrap_content" android:layout_width="0dip" android:id="@+id/registerBtn" android:layout_weight="9" android:layout_marginTop="6dp" android:layout_gravity="center_horizontal" android:text="@string/register" android:textColor="@color/background_color" android:layout_marginBottom="3dp" android:layout_marginLeft="40dip"/>
+    <LinearLayout
+         android:layout_height="106dp" 
+         android:layout_width="match_parent" 
+         android:id="@+id/LinearLayout5" 
+         android:weightSum="10" android:orientation="vertical" tools:context=".MainActivity">
+
+
+<Button
+    android:id="@+id/registerBtn"
+    android:layout_width="190dip"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:layout_marginBottom="3dp"
+    android:layout_marginLeft="10dip"
+    android:layout_marginTop="6dp"
+    android:background="@drawable/custom_btn"
+    android:text="@string/register"
+    android:textColor="@color/background_color" />
+
+
+
 
 </LinearLayout>
 
@@ -52,6 +72,7 @@
 
 </LinearLayout>
 
+</LinearLayout>
 </ScrollView>
 
 </FrameLayout>
