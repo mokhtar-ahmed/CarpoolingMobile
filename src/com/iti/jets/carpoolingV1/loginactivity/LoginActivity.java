@@ -38,6 +38,7 @@ import com.iti.jets.carpoolingV1.registrationactivity.RegisterActivity;
 import com.iti.jets.carpoolingV1.registrationactivity.RegisterFragment;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.ProgressDialog;
@@ -76,6 +77,8 @@ public class LoginActivity extends Activity{
     LoginButton  registerFacebookBtn;
 	ProgressDialog prog;
 	LoginController controller;
+	static ProgressDialog dialog;
+	static boolean fbFlag;
 	public static boolean flag = false;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -146,14 +149,25 @@ public class LoginActivity extends Activity{
 			@Override
 			public void onClick(View v) {
 				
+				dialog =  ProgressDialog.show(LoginActivity.this, "", "Loading...Please wait...", true);
+				dialog.show();
 				Session.openActiveSession(com.iti.jets.carpoolingV1.loginactivity.LoginActivity.this, true, new Session.StatusCallback() {
 
-				      // callback when session changes state
+				   
+
+					// callback when session changes state
 				      @Override
-				      public void call(Session session, SessionState state, Exception exception) {
-				        if (session.isOpened()) {
+				      public void call(Session session, SessionState state, Exception exception)
+				      {
+				    	  if (state.isOpened()) {
+				    	        fbFlag = true;
+				    	    } else if (state.isClosed()) {
+				    	        fbFlag = false;
+				    	    }
+				    	  if (session.isOpened()) {
 
 				          // make request to the /me API
+				          	
 				          Request.newMeRequest(session, new Request.GraphUserCallback() {
 				          	  
 				            // callback after Graph API response with user object
@@ -286,6 +300,15 @@ public class LoginActivity extends Activity{
         	super.onPostExecute(result);
         	LoginActivity.this.userBitmap=result;
         }
-      }	
+      }
+
+	public static ProgressDialog getDialog() {
+		// TODO Auto-generated method stub
+		return dialog;
+	}	
 	
+	public static boolean getFbFlag() {
+		// TODO Auto-generated method stub
+		return fbFlag;
+	}
 }

@@ -14,12 +14,15 @@ import java.util.regex.Pattern;
 import org.json.JSONException;
 import org.json.JSONObject;
 import com.facebook.*;
+import com.facebook.android.FbDialog;
 import com.facebook.model.*;
 import com.facebook.Request;
 import com.facebook.Response;
 import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.model.GraphUser;
+import com.facebook.widget.FacebookDialog;
+import com.facebook.widget.FacebookDialog.ShareDialogBuilder;
 import com.facebook.widget.LoginButton;
 import com.iti.jets.carpoolingV1.R;
 
@@ -34,6 +37,7 @@ import com.iti.jets.carpoolingV1.editprofileactivity.EditProfileActivity;
 import com.iti.jets.carpoolingV1.editprofileactivity.EditProfileController;
 import com.iti.jets.carpoolingV1.editprofileactivity.EditProfileFragement;
 import com.iti.jets.carpoolingV1.jsonhandler.JsonConstants;
+import com.iti.jets.carpoolingV1.loginactivity.LoginActivity;
 
 import com.iti.jets.carpoolingV1.splashscreen.SplashScreen;
 import com.iti.jets.carpoolingV1.uimanager.UIManagerHandler;
@@ -88,6 +92,7 @@ public class RegisterFragment extends Fragment{
 	Button registerBtn,loginBtn,calenderBtn;
 	LoginButton registerFacebookBtn;
 	EditText nameEditText,passwordEditText,phoneEditText,dateEditText,emailEditText;
+	private Button shareButton;
 	String genderData;
 	ImageView userImgView ;
 	User newUser = new User();	
@@ -114,7 +119,7 @@ public class RegisterFragment extends Fragment{
 	     RegisterActivity regact = new RegisterActivity();
 	     boolean flag = regact.getFlag();
 	    
-	     
+	     shareButton = (Button) rootView.findViewById(R.id.shareButton);
 	     userImgView = (ImageView) rootView.findViewById(R.id.userImage);
 	    
 		 registerBtn = (Button) rootView.findViewById(R.id.registerBtn);
@@ -127,6 +132,22 @@ public class RegisterFragment extends Fragment{
 		 maleRadioBtn = (RadioButton) rootView.findViewById(R.id.maleRadioBtn);
 		 femaleRadioBtn = (RadioButton) rootView.findViewById(R.id.femaleRadioBtn);
 		 dateEditText .setInputType(InputType.TYPE_NULL);
+		 if(LoginActivity.getFbFlag())
+		 {
+			 shareButton.setVisibility(View.VISIBLE);
+		 }
+		 else
+		 {
+			 shareButton.setVisibility(View.INVISIBLE);
+		 }
+		 shareButton.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				fbShare();
+			}
+		});
 		 if(flag)
 	     {
 	    	nameEditText.setText(regact.getUserName());
@@ -308,6 +329,7 @@ public class RegisterFragment extends Fragment{
 
 	    }
 
+	
 		public void sendBitMapImg(Bitmap bitmapImg,String filePath) {
 			// TODO Auto-generated method stub
 			this.filePath = filePath;
@@ -434,4 +456,20 @@ public class RegisterFragment extends Fragment{
 // Showing Alert Message
 alertDialog.show();
 	}
+	
+	private void fbShare(){
+		ShareDialogBuilder builder = new ShareDialogBuilder(RegisterFragment.this.getActivity())
+		   	.setName("5odny M3ak events")
+		    .setLink("www.drway.com")
+		    
+			.setPicture("http://picpaste.com/pics/Blue1024-bOhbf9UP.1402246145.png")
+			
+			.setDescription("Sarah is now using 5odny M3ak Mobile Application");
+		if (builder.canPresent()) {
+			FacebookDialog dialog = builder.build();
+			dialog.present();
+		}
+	}
 }
+
+

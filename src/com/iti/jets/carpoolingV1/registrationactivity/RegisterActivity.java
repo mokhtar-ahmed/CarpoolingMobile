@@ -48,6 +48,7 @@ public class RegisterActivity extends FragmentActivity {
 		flag = extras.getBoolean("flag");
 		if(flag)
 		{
+			LoginActivity.getDialog().dismiss();
 			RegisterFragment registerFragment = new  RegisterFragment ();
 			
 			// In case this activity was started with special instructions from an Intent,
