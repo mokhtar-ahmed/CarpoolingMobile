@@ -180,14 +180,14 @@ public class SyncContactsFragment extends Fragment {
 				tempUser.setPhone(jsObj.getString("phone"));
 				tempUser.setUserId(jsObj.getInt("id"));
 				
-				if(jsObj.getString("image") == null)
-				{
-					tempUser.setImageURL("image");
-				}
-				else
-				{
-					tempUser.setImageURL(jsObj.getString("image"));
-				}
+//				if(jsObj.getString("image") == null)
+//				{
+//					tempUser.setImageURL("image");
+//				}
+//				else
+//				{
+//					tempUser.setImageURL(jsObj.getString("image"));
+//				}
 				
 				namesList.add(tempUser.getName());
 //				for(int j=0;j<existingUsers.size();i++)

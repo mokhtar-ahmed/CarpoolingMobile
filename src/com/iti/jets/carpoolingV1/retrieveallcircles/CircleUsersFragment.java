@@ -188,7 +188,7 @@ public class CircleUsersFragment extends Fragment {
 	 					tempUser.setUserId(userTempJS.getInt("userId"));
 	 					tempUser.setName(userTempJS.getString("Name"));
 	 					System.out.println("9999999999999999999999      "+userTempJS.getString("Name"));
-	 					tempUser.setImageURL(userTempJS.getString("Image"));
+//	 					tempUser.setImageURL(userTempJS.getString("Image"));
 	 					tempUser.setPhone(userTempJS.getString("Phone"));
 	 					circleActualUsersList.add(tempUser);
 	 					circleUsersNames.add(userTempJS.getString("Name"));
@@ -213,7 +213,8 @@ public class CircleUsersFragment extends Fragment {
 												 user.setUserId(tempu.getInt("userId"));
 											
 												 user.setImageURL(tempu.getString("image"));
-												 user.setPhone(tempu.getString("Phone"));
+												 user.setPhone(tempu.getString("P" +
+												 		"hone"));
 												 user.setName(tempu.getString("Name"));
 												 usersList.add(user);
 												

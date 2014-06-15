@@ -8,7 +8,67 @@ public final class HttpConstants {
   //  public static final String SERVER_URL="http://192.168.200.1:9191/CarpoolingBackendFinal/service/";
 
 
-    public static final String SERVER_URL="http://192.168.1.4:8090/CarpoolingBackendFinal/service/";
+    public static final String SERVER_URL="http://10.145.74.21" +
+    		"" +
+    		"" +
+    		"" +
+    		"" +
+    		"" +
+    		"" +
+    		"" +
+    		"" +
+    		"" +
+    		"" +
+    		"" +
+    		"" +
+    		"" +
+    		"" +
+    		"" +
+    		"" +
+    		"" +
+    		"" +
+    		"" +
+    		"" +
+    		"" +
+    		"" +
+    		"" +
+    		"" +
+    		"" +
+    		"" +
+    		"" +
+    		"" +
+    		"" +
+    		"" +
+    		"" +
+    		"" +
+    		"" +
+    		"" +
+    		"" +
+    		"" +
+    		"" +
+    		"" +
+    		"" +
+    		"" +
+    		"" +
+    		"" +
+    		"" +
+    		"" +
+    		"" +
+    		"" +
+    		"" +
+    		"" +
+    		"" +
+    		"" +
+    		"" +
+    		"" +
+    		"" +
+    		"" +
+    		"" +
+    		"" +
+    		"" +
+    		"" +
+    		"" +
+    		":8090/CarpoolingBackendFinal/service/";
 
 	public static final String LOGIN_URL="user/newLogin";
 	public static final String GET_CIRCLE_USERS_URL="newCircle/retrieveCirclesUsers";
@@ -48,11 +108,13 @@ public final class HttpConstants {
 	public static final String SEARCH_EVENT_BY_LOCATION = "searchEventByFromLocation";
 	public static final String CANCEL_EVENT_SERVICE_URL = "event/cancelEvent";
 	public static final String LEAVE_EVENT_SERVICE_URL="user/leaveEvent";
-		
+	public static final String GET_IMAGE_URL ="retrieveUserImage/retrieve";	
 	//Connection Constants
 	public static final int timeoutSocket = 5000;
 	public static final int timeoutConnection = 5000;
 	public static final String UPDATE_CIRCLE_URL = "updateCircle/update";
+
+	
 
 	
 

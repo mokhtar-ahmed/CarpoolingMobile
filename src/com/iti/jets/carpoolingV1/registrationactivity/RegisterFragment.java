@@ -102,6 +102,7 @@ public class RegisterFragment extends Fragment{
 	String filePath;
 	RadioGroup radioSexGroup;
 	RadioButton maleRadioBtn,femaleRadioBtn;
+	Button shareIntentButton;
 	View rootView;
 	public int year;
 	public int month;
@@ -118,7 +119,7 @@ public class RegisterFragment extends Fragment{
 	     rootView = inflater.inflate(R.layout.activity_registeration,container, false);
 	     RegisterActivity regact = new RegisterActivity();
 	     boolean flag = regact.getFlag();
-	    
+	     shareIntentButton  = (Button) rootView.findViewById(R.id.shareIntentButton);
 	     shareButton = (Button) rootView.findViewById(R.id.shareButton);
 	     userImgView = (ImageView) rootView.findViewById(R.id.userImage);
 	    
@@ -140,6 +141,19 @@ public class RegisterFragment extends Fragment{
 		 {
 			 shareButton.setVisibility(View.INVISIBLE);
 		 }
+		 shareIntentButton.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND); 
+			    sharingIntent.setType("text/plain");
+			    String shareBody = "Here is the share content body";
+			    sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "5odny M3ak");
+			    sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+			    startActivity(Intent.createChooser(sharingIntent, "Share via"));
+			}
+		});
 		 shareButton.setOnClickListener(new View.OnClickListener() {
 			
 			@Override

@@ -20,7 +20,12 @@
                   android:paddingLeft="10dp"
                   android:paddingTop="5dp"
                   android:paddingBottom="5dp"
+                  android:orientation="vertical"
                   >
+              <ProgressBar
+                android:id="@+id/progressBar1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />    
               <ImageView
                   android:layout_height="wrap_content"
                   android:layout_width="wrap_content"
@@ -69,7 +74,7 @@
                   android:id="@+id/chkbox"
                   android:layout_width="40dip"
                   android:layout_height="40dip"
-                  
+                  android:button="@drawable/check_box"
                   android:layout_marginTop="10dip"
                   android:visibility="invisible" />
 

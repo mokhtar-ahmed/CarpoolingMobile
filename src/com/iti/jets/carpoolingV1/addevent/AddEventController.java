@@ -12,6 +12,7 @@ import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.ProgressDialog;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.provider.CalendarContract;
 import android.provider.CalendarContract.Events;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.internal.al;
 import com.iti.jets.carpoolingV1.R;
+import com.iti.jets.carpoolingV1.common.ContactObj;
 import com.iti.jets.carpoolingV1.httphandler.AddEvent;
 import com.iti.jets.carpoolingV1.httphandler.RetrieveCircleUsersHandler;
 import com.iti.jets.carpoolingV1.pojos.User;
@@ -30,11 +32,12 @@ import com.iti.jets.carpoolingV1.uimanager.UIManagerHandler;
 public class AddEventController {
 
 	AddEventActivity addEventActivity;
-	
+	ContentResolver contentResolver;
 	
 	public AddEventController(AddEventActivity addEventActivity) {
 		// TODO Auto-generated constructor stub
 		this.addEventActivity = addEventActivity;
+		
 	}
 
 	public void onPostExecute(String result) {
@@ -96,6 +99,10 @@ public class AddEventController {
 			
 			JSONObject js = new JSONObject(result);
 			JSONArray usrArr = js.getJSONArray("ResponseValue");
+			ArrayList<ContactObj> contactListNumber = new ArrayList<ContactObj>();
+//            contactListNumber = AddEventActivity.fetchContacts();	
+           
+
 		
 			for(int i=0; i<usrArr.length();i++){
 				
@@ -104,7 +111,14 @@ public class AddEventController {
 				User u = new User();
 				u.setId(jobj.getInt("id"));
 				u.setName(jobj.getString("username"));
-				
+//	            for(int j=0;j<contactListNumber.size();j++)
+//	            {
+//	          	  if(u.getPhone().equals(contactListNumber.get(j).getPhoneNo()))
+//	          	  {
+//	          		u.setName(contactListNumber.get(j).getName());
+//	          		break;
+//	          	  }
+//	            }
 				ul.add(u);
 				
 			}
