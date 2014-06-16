@@ -8,73 +8,12 @@ public final class HttpConstants {
   //  public static final String SERVER_URL="http://192.168.200.1:9191/CarpoolingBackendFinal/service/";
 
 
-    public static final String SERVER_URL="http://10.145.74.21" +
-    		"" +
-    		"" +
-    		"" +
-    		"" +
-    		"" +
-    		"" +
-    		"" +
-    		"" +
-    		"" +
-    		"" +
-    		"" +
-    		"" +
-    		"" +
-    		"" +
-    		"" +
-    		"" +
-    		"" +
-    		"" +
-    		"" +
-    		"" +
-    		"" +
-    		"" +
-    		"" +
-    		"" +
-    		"" +
-    		"" +
-    		"" +
-    		"" +
-    		"" +
-    		"" +
-    		"" +
-    		"" +
-    		"" +
-    		"" +
-    		"" +
-    		"" +
-    		"" +
-    		"" +
-    		"" +
-    		"" +
-    		"" +
-    		"" +
-    		"" +
-    		"" +
-    		"" +
-    		"" +
-    		"" +
-    		"" +
-    		"" +
-    		"" +
-    		"" +
-    		"" +
-    		"" +
-    		"" +
-    		"" +
-    		"" +
-    		"" +
-    		"" +
-    		"" +
-    		":8090/CarpoolingBackendFinal/service/";
+    public static final String SERVER_URL="http://10.145.74.101:9191/CarpoolingBackendFinal/service/";
 
 	public static final String LOGIN_URL="user/newLogin";
 	public static final String GET_CIRCLE_USERS_URL="newCircle/retrieveCirclesUsers";
 	public static final String JOIN_EVENT ="user/joinvent";
-	public static final String ACCEPT_EVENT ="user/accept";
-	
+	public static final String ACCEPT_EVENT ="user/accept";	
 	public static final String REJECT_EVENT ="user/reject";
 	public static final String ADDEVENT_SERVICE_URL="event/addEvent";
 	public static final String RETRIEVE_USER_EVENT_SERVICE_URL="event/retrieveAllUserEvents";

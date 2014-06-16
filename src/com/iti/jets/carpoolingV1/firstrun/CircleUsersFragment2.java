@@ -14,6 +14,7 @@ import com.iti.jets.carpoolingV1.common.Circle2;
 import com.iti.jets.carpoolingV1.common.User;
 import com.iti.jets.carpoolingV1.deletecircle.DeleteCircleController;
 import com.iti.jets.carpoolingV1.httphandler.HttpConstants;
+import com.iti.jets.carpoolingV1.httphandler.LoginServiceHandler;
 import com.iti.jets.carpoolingV1.httphandler.RetrieveCirclesAsyncTask;
 import com.iti.jets.carpoolingV1.pojos.EntityFactory;
 import com.iti.jets.carpoolingV1.retrieveallcircles.AddUserToCircletestAsyncTask;
@@ -205,7 +206,7 @@ public class CircleUsersFragment2 extends Fragment {
 	 					tempUser.setUserId(userTempJS.getInt("userId"));
 	 					tempUser.setName(userTempJS.getString("Name"));
 	 					System.out.println("9999999999999999999999      "+userTempJS.getString("Name"));
-	 					tempUser.setImageURL(userTempJS.getString("Image"));
+//	 					tempUser.setImageURL(userTempJS.getString("Image"));
 	 					tempUser.setPhone(userTempJS.getString("Phone"));
 	 					circleActualUsersList.add(tempUser);
 	 					circleUsersNames.add(userTempJS.getString("Name"));
@@ -246,6 +247,15 @@ public class CircleUsersFragment2 extends Fragment {
 						 	            /**************** Create Custom Adapter *********/
 						 	           adapter = new  CirclesUsersArrayAdapter2(CircleUsersFragment2.this,usersList,res);
 						 	           list.setAdapter( adapter );
+						 	          JSONObject input = new JSONObject();
+						 				try {
+						 					input.put("username", EntityFactory.getUserInstance().getUsername());
+						 					input.put("password", EntityFactory.getUserInstance().getPassword());
+						 					new LoginServiceHandler(getActivity()).execute(new String[]{input.toString()});
+						 				} catch (JSONException e) {
+						 					// TODO Auto-generated catch block
+						 					e.printStackTrace();
+						 				} 
 										
 									}
 					             },this.circle_Id,circleActualUsersList);

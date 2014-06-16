@@ -43,6 +43,7 @@ import android.widget.Toast;
 
 public class SyncContactsFragment2 extends Fragment {
 
+	public static boolean userAddedFlag = false;
 	ListView list;
 	CheckBox checkBox;
     SyncContactsCustomArrayAdapter2 adapter;
@@ -84,7 +85,7 @@ public class SyncContactsFragment2 extends Fragment {
  			@Override
  			public void onClick(View v) {
  				// TODO Auto-generated method stub
- 			  
+ 				userAddedFlag = true;
  				for(int i=0 ; i<registeredFriendsList.size();i++)
  				{
  					tempUser = new User();
@@ -170,14 +171,14 @@ public class SyncContactsFragment2 extends Fragment {
 				tempUser.setPhone(jsObj.getString("phone"));
 				tempUser.setUserId(jsObj.getInt("id"));
 				
-				if(jsObj.getString("image") == null)
-				{
-					tempUser.setImageURL("image");
-				}
-				else
-				{
-					tempUser.setImageURL(jsObj.getString("image"));
-				}
+//				if(jsObj.getString("image") == null)
+//				{
+//					tempUser.setImageURL("image");
+//				}
+//				else
+//				{
+//					tempUser.setImageURL(jsObj.getString("image"));
+//				}
 				
 				namesList.add(tempUser.getName());
 //				for(int j=0;j<existingUsers.size();i++)

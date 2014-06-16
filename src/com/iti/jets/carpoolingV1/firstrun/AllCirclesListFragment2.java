@@ -14,6 +14,7 @@ import com.iti.jets.carpoolingV1.addcircleactivity.AddCircleFragment;
 import com.iti.jets.carpoolingV1.deletecircle.DeleteCircleController;
 import com.iti.jets.carpoolingV1.*;
 import com.iti.jets.carpoolingV1.httphandler.HttpConstants;
+import com.iti.jets.carpoolingV1.httphandler.LoginServiceHandler;
 import com.iti.jets.carpoolingV1.pojos.EntityFactory;
 import com.iti.jets.carpoolingV1.registrationactivity.RegisterFragment;
 import com.iti.jets.carpoolingV1.renamecircle.RenameCircleServiceHandler;
@@ -143,6 +144,7 @@ public class AllCirclesListFragment2 extends Fragment implements OnNavigationLis
         adapter=new CirclesCustomArrayAdapter2(this,userCirclesList,res);
         EntityFactory.setCirclesInstance(userCirclesList2);
         list.setAdapter(adapter);
+        
 	}
 
 	public void onItemClick(int mPosition) {

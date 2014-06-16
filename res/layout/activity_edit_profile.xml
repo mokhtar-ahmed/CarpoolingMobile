@@ -4,25 +4,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_color" 
+    android:weightSum="100"
     android:orientation="vertical" >
 
      <ImageView
         android:id="@+id/userImgView"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="90dp"
-        android:layout_width="150dp"
-        android:layout_height="110dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="20"
+        android:layout_gravity="center"
         android:src="@drawable/ic_action_user" />  
 
     <TextView
         android:id="@+id/textView1"
-        android:layout_width="56dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="Name"
         android:textStyle="bold"
+        android:layout_marginLeft="5dp"
         android:textColor="@color/btn_color"
-       
         android:textSize="30px" />
 
     <TextView
@@ -36,24 +37,27 @@
     android:layout_width="match_parent"
     android:layout_height="60dp"
     android:orientation="horizontal"
-    tools:context=".EditProfileActivity" >
+    android:weightSum="100"
+     >
     
     	<TextView
         android:id="@+id/NametextView"
-        android:layout_width="200dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:textColor="#FFFFFF"
         android:text=""
+        android:paddingLeft="5dp"
+        android:layout_weight="80"
         android:textSize="35px" />  
           
     	<ImageView
         android:id="@+id/editnameImgView"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="60dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
         android:scaleType="fitXY"
+        android:layout_weight="20"
         android:src="@drawable/editf" />  
 	</LinearLayout>
     <TextView
@@ -61,7 +65,7 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        
+        android:layout_marginLeft="5dp"
         android:text="Date of Birth"
         android:textStyle="bold"
         android:textColor="@color/btn_color"
@@ -79,53 +83,59 @@
     android:layout_width="match_parent"
     android:layout_height="60dp"
     android:orientation="horizontal"
-    tools:context=".EditProfileActivity" >
+    android:layout_weight="60"
+   android:weightSum="100">
     
     	<TextView
         android:id="@+id/dateTextView"
-        android:layout_width="200dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:textColor="#FFFFFF"
         android:text=""
+        android:layout_weight="80"
+        android:paddingLeft="5dp"
         android:textSize="35px" />  
           
     	<ImageView
         android:id="@+id/editdateImgView"
-        android:layout_width="50dp"
+        android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="60dp"
         android:scaleType="fitXY"
+        android:layout_weight="20"
         android:src="@drawable/editf" />  
 	</LinearLayout>
 	
    <LinearLayout
     android:id="@+id/LinearLayout3"
     android:layout_width="match_parent"
-    android:layout_height="60dp"
-    android:orientation="horizontal"
-     android:layout_marginTop="15sp"
-    tools:context=".EditProfileActivity" >
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+	android:paddingLeft="@dimen/activity_horizontal_margin"
+	android:paddingRight="@dimen/activity_horizontal_margin"
+    android:layout_marginTop="15dp">
 
      <Button
         android:id="@+id/doneBtn"
-        android:layout_width="100dp"
-        android:layout_height="40dp"
-        android:layout_marginLeft="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="0dp"
+        android:layout_gravity="center"
         android:background="@drawable/custom_btn"
         android:textColor="@color/background_color"
         android:text="Save"/>
 
      <Button
         android:id="@+id/cancelBtn"
-        android:layout_width="100dp"
-        android:layout_height="40dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="6dp"
         android:background="@drawable/custom_btn"
         android:textColor="@color/background_color"
         android:text="Cancel"/>
    </LinearLayout>  
+   
 </LinearLayout>

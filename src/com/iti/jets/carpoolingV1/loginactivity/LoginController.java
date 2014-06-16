@@ -42,6 +42,10 @@ public class LoginController {
 		
 	}
 
+	public LoginController() {
+		// TODO Auto-generated constructor stub
+	}
+
 	private void saveShared() {
 
 		SharedPreferences myPrefs  = activity.getSharedPreferences(name, 0);

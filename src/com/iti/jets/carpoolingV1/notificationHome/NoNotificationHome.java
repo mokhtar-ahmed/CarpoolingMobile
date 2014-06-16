@@ -28,6 +28,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -41,7 +42,16 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container,
    
 
 	View rootView = inflater.inflate(R.layout.no_notification, container, false);
-    	
+    	Button b1 = (Button) rootView.findViewById(R.id.button1);
+   
+    	b1.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				UIManagerHandler.goToAddEvent(getActivity());
+			}
+		});
 	return rootView;
 }
 

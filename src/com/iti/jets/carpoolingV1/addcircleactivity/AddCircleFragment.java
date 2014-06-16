@@ -80,7 +80,7 @@ public class AddCircleFragment extends Fragment {
 	private AddCircleController controller;
 	private int userId = 1;
 	private boolean circleExistflag = false;
-	ArrayList<ImageItem> gridArray = new ArrayList<ImageItem>();
+	static ArrayList<ImageItem> gridArray = new ArrayList<ImageItem>();
 	Bitmap currentBimap = null;
 	View rootView;
 	ImageItem item;
@@ -119,105 +119,105 @@ public class AddCircleFragment extends Fragment {
 					userIcon1.recycle();
 					userIcon1 = BitmapFactory.decodeResource(
 							AddCircleFragment.this.getResources(), R.drawable.p1);
-					new ImageCompressionHandler3(userIcon1,AddCircleFragment.this);
-					userIcon1 = compressedBitmap;
+//					new ImageCompressionHandler3(userIcon1,AddCircleFragment.this);
+//					userIcon1 = compressedBitmap;
 				}
 				else
 				{
 					userIcon1 = BitmapFactory.decodeResource(
 							AddCircleFragment.this.getResources(), R.drawable.p1);
-					new ImageCompressionHandler3(userIcon1,AddCircleFragment.this);
-					userIcon1 = compressedBitmap;
+//					new ImageCompressionHandler3(userIcon1,AddCircleFragment.this);
+//					userIcon1 = compressedBitmap;
 				}
 				if(userIcon2 != null)
 				{
 					userIcon2.recycle();
 					userIcon2 = BitmapFactory.decodeResource(
 							AddCircleFragment.this.getResources(), R.drawable.p6);
-					new ImageCompressionHandler3(userIcon2,AddCircleFragment.this);
-					userIcon2 = compressedBitmap;
+//					new ImageCompressionHandler3(userIcon2,AddCircleFragment.this);
+//					userIcon2 = compressedBitmap;
 				}
 				else
 				{
 					userIcon2 = BitmapFactory.decodeResource(
 							AddCircleFragment.this.getResources(), R.drawable.p6);
-					new ImageCompressionHandler3(userIcon2,AddCircleFragment.this);
-					userIcon2 = compressedBitmap;
+//					new ImageCompressionHandler3(userIcon2,AddCircleFragment.this);
+//					userIcon2 = compressedBitmap;
 				}
 				if(userIcon3 != null)
 				{
 					userIcon3.recycle();
 					userIcon3 = BitmapFactory.decodeResource(
 							AddCircleFragment.this.getResources(), R.drawable.p12);
-					new ImageCompressionHandler3(userIcon3,AddCircleFragment.this);
-					userIcon3 = compressedBitmap;
+//					new ImageCompressionHandler3(userIcon3,AddCircleFragment.this);
+//					userIcon3 = compressedBitmap;
 				}
 				else
 				{
 					userIcon3 = BitmapFactory.decodeResource(
 							AddCircleFragment.this.getResources(), R.drawable.p12);
-					new ImageCompressionHandler3(userIcon3,AddCircleFragment.this);
-					userIcon3 = compressedBitmap;
+//					new ImageCompressionHandler3(userIcon3,AddCircleFragment.this);
+//					userIcon3 = compressedBitmap;
 				}
 				if(userIcon4 != null)
 				{
 					userIcon4.recycle();
 					userIcon4 = BitmapFactory.decodeResource(
 							AddCircleFragment.this.getResources(), R.drawable.p4);
-					new ImageCompressionHandler3(userIcon4,AddCircleFragment.this);
-					userIcon4 = compressedBitmap;
+//					new ImageCompressionHandler3(userIcon4,AddCircleFragment.this);
+//					userIcon4 = compressedBitmap;
 				}
 				else
 				{
 					userIcon4 = BitmapFactory.decodeResource(
 							AddCircleFragment.this.getResources(), R.drawable.p4);
-					new ImageCompressionHandler3(userIcon4,AddCircleFragment.this);
-					userIcon4 = compressedBitmap;
+//					new ImageCompressionHandler3(userIcon4,AddCircleFragment.this);
+//					userIcon4 = compressedBitmap;
 				}
 				if(userIcon5 != null)
 				{
 					userIcon5.recycle();
 					userIcon5 = BitmapFactory.decodeResource(
 							AddCircleFragment.this.getResources(), R.drawable.pp7);
-					new ImageCompressionHandler3(userIcon5,AddCircleFragment.this);
-					userIcon5 = compressedBitmap;
+//					new ImageCompressionHandler3(userIcon5,AddCircleFragment.this);
+//					userIcon5 = compressedBitmap;
 				}
 				else
 				{
 					userIcon5 = BitmapFactory.decodeResource(
 							AddCircleFragment.this.getResources(), R.drawable.pp7);
-					new ImageCompressionHandler3(userIcon5,AddCircleFragment.this);
-					userIcon5 = compressedBitmap;
+//					new ImageCompressionHandler3(userIcon5,AddCircleFragment.this);
+//					userIcon5 = compressedBitmap;
 				}
 				if(userIcon6 != null)
 				{
 					userIcon6.recycle();
 					userIcon6 = BitmapFactory.decodeResource(
 							AddCircleFragment.this.getResources(), R.drawable.pp8);
-					new ImageCompressionHandler3(userIcon6,AddCircleFragment.this);
-					userIcon6 = compressedBitmap;
+//					new ImageCompressionHandler3(userIcon6,AddCircleFragment.this);
+//					userIcon6 = compressedBitmap;
 				}
 				else
 				{
 					userIcon6 = BitmapFactory.decodeResource(
 							AddCircleFragment.this.getResources(), R.drawable.pp8);
-					new ImageCompressionHandler3(userIcon6,AddCircleFragment.this);
-					userIcon6 = compressedBitmap;
+//					new ImageCompressionHandler3(userIcon6,AddCircleFragment.this);
+//					userIcon6 = compressedBitmap;
 				}
 				if(userIcon7 != null)
 				{
 					userIcon7.recycle();
 					userIcon7 = BitmapFactory.decodeResource(
 							AddCircleFragment.this.getResources(), R.drawable.pp9);
-					new ImageCompressionHandler3(userIcon7,AddCircleFragment.this);
-					userIcon7 = compressedBitmap;
+//					new ImageCompressionHandler3(userIcon7,AddCircleFragment.this);
+//					userIcon7 = compressedBitmap;
 				}
 				else
 				{
 					userIcon7 = BitmapFactory.decodeResource(
 							AddCircleFragment.this.getResources(), R.drawable.pp9);
-					new ImageCompressionHandler3(userIcon7,AddCircleFragment.this);
-					userIcon7 = compressedBitmap;
+//					new ImageCompressionHandler3(userIcon7,AddCircleFragment.this);
+//					userIcon7 = compressedBitmap;
 				}
 //				if(userIcon8 != null)
 //				{

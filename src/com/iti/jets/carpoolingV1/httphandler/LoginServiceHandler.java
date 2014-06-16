@@ -14,8 +14,11 @@ import org.apache.http.params.HttpParams;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 
+import com.iti.jets.carpoolingV1.firstrun.AllCirclesListFragment2;
 import com.iti.jets.carpoolingV1.loginactivity.LoginController;
+import com.iti.jets.carpoolingV1.uimanager.UIManagerHandler;
 
+import android.app.Activity;
 import android.os.AsyncTask;
 
 public class LoginServiceHandler extends AsyncTask<String, Void, String> {
@@ -23,11 +26,17 @@ public class LoginServiceHandler extends AsyncTask<String, Void, String> {
 	
 	private String output;
 	private String url = HttpConstants.SERVER_URL + HttpConstants.LOGIN_URL;
-	LoginController controller ;
+	LoginController controller = null;
+	Activity ac1;
 	
 	public LoginServiceHandler(LoginController controller){
 		
 		this.controller = controller;
+		
+	}
+	public LoginServiceHandler(Activity ac){
+		
+		ac1=ac;
 		
 	}
 	@Override
@@ -66,7 +75,16 @@ public class LoginServiceHandler extends AsyncTask<String, Void, String> {
 	protected void onPostExecute(String result) {
 	
 		if(result != null){
-			controller.onPostExcuteResult(result);
+			if(controller == null)
+			{
+				//controller = new LoginController();
+				UIManagerHandler.goToHome(ac1);
+			}
+			else
+			{
+				controller.onPostExcuteResult(result);
+			}
+			
 		}
 	}
 }

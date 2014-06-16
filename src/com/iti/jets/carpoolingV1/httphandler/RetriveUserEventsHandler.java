@@ -26,6 +26,7 @@ import org.json.JSONObject;
 
 import com.iti.jets.carpoolingV1.addevent.AddEventController;
 import com.iti.jets.carpoolingV1.eventshome.EventsHomeController;
+import com.iti.jets.carpoolingV1.feedshome.FeedsHomeController;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -46,12 +47,17 @@ public class RetriveUserEventsHandler extends AsyncTask<String, Void, String> {
 	
 	String output;
 	EventsHomeController controller;
-    
+	FeedsHomeController controller1;
+	
 	String url = HttpConstants.SERVER_URL + HttpConstants.RETRIEVE_USER_EVENT_SERVICE_URL;
 	
 	public RetriveUserEventsHandler(EventsHomeController controller){
 	
 		this.controller = controller;
+	}
+	public RetriveUserEventsHandler(FeedsHomeController controller){
+		
+		this.controller1 = controller;
 	}
 @Override
 protected String doInBackground(String... params) {
@@ -91,7 +97,10 @@ protected String doInBackground(String... params) {
 	        @Override
 	        protected void onPostExecute(String result) {
 	        
-	        	controller.onPostExecute(result);
+	        	if(controller != null )
+	        		controller.onPostExecute(result);
+	        	else 
+	        		controller1.onPostEventsExecute(result);
 	        }
 }
 	    

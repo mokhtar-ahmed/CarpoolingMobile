@@ -34,7 +34,7 @@ public class RegisterationServiceHandler {
 	public RegisterationServiceHandler(RegisterationController controller)
 	{
 		regControlller = controller;
-		Toast.makeText(controller.getRef(), "EnteredSERVICEHANDLER", Toast.LENGTH_LONG).show();
+//		Toast.makeText(controller.getRef(), "EnteredSERVICEHANDLER", Toast.LENGTH_LONG).show();
 		this.controller = controller;
 	}
 
@@ -60,7 +60,7 @@ public class RegisterationServiceHandler {
 			e.printStackTrace();
 		}
 		String webserviceURI = url;
-		Toast.makeText(controller.getRef(), url, Toast.LENGTH_LONG).show();
+//		Toast.makeText(controller.getRef(), url, Toast.LENGTH_LONG).show();
 		WebserviceAsyncTask task = new WebserviceAsyncTask();
 		task.execute(webserviceURI);
 		controller.registerActivity.dialog = ProgressDialog.show(controller.registerActivity.getActivity(), "", "Loading...Please wait...", true);

@@ -11,6 +11,8 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.ContentResolver;
@@ -32,6 +34,7 @@ import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 
@@ -41,7 +44,11 @@ import com.iti.jets.carpoolingV1.common.Circle2;
 import com.iti.jets.carpoolingV1.common.ContactObj;
 import com.iti.jets.carpoolingV1.common.User;
 import com.iti.jets.carpoolingV1.firstrun.CircleUsersFragment2;
+import com.iti.jets.carpoolingV1.httphandler.HttpConstants;
+import com.iti.jets.carpoolingV1.retrieveallcircles.CirclesUsersArrayAdapter.DownloadImageTask;
+import com.iti.jets.carpoolingV1.retrieveallcircles.CirclesUsersArrayAdapter.ViewHolder;
 import com.iti.jets.carpoolingV1.synccontactsactivity.AddUserToCircleController;
+import com.iti.jets.carpoolingV1.synccontactsactivity.PbAndImage;
 import com.iti.jets.carpoolingV1.synccontactsactivity.SyncContactsController;
 
 
@@ -58,6 +65,7 @@ public class CirclesUsersArrayAdapter2 extends BaseAdapter  implements OnClickLi
          private static LayoutInflater inflater=null;
          public Resources res;
          boolean checkBoxVisibleFlag = false;
+         String returnServiceOutput;
          User UserValues=null;
          int i=0;
           
@@ -102,6 +110,7 @@ public class CirclesUsersArrayAdapter2 extends BaseAdapter  implements OnClickLi
              public TextView phoneTxt;
              public ImageView userImage;
              public CheckBox checkBox;
+             public ProgressBar pb;
       
          }
       
@@ -122,6 +131,7 @@ public class CirclesUsersArrayAdapter2 extends BaseAdapter  implements OnClickLi
                  holder.userNameTxt = (TextView) vi.findViewById(R.id.nameTxt);
                  holder.userImage =(ImageView)vi.findViewById(R.id.userImage);
                  holder.phoneTxt = (TextView) vi.findViewById(R.id.phoneTxt);
+                 holder.pb = (ProgressBar) vi.findViewById(R.id.progressBar1);
                  holder.checkBox = (CheckBox) vi.findViewById(R.id.chkbox);
                 /************  Set holder with LayoutInflater ************/
                  vi.setTag( holder );
@@ -129,6 +139,7 @@ public class CirclesUsersArrayAdapter2 extends BaseAdapter  implements OnClickLi
              else 
              {
             	 holder=(ViewHolder)vi.getTag();
+                 vi = convertView;
             	 if((checkBoxVisibleFlag == true))
                  {
                 	 holder.checkBox.setVisibility(1); 
@@ -160,29 +171,12 @@ public class CirclesUsersArrayAdapter2 extends BaseAdapter  implements OnClickLi
                   }
                  
                   holder.phoneTxt.setText(UserValues.getPhone());
-                  if (UserValues.getImageURL().equals("Friends")) {
-                	  holder.userImage.setImageResource(R.drawable.p5);
-                  } else if (UserValues.getImageURL().equals("Family")) {
-                	  holder.userImage.setImageResource(R.drawable.p8);
-                  } else if (UserValues.getImageURL().equals("Work")) {
-                	  holder.userImage.setImageResource(R.drawable.p10);
-                  }
-                  else
-                  {
-//                	  holder.userImage.setImageResource(R.drawable.photo);
-                	  byte [] encodeByte=Base64.decode(UserValues.getImageURL(),Base64.DEFAULT);
-              		  System.out.println(UserValues.getImageURL());
-              		  System.out.println(encodeByte);
-              	      Bitmap bitmap=BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
-              	      // Bitmap bitmap = BitmapFactory.decodeStream(this.getContentResolver().openInputStream(userToRetrieve.getString("imageString")));
-              	      holder.userImage.setImageBitmap(bitmap);
-                       if(UserValues.getImageURL().equals("image"))
-                       {
-                     	  holder.userImage.setImageResource(
-                                   res.getIdentifier(
-                                   "com.androidexample.customlistview:drawable/photo"
-                                   ,null,null));
-                       }
+                  holder.userImage.setTag(UserValues.getUserId());
+                  holder.userImage.setId(position);
+                  PbAndImage pb_and_image = new PbAndImage();
+                  pb_and_image.setImg(holder.userImage);
+                  pb_and_image.setPb(holder.pb);
+                  new DownloadImageTask().execute(pb_and_image);
                       
                 	  
                 	  
@@ -206,7 +200,7 @@ public class CirclesUsersArrayAdapter2 extends BaseAdapter  implements OnClickLi
                   /******** Set Item Click Listner for LayoutInflater for each row *******/
  
                   //vi.setOnClickListener(new OnItemClickListener( position ));
-             }
+             
              return vi;
          }
 
@@ -295,5 +289,86 @@ public class CirclesUsersArrayAdapter2 extends BaseAdapter  implements OnClickLi
       	  checkBoxVisibleFlag = true;
       	  
       }
-		
+		public class DownloadImageTask extends AsyncTask<PbAndImage, Void, String> {
+       	 
+            ImageView imageView = null;
+            ProgressBar pb = null;
+         
+            protected String doInBackground(PbAndImage... pb_and_images) {
+                this.imageView = (ImageView)pb_and_images[0].getImg();
+                this.pb = (ProgressBar)pb_and_images[0].getPb();
+                String url = HttpConstants.SERVER_URL+HttpConstants.GET_IMAGE_URL;
+                String bitmapRes = getBitmapDownloaded(url,((Integer)imageView.getTag()).intValue());
+               
+                
+                return bitmapRes;
+            }
+         
+            protected void onPostExecute(String result) {
+            	 JSONObject resultJs = null;
+            	 byte[] encodeByte = null;
+                 try {
+ 					 resultJs = new JSONObject(result);
+ 					 if(resultJs.getString("image")!= null)
+ 					 {
+ 						encodeByte = encodeByte = Base64.decode(resultJs.getString("image"),Base64.DEFAULT); 
+ 						 Bitmap bitmap=BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+ 		         	      System.out.println("Downloaded " + imageView.getId());
+ 		         	      imageView.setVisibility(View.VISIBLE); 
+ 		         	      pb.setVisibility(View.GONE);  // hide the progressbar after downloading the image.
+ 		         	      imageView.setImageBitmap(bitmap); //set the bitmap to the imageview.
+ 					 }
+ 					 else
+ 					 {
+ 						imageView.setImageResource(
+ 									res.getIdentifier(
+	                              "com.androidexample.customlistview:drawable/photo"
+	                              ,null,null));
+ 					 }
+ 					
+// 					 System.out.println(UserValues.getImageURL());
+//            		 System.out.println(encodeByte);
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+         		  
+         	     
+            }
+         
+            /** This function downloads the image and returns the Bitmap 
+             * @param i 
+             * @param integer 
+             * @param object **/
+            private String getBitmapDownloaded(String url, int i) {
+                System.out.println("String URL " + url);
+                Bitmap bitmap = null;
+                try {
+                
+        		    DefaultHttpClient httpClient = new DefaultHttpClient();
+                    HttpPost httpPost = new HttpPost(url);
+                    List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);	
+                    JSONObject userIdJs = new JSONObject();
+                    userIdJs.put("userId", i);
+        			nameValuePairs.add(new BasicNameValuePair("userId",userIdJs.toString()));
+        			
+        			try {	 		
+        			httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+                    HttpResponse httpResponse= httpClient.execute(httpPost);
+                    HttpEntity httpEntity = httpResponse.getEntity();
+                    returnServiceOutput = EntityUtils.toString(httpEntity);   
+                    Log.d(returnServiceOutput,"%%%%%%%%%%%%%%%returnService%%%%%%%%%%%%%%%%%%%");
+        			} catch (Exception e) {
+        				
+        				e.printStackTrace();
+        			}   
+                    return returnServiceOutput;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return returnServiceOutput;
+            }
+             
+
+        }	
 }

@@ -27,6 +27,7 @@ import org.json.JSONObject;
 import com.iti.jets.carpoolingV1.addevent.AddEventController;
 import com.iti.jets.carpoolingV1.eventDetails.EventDetailsActivity;
 import com.iti.jets.carpoolingV1.eventDetails.EventDetialsController;
+import com.iti.jets.carpoolingV1.feedshome.FeedsHomeController;
 import com.iti.jets.carpoolingV1.notificationHome.NotificationsHomeController;
 
 import android.os.AsyncTask;
@@ -47,12 +48,17 @@ public class GetAllUserNotification extends AsyncTask<String, Void, String> {
 	
 	String output;
 	 NotificationsHomeController controller;
+	 FeedsHomeController controller1;
     
 	String url = HttpConstants.SERVER_URL + HttpConstants.GET_ALL_NOTIFICATION_SERVICE_URL;
 	
 	public GetAllUserNotification(NotificationsHomeController controller){
 	
 		this.controller = controller;
+	}
+	public GetAllUserNotification(FeedsHomeController controller){
+		
+		this.controller1 = controller;
 	}
 @Override
 protected String doInBackground(String... params) {
@@ -91,7 +97,10 @@ protected String doInBackground(String... params) {
 	        @Override
 	        protected void onPostExecute(String result) {
 	        
-	        	controller.onPostExecute(result);
+	        	if(controller != null )
+	        		controller.onPostExecute(result);
+	        	else 
+	        		controller1.onPostNotificationExecute(result);
 	        }
 }
 	    

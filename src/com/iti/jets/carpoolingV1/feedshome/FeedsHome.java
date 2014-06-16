@@ -49,19 +49,27 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container,
 	notificationsList = (ListView) rootView.findViewById(R.id.TopNotification);
 	
 	setHasOptionsMenu(true);
+	getActivity().getActionBar().setTitle("Feeds");
 	
 	cont = new FeedsHomeController(this);
 	
-	getActivity().getActionBar().setTitle("Feeds");
-	fillEventListViewData();
-	fillNotificationtListViewData();
+	JSONObject input = new JSONObject();
+	try {
+		
+		input.put("userId", EntityFactory.getUserInstance().getId());
+		cont.retriveAllEvents(input.toString());		
+		cont.retriveAllNotifications(input.toString());
+	
+	} catch (JSONException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
 
 	return rootView;
 }
 
 public void fillEventListViewData(){
 
-	eventValues =EntityFactory.getEventInstance();
 	Activity ac = getActivity();
 	EventCustomBaseAdapter adapter = new EventCustomBaseAdapter(ac, eventValues);
     eventsList.setAdapter(adapter);
@@ -79,8 +87,6 @@ public void fillEventListViewData(){
 }
 
 public void fillNotificationtListViewData(){
-	
-	notificationValues = EntityFactory.getNotificationsInstance();
 	
 	Activity ac = getActivity();
 	CustomBaseAdapter adapter = new CustomBaseAdapter(ac, notificationValues);

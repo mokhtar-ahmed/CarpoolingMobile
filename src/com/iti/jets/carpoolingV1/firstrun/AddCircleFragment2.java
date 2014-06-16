@@ -12,6 +12,7 @@ import com.iti.jets.carpoolingV1.R;
 import com.iti.jets.carpoolingV1.R.layout;
 import com.iti.jets.carpoolingV1.R.menu;
 import com.iti.jets.carpoolingV1.addcircleactivity.AddCircleController;
+import com.iti.jets.carpoolingV1.addcircleactivity.AddCircleFragment;
 import com.iti.jets.carpoolingV1.addcircleactivity.CustomGridViewAdapter;
 import com.iti.jets.carpoolingV1.common.CircleItemObj;
 import com.iti.jets.carpoolingV1.common.ImageCompressionHandler;
@@ -72,7 +73,7 @@ public class AddCircleFragment2 extends Fragment {
 	private ImageView circleImageView;
 	private final int REQUEST_CODE_FROM_GALLERY = 01;
 	Bitmap userIcon1 = null;
-	Bitmap userIcon2,userIcon3,userIcon4,userIcon5,userIcon6,userIcon7,userIcon8;
+	Bitmap userIcon2,userIcon3,userIcon4,userIcon5,userIcon6,userIcon7,userIcon8,userIcon10;
 	private Uri selectedImageUri;
 	private String filePath;
 	private Bitmap imgBitmap;
@@ -80,7 +81,7 @@ public class AddCircleFragment2 extends Fragment {
 	private AddCircleController controller;
 	private int userId = 1;
 	private boolean circleExistflag = false;
-	ArrayList<ImageItem> gridArray = new ArrayList<ImageItem>();
+	static ArrayList<ImageItem> gridArray = new ArrayList<ImageItem>();
 	Bitmap currentBimap;
 	View rootView;
 	ImageItem item;
@@ -279,7 +280,12 @@ public class AddCircleFragment2 extends Fragment {
 //						newCircobj= new CircleItemObj();
 //						newCircobj.setName(circleName);
 //						newCircobj.setBitmap(currentBimap);
-						
+						if(item == null)
+						{
+							userIcon10 = BitmapFactory.decodeResource(
+									AddCircleFragment2.this.getResources(), R.drawable.ic_people);
+							item = new ImageItem(userIcon10,R.drawable.ic_people);
+						}
 						controller.setArguments(circleName,item.getCircleRes(),
 								filePath, new FragmentCallback2() {
 									//
