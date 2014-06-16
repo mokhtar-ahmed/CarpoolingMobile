@@ -21,9 +21,11 @@ import com.iti.jets.carpoolingV1.eventDetails.InvitedEventDetailsActivity;
 import com.iti.jets.carpoolingV1.eventRequests.RequestsHome;
 import com.iti.jets.carpoolingV1.eventshome.EventsHome;
 import com.iti.jets.carpoolingV1.eventshome.NoEventsHome;
+import com.iti.jets.carpoolingV1.feedshome.FeedsHome;
 import com.iti.jets.carpoolingV1.firstrun.NoUsersHome;
 import com.iti.jets.carpoolingV1.loginactivity.LoginActivity;
 import com.iti.jets.carpoolingV1.notificationHome.NoNotificationHome;
+import com.iti.jets.carpoolingV1.notificationHome.NotificationHome;
 
 import com.iti.jets.carpoolingV1.registrationactivity.RegisterActivity;
 
@@ -116,6 +118,26 @@ public class UIManagerHandler {
 			fragmentManager.beginTransaction().replace(R.id.frame_container, fragment,"addEvent").addToBackStack("addEvent").commit();
 		}
 	}
+	public static void goToFeedsHome(Activity ac){
+
+		Fragment fragment = new FeedsHome();
+		if (fragment != null) {
+
+			FragmentManager fragmentManager = ac.getFragmentManager();
+
+			fragmentManager.beginTransaction().replace(R.id.frame_container, fragment,"feedsEvent").addToBackStack("feedsEvent").commit();
+		}
+	}
+	public static void goToNotificationHome(Activity ac){
+
+		Fragment fragment = new NotificationHome();
+		if (fragment != null) {
+
+			FragmentManager fragmentManager = ac.getFragmentManager();
+
+			fragmentManager.beginTransaction().replace(R.id.frame_container, fragment,"notificationHome").addToBackStack("notificationHome").commit();
+		}
+	}
 	public static void goToConnectionFailed(Activity ac){
 
 		Fragment fragment = new ConnectionFailedView();
@@ -128,6 +150,7 @@ public class UIManagerHandler {
 	}
 	public static void goToNoEvent(Activity ac){
 
+		System.out.println("goto no event");
 		Fragment fragment = new NoEventsHome();
 		if (fragment != null) {
 

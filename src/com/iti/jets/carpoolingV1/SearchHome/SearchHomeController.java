@@ -9,6 +9,7 @@ import org.json.JSONObject;
 import android.app.AlertDialog;
 import android.widget.Toast;
 
+import com.google.android.gms.internal.ev;
 import com.google.android.gms.internal.in;
 import com.iti.jets.carpoolingV1.httphandler.GetAllUserNotification;
 import com.iti.jets.carpoolingV1.httphandler.MarkNotificationAsReaded;
@@ -53,7 +54,8 @@ public class SearchHomeController {
 					
 					AlertDialog alertDialog = new AlertDialog.Builder(
 		                    view.getActivity()).create();
-					alertDialog.setMessage(js.getString("FaultsMsg"));
+					alertDialog.setMessage("Failed to load the result");
+					alertDialog.show();
 				}else {
 			
 				
@@ -66,8 +68,16 @@ public class SearchHomeController {
 						if(ev != null)
 							events.add(ev);
 					}
+					if(events.isEmpty()){
+					
+						AlertDialog alertDialog = new AlertDialog.Builder(
+			                    view.getActivity()).create();
+						alertDialog.setMessage("You didn't attand evnets with him before.");
+						alertDialog.show();
+					}else{
 					view.values = events;
 					view.fillListViewData();
+					}
 				}
 				
 			} catch (JSONException e) {
@@ -102,8 +112,6 @@ public class SearchHomeController {
 		view.prog.dismiss();
 		if(result.equals("No Connection")== false){
 			
-			
-			
 			ArrayList<Event> events = new ArrayList<Event>();
 			JSONArray eventsJson;
 			try {
@@ -135,12 +143,20 @@ public class SearchHomeController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		    view.values = events;
-			view.fillListViewData();
+			if(events.isEmpty()){
+				
+				AlertDialog alertDialog = new AlertDialog.Builder(
+	                    view.getActivity()).create();
+				alertDialog.setMessage("You didn't attand evnets from this place before.");
+				alertDialog.show();
+			}else{
+				view.values = events;
+				view.fillListViewData();
+			}
 			
 		}else{
-			Toast.makeText(view.getActivity().getApplicationContext(), "Connect to internet", Toast.LENGTH_LONG).show();
 			
+			UIManagerHandler.goToConnectionFailed(view.getActivity());
 		} 
 
 	

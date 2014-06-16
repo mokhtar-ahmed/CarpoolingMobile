@@ -196,7 +196,11 @@ public class LoginActivity extends Activity{
 									Bundle bundle = new Bundle();
 									bundle.putString("userName",user.getName());
 									bundle.putString("gender",user.getInnerJSONObject().getString("gender"));
-									bundle.putString("email",user.asMap().get("email").toString());
+									if(user.asMap().get("email")!= null)
+									{
+										bundle.putString("email",user.asMap().get("email").toString());
+									}
+									
 									
 									UIManagerHandler.goToRegister(LoginActivity.this,bundle,flag,userBitmap);
 									
@@ -275,7 +279,7 @@ public class LoginActivity extends Activity{
 	protected void onStop() {
 		// TODO Auto-generated method stub
 		super.onStop();
-		finish();
+//		finish();
 	}
 
 	@Override

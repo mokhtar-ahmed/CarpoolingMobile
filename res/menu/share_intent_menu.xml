@@ -5,6 +5,6 @@
         android:id="@+id/share_icon"
         android:orderInCategory="100"
         android:showAsAction="ifRoom"
-        
+        android:icon="@drawable/ic_action_share1"
         android:title="Share 5odny M3ak App"/>
 </menu>

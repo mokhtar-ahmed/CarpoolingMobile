@@ -46,7 +46,7 @@ public class EventDetialsController {
 					
 					AlertDialog alertDialog = new AlertDialog.Builder(
 		                    view.getActivity()).create();
-					alertDialog.setMessage(Obj.getString("FaultsMsg"));
+					alertDialog.setMessage("Event not Avaliable");
 					alertDialog.show();
 					UIManagerHandler.goToNoEvent(view.getActivity());
 				}else {
@@ -58,8 +58,6 @@ public class EventDetialsController {
 					JSONArray members = eventObj.getJSONArray("joinEvent");
 					JSONArray comments = eventObj.getJSONArray("comments");
 					JSONObject loc = eventObj.getJSONObject("location");
-					
-				view.toTxt.setText("To :\t ");
 				
 				for(int i=0;i<toList.length();i++){
 					
@@ -157,11 +155,11 @@ public class EventDetialsController {
 		                    view.getActivity()).create();
 					alertDialog.setMessage(ob.getString("FaultsMsg"));
 					alertDialog.show();
-					UIManagerHandler.goToNoEvent(view.getActivity());
+					//UIManagerHandler.goToNoEvent(view.getActivity());
 				}else{
 					
 					//Toast.makeText(view.getActivity().getApplicationContext(),ob.getString("ResponseValue"), Toast.LENGTH_LONG).show();
-					UIManagerHandler.getoEventHome(view.getActivity());
+					UIManagerHandler.goToFeedsHome(view.getActivity());
 				}
 			}
 		} catch (JSONException e) {
@@ -181,13 +179,13 @@ public class EventDetialsController {
 				if(ob.getBoolean("HasError") == true){
 					AlertDialog alertDialog = new AlertDialog.Builder(
 		                    view.getActivity()).create();
-					alertDialog.setMessage(ob.getString("FaultsMsg"));
+					alertDialog.setMessage("Can't cancell the evnet");
 					alertDialog.show();
-					UIManagerHandler.goToNoEvent(view.getActivity());
+					//UIManagerHandler.goToNoEvent(view.getActivity());
 				}else{
 					
 					//Toast.makeText(view.getActivity().getApplicationContext(),ob.getString("ResponseValue"), Toast.LENGTH_LONG).show();
-					UIManagerHandler.getoEventHome(view.getActivity());
+					UIManagerHandler.goToFeedsHome(view.getActivity());
 				}
 			}
 		} catch (JSONException e) {

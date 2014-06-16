@@ -59,7 +59,9 @@ public class CustomBaseAdapter extends BaseAdapter {
         holder.txtTitle.setText(rowItem.getNotificationDate().toString());
         
         if(rowItem.getEventType().equals("unread")){
+        	
         	holder.imageView.setImageResource(R.drawable.unread);
+        	
         }else if(rowItem.getEventType().equals("read")){
         	
         	//holder.container.setBackgroundColor(context.getResources().getColor(R.color.readed_container));

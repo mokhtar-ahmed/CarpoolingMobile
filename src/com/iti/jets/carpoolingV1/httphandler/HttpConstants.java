@@ -5,10 +5,10 @@ import android.util.Log;
 public final class HttpConstants {
 
 	//Webservices URI addresses 
-  //  public static final String SERVER_URL="http://192.168.200.1:9191/CarpoolingBackendFinal/service/";
+    public static final String SERVER_URL="http://192.168.64.1:9191/CarpoolingBackendFinal/service/";
 
 
-    public static final String SERVER_URL="http://10.145.74.101:9191/CarpoolingBackendFinal/service/";
+  //  public static final String SERVER_URL="http://10.145.74.101:9191/CarpoolingBackendFinal/service/";
 
 	public static final String LOGIN_URL="user/newLogin";
 	public static final String GET_CIRCLE_USERS_URL="newCircle/retrieveCirclesUsers";

@@ -62,8 +62,6 @@ public class AddEventActivity extends Fragment{
 		Button dateBtn;
 		TimePicker tp;
 		DatePicker dp;
-		private ArrayList<ContactObj> contactListTemp = new ArrayList<ContactObj>();
-		 ContentResolver contentResolver;
 		String[] noOfSlotsArr = new String[]{"1","2","3","4","5"};
 		
 		Calendar c = Calendar.getInstance();
@@ -141,8 +139,10 @@ public class AddEventActivity extends Fragment{
        }else { 
  	     
 	      for(int i=0; i< l1.size(); i++ )
-	    	  cirs.add(l1.get(i).getCircleName());
-	    	  
+	      {
+	    	  if(cirs.contains(l1.get(i).getCircleName())== false)
+	    		  cirs.add(l1.get(i).getCircleName());
+	      } 	  
       }
  
      

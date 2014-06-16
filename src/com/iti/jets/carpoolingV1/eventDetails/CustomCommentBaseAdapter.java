@@ -51,7 +51,7 @@ public class CustomCommentBaseAdapter extends BaseAdapter {
         Comment rowItem = (Comment) getItem(position);
  
         holder.txtDesc.setText(rowItem.getUsername());
-        holder.txtTitle.setText(rowItem.getText()+"\n"+ rowItem.getDate().toString());
+        holder.txtTitle.setText(rowItem.getText());
         holder.imageView.setImageResource(R.drawable.ic_user);
  
         return convertView;

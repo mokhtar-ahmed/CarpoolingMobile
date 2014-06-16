@@ -38,7 +38,7 @@ public class InvitedEventDetialsController {
 				if ( Obj.getBoolean("HasError") == true ){
 								
 								AlertDialog alertDialog = new AlertDialog.Builder(
-					                    view.getActivity()).create();
+					             view.getActivity()).create();
 								alertDialog.setMessage(Obj.getString("FaultsMsg"));
 								alertDialog.show();
 								UIManagerHandler.goToNoEvent(view.getActivity());
@@ -101,9 +101,9 @@ try {
 				
 				if(ob.getBoolean("HasError") == true){
 					AlertDialog alertDialog = new AlertDialog.Builder(view.getActivity()).create();
-					alertDialog.setMessage(ob.getString("FaultsMsg"));
+					alertDialog.setMessage("join Request has been sent before...");
 					alertDialog.show();
-					UIManagerHandler.goToNoEvent(view.getActivity());
+					//UIManagerHandler.goToNoEvent(view.getActivity());
 				}else{
 					
 					UIManagerHandler.getoEventHome(view.getActivity());

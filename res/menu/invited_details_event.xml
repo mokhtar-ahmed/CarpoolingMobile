@@ -4,6 +4,7 @@
         android:id="@+id/join"
         android:orderInCategory="100"
         android:showAsAction="ifRoom"
+        android:icon="@drawable/ic_action_add_to_queue"
         android:title="Join"/>
     
 

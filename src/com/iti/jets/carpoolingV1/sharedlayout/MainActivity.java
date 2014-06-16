@@ -4,6 +4,7 @@ package com.iti.jets.carpoolingV1.sharedlayout;
 import java.util.ArrayList;
 import com.iti.jets.carpoolingV1.R;
 import com.iti.jets.carpoolingV1.SearchHome.SearchHome;
+import com.iti.jets.carpoolingV1.common.AboutScreen;
 import com.iti.jets.carpoolingV1.editprofileactivity.EditDateActivity;
 import com.iti.jets.carpoolingV1.editprofileactivity.EditProfileFragement;
 import com.iti.jets.carpoolingV1.eventshome.EventsHome;
@@ -78,7 +79,7 @@ public class MainActivity extends Activity {
 		navDrawerItems.add(new NavDrawerItem(navMenuTitles[4], navMenuIcons.getResourceId(4, -1)));
 		// What's hot, We  will add a counter here
 		navDrawerItems.add(new NavDrawerItem(navMenuTitles[5], navMenuIcons.getResourceId(5, -1)));
-		
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[6], navMenuIcons.getResourceId(6, -1)));
 
 		// Recycle the typed array
 		navMenuIcons.recycle();
@@ -194,7 +195,7 @@ public class MainActivity extends Activity {
 			fragment = new SearchHome();
 			break;
 		case 6:
-			fragment = new SearchHome();
+			fragment = new AboutScreen();
 			break;
 		default:
 			break;

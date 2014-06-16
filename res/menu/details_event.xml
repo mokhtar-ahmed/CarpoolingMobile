@@ -4,18 +4,21 @@
         android:id="@+id/update"
         android:orderInCategory="100"
         android:showAsAction="ifRoom"
+        android:icon="@drawable/ic_action_edit1"
         android:title="update"/>
     
      <item
         android:id="@+id/request"
         android:orderInCategory="100"
         android:showAsAction="ifRoom"
+        android:icon="@drawable/ic_action_group1"
         android:title="requests"/>
      
      <item
         android:id="@+id/cancel"
         android:orderInCategory="100"
         android:showAsAction="ifRoom"
+        android:icon="@drawable/ic_action_discard"
         android:title="cancel"/>
 
 </menu>

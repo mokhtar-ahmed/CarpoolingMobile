@@ -19,11 +19,15 @@ import android.provider.CalendarContract.Events;
 import android.view.View;
 import android.widget.Toast;
 
+import com.facebook.widget.FacebookDialog;
+import com.facebook.widget.FacebookDialog.ShareDialogBuilder;
 import com.google.android.gms.internal.al;
+import com.google.android.gms.internal.fb;
 import com.iti.jets.carpoolingV1.R;
 import com.iti.jets.carpoolingV1.common.ContactObj;
 import com.iti.jets.carpoolingV1.httphandler.AddEvent;
 import com.iti.jets.carpoolingV1.httphandler.RetrieveCircleUsersHandler;
+import com.iti.jets.carpoolingV1.pojos.EntityFactory;
 import com.iti.jets.carpoolingV1.pojos.User;
 import com.iti.jets.carpoolingV1.registrationactivity.RegisterFragment;
 import com.iti.jets.carpoolingV1.retrieveallcircles.RetrieveCircleUsersController;
@@ -33,7 +37,7 @@ import com.iti.jets.carpoolingV1.uimanager.UIManagerHandler;
 public class AddEventController {
 
 	AddEventActivity addEventActivity;
-	ContentResolver contentResolver;
+	
 	
 	public AddEventController(AddEventActivity addEventActivity) {
 		// TODO Auto-generated constructor stub
@@ -41,6 +45,18 @@ public class AddEventController {
 		
 	}
 
+	public  void fbShare(){
+		ShareDialogBuilder builder = new ShareDialogBuilder(addEventActivity.getActivity())
+		   	.setName("5odny M3ak events")
+		    .setLink("https://www.facebook.com/5odnyMa3ak")
+			.setPicture("https://scontent-a-ams.xx.fbcdn.net/hphotos-xfa1/t1.0-9/10393575_1416420081974633_8006832328250289632_n.png")
+			.setDescription(EntityFactory.getUserInstance().getName()+"is now using 5odny M3ak Mobile Application");
+		if (builder.canPresent()) {
+			FacebookDialog dialog = builder.build();
+			dialog.present();
+		}
+	}
+	
 	public void onPostExecute(String result) {
 		
 	
@@ -68,6 +84,7 @@ public class AddEventController {
 				}else{
 				
 					addEventActivity.callSetEventAtCalendar();
+					fbShare();
 					UIManagerHandler.getoEventHome(addEventActivity.getActivity());
 				}
 			} catch (JSONException e) {
@@ -78,7 +95,7 @@ public class AddEventController {
 			
 		}else{
 		//	Toast.makeText(addEventActivity.getActivity().getApplicationContext(), "No connection", Toast.LENGTH_LONG).show();
-			UIManagerHandler.goToNoNotificationHome(addEventActivity.getActivity());
+			UIManagerHandler.goToConnectionFailed(addEventActivity.getActivity());
 		}
 	}
 
@@ -100,11 +117,7 @@ public class AddEventController {
 			
 			JSONObject js = new JSONObject(result);
 			JSONArray usrArr = js.getJSONArray("ResponseValue");
-			ArrayList<ContactObj> contactListNumber = new ArrayList<ContactObj>();
-			SyncContactsController cont = new SyncContactsController();
-            contactListNumber = cont.fetchContacts();	
-           
-
+			
 		
 			for(int i=0; i<usrArr.length();i++){
 				
@@ -113,14 +126,6 @@ public class AddEventController {
 				User u = new User();
 				u.setId(jobj.getInt("id"));
 				u.setName(jobj.getString("username"));
-	            for(int j=0;j<contactListNumber.size();j++)
-	            {
-	          	  if(u.getPhone().equals(contactListNumber.get(j).getPhoneNo()))
-	          	  {
-	          		u.setName(contactListNumber.get(j).getName());
-	          		break;
-	          	  }
-	            }
 				ul.add(u);
 				
 			}

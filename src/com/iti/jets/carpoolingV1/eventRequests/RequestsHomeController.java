@@ -65,6 +65,8 @@ public class RequestsHomeController {
 					AlertDialog alertDialog = new AlertDialog.Builder(
 		                    view.getActivity()).create();
 					alertDialog.setMessage(Obj.getString("FaultsMsg"));
+					alertDialog.show();
+					
 				}else {
 			
 					JSONObject eventObj	= Obj.getJSONObject("ResponseValue");
@@ -73,8 +75,9 @@ public class RequestsHomeController {
 					alertDialog.show();
 					
 				}
+				
+				}else 
 					UIManagerHandler.goToConnectionFailed(view.getActivity());
-				}
 			
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
@@ -105,8 +108,11 @@ public class RequestsHomeController {
 					alertDialog.setMessage(eventObj.toString());
 					
 				}
+					
+				}else
 					UIManagerHandler.goToConnectionFailed(view.getActivity());
-				}
+				
+			
 			
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block

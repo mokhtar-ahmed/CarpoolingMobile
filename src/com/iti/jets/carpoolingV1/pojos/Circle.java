@@ -40,6 +40,25 @@ public class Circle  implements java.io.Serializable {
     }
 
 
+	@Override
+	public boolean equals(Object o) {
+		// TODO Auto-generated method stub
+		Circle c = (Circle) o;
+		
+		if(c.getId().intValue()== this.id.intValue())
+			return true;
+		else 
+			return false;
+	}
+
+
+	@Override
+	public int hashCode() {
+		// TODO Auto-generated method stub
+		return 17+5*this.id.intValue();
+	}
+
+
 }
 
 

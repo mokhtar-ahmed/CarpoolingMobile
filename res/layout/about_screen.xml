@@ -20,7 +20,7 @@
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
-        android:src="@drawable/no_users" />
+        android:src="@drawable/new_small_logo" />
 
     <TextView
          android:paddingBottom="@dimen/activity_vertical_margin"
@@ -32,6 +32,7 @@
         android:layout_height="wrap_content"
         android:text="5odny M3ak is a social mobile application that helps people share their rides with gaurantee of security and reliabilty."
         android:textColor="#ffffff"
+        android:layout_gravity="center"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 	
 </LinearLayout>

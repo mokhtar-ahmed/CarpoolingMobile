@@ -478,7 +478,6 @@ public class EventDetailsActivity extends Fragment {
 		// TODO Auto-generated method stub
 		switch (item.getItemId()) {
 		case R.id.update:
-			
 			saveEventHandler();
 			return true;	
 		case R.id.request:
@@ -486,7 +485,7 @@ public class EventDetailsActivity extends Fragment {
 			return true;
 		case R.id.cancel:
 			prog = new ProgressDialog(getActivity());
-			prog.setMessage("cancelling the event");
+			prog.setMessage("Cancelling the event");
 			prog.show();
 			JSONObject obj = new JSONObject();
 			try {
@@ -564,7 +563,7 @@ public class EventDetailsActivity extends Fragment {
 	      // Toast.makeText(getActivity().getApplicationContext(), input.toString(), Toast.LENGTH_LONG).show();
 	           
 			prog = new ProgressDialog(getActivity());
-			prog.setMessage("cancelling the event");
+			prog.setMessage("Updating the event");
 			prog.show();
 			
 	        System.out.println(input.toString());

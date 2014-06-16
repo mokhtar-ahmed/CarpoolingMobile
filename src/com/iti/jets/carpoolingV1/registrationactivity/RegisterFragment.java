@@ -472,14 +472,12 @@ public class RegisterFragment extends Fragment{
 alertDialog.show();
 	}
 	
-	private void fbShare(){
+	public  void fbShare(){
 		ShareDialogBuilder builder = new ShareDialogBuilder(RegisterFragment.this.getActivity())
 		   	.setName("5odny M3ak events")
-		    .setLink("www.drway.com")
-		    
-			.setPicture("http://picpaste.com/pics/Blue1024-bOhbf9UP.1402246145.png")
-			
-			.setDescription("Sarah is now using 5odny M3ak Mobile Application");
+		    .setLink("https://www.facebook.com/5odnyMa3ak")
+			.setPicture("https://scontent-a-ams.xx.fbcdn.net/hphotos-xfa1/t1.0-9/10393575_1416420081974633_8006832328250289632_n.png")
+			.setDescription(EntityFactory.getUserInstance().getName()+"is now using 5odny M3ak Mobile Application");
 		if (builder.canPresent()) {
 			FacebookDialog dialog = builder.build();
 			dialog.present();

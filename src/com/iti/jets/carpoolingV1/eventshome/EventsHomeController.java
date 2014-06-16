@@ -52,20 +52,24 @@ public class EventsHomeController {
 						events.add(ev);
 				}
 				
+				if(events.isEmpty()){
+					
+					UIManagerHandler.goToNoEvent(view.getActivity());
+					
+				}else {
+					
+					Collections.sort(events);
+				    view.values = events;
+					view.fillListViewData();
+				}
+				
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			if(events.isEmpty()){
-				
-				UIManagerHandler.goToNoEvent(view.getActivity());
-				
-			}else {
-				
-				Collections.sort(events);
-			    view.values = events;
-				view.fillListViewData();
-		 }
+			
+		
+		 
 			
 		}else{
 			UIManagerHandler.goToConnectionFailed(view.getActivity());

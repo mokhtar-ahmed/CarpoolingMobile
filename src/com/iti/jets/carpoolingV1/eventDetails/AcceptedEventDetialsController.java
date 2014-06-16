@@ -43,9 +43,7 @@ public class AcceptedEventDetialsController {
 					UIManagerHandler.goToNoEvent(view.getActivity());
 				}else {
 			
-				JSONObject eventObj	= Obj.getJSONObject("ResponseValue");
-				
-				
+					JSONObject eventObj	= Obj.getJSONObject("ResponseValue");
 					JSONArray toList = eventObj.getJSONArray("eventToLocation");
 					JSONArray members = eventObj.getJSONArray("joinEvent");
 					JSONArray comments = eventObj.getJSONArray("comments");
@@ -123,12 +121,13 @@ public class AcceptedEventDetialsController {
 					AlertDialog alertDialog = new AlertDialog.Builder(view.getActivity()).create();
 					alertDialog.setMessage(ob.getString("FaultsMsg"));
 					alertDialog.show();
-					UIManagerHandler.goToNoEvent(view.getActivity());
+					//UIManagerHandler.goToFeedsHome(view.getActivity());
 				}else{
 					
 					AlertDialog alertDialog = new AlertDialog.Builder( view.getActivity()).create();
-					alertDialog.setMessage(ob.getString("ResponseValue"));
+					alertDialog.setMessage("Event updated successfully.....");
 					alertDialog.show();
+					UIManagerHandler.goToFeedsHome(view.getActivity());
 					//Toast.makeText(view.getActivity().getApplicationContext(),ob.getString("ResponseValue"), Toast.LENGTH_LONG).show();
 				}
 			}		
@@ -155,13 +154,14 @@ public class AcceptedEventDetialsController {
 					AlertDialog alertDialog = new AlertDialog.Builder(view.getActivity()).create();
 					alertDialog.setMessage(ob.getString("FaultsMsg"));
 					alertDialog.show();
-					UIManagerHandler.goToNoEvent(view.getActivity());
+					//UIManagerHandler.goToNotificationHome(view.getActivity());
 				}else{
 					
 					AlertDialog alertDialog = new AlertDialog.Builder( view.getActivity()).create();
-					alertDialog.setMessage(ob.getString("ResponseValue"));
+					alertDialog.setMessage("Leaved Successfully..... ");
 					alertDialog.show();
 					//Toast.makeText(view.getActivity().getApplicationContext(),ob.getString("ResponseValue"), Toast.LENGTH_LONG).show();
+					UIManagerHandler.goToFeedsHome(view.getActivity());
 				}
 			}		
 			else 
